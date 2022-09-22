@@ -1,9 +1,8 @@
 """Initial value problem examples."""
 
-from odezoo import numpy_like
-
-
 from collections import namedtuple
+
+from odezoo import numpy_like
 
 InitialValueProblem = namedtuple(
     "InitialValueProblem",
@@ -45,8 +44,8 @@ def vanderpol_second_order():
         return stiffness_constant * ((1.0 - u**2) * du - u)
 
     p_proposal = (1.0,)
-    u0_proposal = numpy_like.asarray([2.])
-    du0_proposal = numpy_like.asarray([0.])
+    u0_proposal = numpy_like.asarray([2.0])
+    du0_proposal = numpy_like.asarray([0.0])
     t_span_proposal = (0.0, 6.3)
 
     return InitialValueProblem(
@@ -55,6 +54,7 @@ def vanderpol_second_order():
         initial_values_proposal=(u0_proposal, du0_proposal),
         time_span_proposal=t_span_proposal,
     )
+
 
 def threebody_second_order():
     """Restricted three-body problem as a second order differential equation."""
@@ -80,4 +80,3 @@ def threebody_second_order():
         initial_values_proposal=(u0_proposal, du0_proposal),
         time_span_proposal=t_span_proposal,
     )
-

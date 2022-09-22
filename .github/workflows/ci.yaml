@@ -16,40 +16,38 @@ jobs:
       with:
         python-version: "3.x"
     - uses: actions/checkout@v2
-    - name: Upgrade pip
-      run: |
+    - name: Install dependencies
+      run:
         pip install --upgrade pip
-    - name: Build and install package
-      run: |
         pip install .[lint]
     - name: Lint with black
       run: |
         black --check --diff .
     - name: Lint with isort
       run: |
-        black --check --diff .
+        isort --check --diff .
     - name: Lint with flake8
       run: |
-        black --check --diff .
+        flake8
 
   tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8,3.9]
+        os: [ubuntu-latest, macOS-latest]
+
     steps:
     - uses: actions/setup-python@v2
       with:
         python-version: "3.x"
     - uses: actions/checkout@v2
-    - name: Upgrade pip
+    - name: Run tests with pytest (NumPy)
       run: |
-        pip install --upgrade pip
-    - name: Build and install package
+        pip install .[numpy,test]
+        BACKEND="Numpy" pytest
+    - name: Run tests with pytest (JAX)
       run: |
-        pip install .[test]
-    - name: Run tests with pytest (numpy)
-      run: |
-        BACKEND="NumPy" pytest
-    - name: Run tests with pytest (jax)
-      run: |
+        pip install .[JAX,test]
         BACKEND="JAX" pytest
-
-
