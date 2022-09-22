@@ -6,6 +6,7 @@ BACKEND_HAS_BEEN_SET = False
 numpy_like = "None"
 """This will become the backend implementation."""
 
+
 def set_backend(backend_name, /):
     """Set the backend to either JAX or NumPy."""
     global numpy_like, BACKEND_HAS_BEEN_SET

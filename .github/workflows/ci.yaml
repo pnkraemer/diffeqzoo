@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+    - uses: actions/checkout@v2
+    - name: Upgrade pip
+      run: |
+        pip install --upgrade pip
+    - name: Build and install package
+      run: |
+        pip install .[lint]
+    - name: Lint with black
+      run: |
+        black --check --diff .
+    - name: Lint with isort
+      run: |
+        black --check --diff .
+    - name: Lint with flake8
+      run: |
+        black --check --diff .
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+    - uses: actions/checkout@v2
+    - name: Upgrade pip
+      run: |
+        pip install --upgrade pip
+    - name: Build and install package
+      run: |
+        pip install .[test]
+    - name: Run tests with pytest (numpy)
+      run: |
+        BACKEND="NumPy" pytest
+    - name: Run tests with pytest (jax)
+      run: |
+        BACKEND="JAX" pytest
+
+
