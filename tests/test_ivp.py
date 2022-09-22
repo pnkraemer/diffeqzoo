@@ -23,6 +23,7 @@ def test_vanderpol_second_order():
 
     assert f(u0, du0, *f_params).shape == u0.shape
 
+
 def test_threebody_second_order():
     ode_model = ivp.threebody_second_order()
 
@@ -31,4 +32,3 @@ def test_threebody_second_order():
     (u0, du0) = ode_model.initial_values_proposal
 
     assert f(u0, du0, *f_params).shape == u0.shape
-
