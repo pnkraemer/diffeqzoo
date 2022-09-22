@@ -47,9 +47,11 @@ jobs:
         pip install .[test]
     - name: Run tests with pytest (numpy)
       run: |
+        pip install .[numpy]
         BACKEND="NumPy" pytest
     - name: Run tests with pytest (jax)
       run: |
+        pip install .[jax]
         BACKEND="JAX" pytest
 
 
