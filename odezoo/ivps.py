@@ -24,7 +24,6 @@ class InitialValueProblem(NamedTuple):
 
 def lotka_volterra():
     """Lotka--Volterra / predator-prey model."""
-
     p = (0.5, 0.05, 0.5, 0.05)
     u0 = numpy_like.asarray([20.0, 20.0])
     time_span = (0.0, 20.0)
@@ -42,7 +41,6 @@ def lotka_volterra():
 
 def van_der_pol():
     """Van-der-Pol system as a second order differential equation."""
-
     p = (1.0,)
     u0 = numpy_like.asarray([2.0])
     du0 = numpy_like.asarray([0.0])
@@ -61,7 +59,6 @@ def van_der_pol():
 
 def three_body():
     """Restricted three-body problem as a second order differential equation."""
-
     # Some parameter suggestions for nice simulation
     p = (0.012277471,)
     u0 = numpy_like.asarray([0.994, 0])
