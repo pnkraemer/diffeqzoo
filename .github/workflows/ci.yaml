@@ -51,6 +51,11 @@ jobs:
         pip install .[JAX,test]
         BACKEND="JAX" pytest
 
+    - name: Run README snippets with doctest (NumPy)
+      run: |
+        pip install .[numpy,test]
+        python -m doctest README.md
+
 
   execute-examples:
     runs-on: ubuntu-latest
