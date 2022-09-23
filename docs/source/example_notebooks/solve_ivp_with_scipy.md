@@ -16,23 +16,21 @@ jupyter:
 # Solve IVPs with SciPy
 
 ```python
-import odezoo
-
-odezoo.set_backend("numpy")
-
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate
 
-import odezoo.ivps
+from odezoo import backend, ivps
+
+backend.select("numpy")
 ```
 
 ```python
-ivps = [
-    odezoo.ivps.lotka_volterra(),
-    odezoo.ivps.lotka_volterra(parameters=(1.0, 0.1, 0.1, 1.0)),
-    odezoo.ivps.rigid_body(),
-    odezoo.ivps.lorenz96(),
+ivp_selection = [
+    ivps.lotka_volterra(),
+    ivps.lotka_volterra(parameters=(1.0, 0.2, 0.1, 1.0)),
+    ivps.rigid_body(),
+    ivps.lorenz96(),
 ]
 ```
 
@@ -54,15 +52,11 @@ def solve_ivp(ivp, **kwargs):
 ```
 
 ```python
-fig, axes = plt.subplots(ncols=len(ivps), figsize=(8, 2), tight_layout=True)
+fig, axes = plt.subplots(ncols=len(ivp_selection), figsize=(8, 2), tight_layout=True)
 
-for ax, ivp in zip(axes, ivps):
+for ax, ivp in zip(axes, ivp_selection):
     xs, ys = solve_ivp(ivp, dense_output=True)
 
     ax.plot(xs, ys)
 plt.show()
-```
-
-```python
-
 ```

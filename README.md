@@ -1,11 +1,8 @@
 # ODE zoo
 
 ```python 
->>> import odezoo
->>> odezoo.set_backend("numpy")  # or "jax"
->>>
->>> from odezoo import ivps, vector_fields
->>>
+>>> from odezoo import ivps, vector_fields, backend
+>>> backend.select("numpy")
 >>>
 >>> # Create test problems like this
 >>> f, u0, t_span, f_args, *_ = ivps.lotka_volterra()
@@ -26,6 +23,15 @@
 >>> print(vector_fields.rigid_body(*u0, *f_args))
 [-0.     1.125 -0.   ]
 >>>
+>>> ## make it jax
+>>> backend.change_to("jax")
+>>> f, u0, t_span, f_args, *_ = ivps.rigid_body()
+>>> x = f(*u0, *f_args)
+>>> print(x)
+[-0.     1.125 -0.   ]
+>>> print(type(x))
+<class 'jaxlib.xla_extension.DeviceArray'>
+
 ```
 
 

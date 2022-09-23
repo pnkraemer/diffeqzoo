@@ -38,7 +38,6 @@ def case_rigid_body():
 
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
-
     f, u0, (t0, _), f_args, *_ = ode_model
 
     if ode_model.is_autonomous:

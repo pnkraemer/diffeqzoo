@@ -45,17 +45,17 @@ jobs:
     - name: Run tests with pytest (NumPy)
       run: |
         pip install .[numpy,test]
-        BACKEND="Numpy" pytest
+        BACKEND="Numpy" pytest -W error
     - name: Run tests with pytest (JAX)
       run: |
         pip install .[JAX,test]
         BACKEND="JAX" pytest
 
-    - name: Run README snippets with doctest (NumPy)
+    - name: Run code snippets with doctest (NumPy)
       run: |
         pip install .[numpy,test]
-        python -m doctest README.md
-
+        python -m doctest *.md
+        python -m doctest odezoo/*.py
 
   execute-examples:
     runs-on: ubuntu-latest
