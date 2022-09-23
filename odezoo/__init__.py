@@ -3,9 +3,6 @@
 BACKEND_HAS_BEEN_SET = False
 """We choose the backend (NumPy/JAX) exactly once. Not zero times, not twice."""
 
-numpy_like = "None"
-"""This will become the backend implementation."""
-
 
 def set_backend(backend_name, /):
     """Set the backend to either JAX or NumPy."""

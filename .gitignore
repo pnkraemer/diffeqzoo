@@ -1,5 +1,10 @@
 .idea/
 
+# Notebooks are synced with jupytext.
+# Only the *.md conversion is version-controlled.
+docs/example_notebooks/*.ipynb
+docs/example_notebooks/*.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -35,7 +35,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8,3.9]
         os: [ubuntu-latest, macOS-latest]
 
     steps:
@@ -51,3 +50,17 @@ jobs:
       run: |
         pip install .[JAX,test]
         BACKEND="JAX" pytest
+
+
+  execute-examples:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+    - uses: actions/checkout@v2
+    - name: Sync and execute notebooks
+      run: |
+        pip install .[numpy,jax,example]
+        jupytext --sync docs/example_notebooks/*
+        python docs/example_notebooks/*.py
