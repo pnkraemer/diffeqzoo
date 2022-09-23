@@ -10,10 +10,10 @@ The following information should be available for each equation:
 Providing this information makes it easy to use the problems
 as benchmark problems (e.g., in papers).
 """
-
 from typing import Callable, Iterable, NamedTuple, Optional
 
-from odezoo import numpy_like, vector_fields
+import odezoo
+from odezoo import backend, vector_fields
 
 
 class InitialValueProblem(NamedTuple):
@@ -38,7 +38,7 @@ def lotka_volterra(
 ):
     """Lotka--Volterra / predator-prey model."""
     if initial_values is None:
-        initial_values = (numpy_like.asarray([20.0, 20.0]),)
+        initial_values = (backend.numpy.asarray([20.0, 20.0]),)
 
     return InitialValueProblem(
         vector_field=vector_fields.lotka_volterra,
@@ -57,7 +57,7 @@ def lorenz96(
     time_span=(0.0, 30.0),
     num_variables=10,
     forcing=8.0,
-    perturb=0.01
+    perturb=0.01,
 ):
     """Lorenz96 model."""
     if initial_values is None:
@@ -82,7 +82,7 @@ def rigid_body(
 ):
     r"""Rigid body dynamics without external forces."""
     if initial_values is None:
-        u0 = numpy_like.array([1.0, 0.0, 0.9])
+        u0 = backend.numpy.array([1.0, 0.0, 0.9])
         initial_values = (u0,)
 
     return InitialValueProblem(
@@ -96,9 +96,9 @@ def rigid_body(
 
 
 def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
-    u0_equilibrium = numpy_like.ones(num_variables) * forcing
-    return numpy_like.concatenate(
-        [numpy_like.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
+    u0_equilibrium = backend.numpy.ones(num_variables) * forcing
+    return backend.numpy.concatenate(
+        [backend.numpy.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
     )
 
 
@@ -109,8 +109,8 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
         y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
         dx0 = [0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5]
         dy0 = [0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0]
-        u0 = numpy_like.asarray(x0 + y0)
-        du0 = numpy_like.asarray(dx0 + dy0)
+        u0 = backend.numpy.asarray(x0 + y0)
+        du0 = backend.numpy.asarray(dx0 + dy0)
         initial_values = (u0, du0)
 
     return InitialValueProblem(
@@ -126,8 +126,8 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
     """Van-der-Pol system as a second order differential equation."""
     if initial_values is None:
-        u0 = numpy_like.asarray([2.0])
-        du0 = numpy_like.asarray([0.0])
+        u0 = backend.numpy.asarray([2.0])
+        du0 = backend.numpy.asarray([0.0])
         initial_values = (u0, du0)
 
     return InitialValueProblem(
@@ -145,12 +145,12 @@ def three_body(
     *,
     initial_values=None,
     standardised_moon_mass=0.012277471,
-    time_span=(0.0, 17.0652165601579625588917206249)
+    time_span=(0.0, 17.0652165601579625588917206249),
 ):
     """Restricted three-body problem as a second order differential equation."""
     if initial_values is None:
-        u0 = numpy_like.asarray([0.994, 0])
-        du0 = numpy_like.asarray([0, -2.00158510637908252240537862224])
+        u0 = backend.numpy.asarray([0.994, 0])
+        du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
         initial_values = (u0, du0)
 
     return InitialValueProblem(

@@ -12,4 +12,4 @@ if "BACKEND" not in os.environ:
     )
 
 # Set the array backend for the tests.
-odezoo.set_backend(os.environ["BACKEND"].lower())
+odezoo.backend.select(os.environ["BACKEND"].lower())
