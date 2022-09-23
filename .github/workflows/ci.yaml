@@ -64,3 +64,17 @@ jobs:
         pip install .[numpy,jax,example]
         jupytext --sync docs/example_notebooks/*
         python docs/example_notebooks/*.py
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+    - uses: actions/checkout@v2
+    - name: Build the HTML docs
+      run: |
+        pip install .[doc]
+        cd docs
+        make clean
+        make html SPHINXOPTS="-W --keep-going"

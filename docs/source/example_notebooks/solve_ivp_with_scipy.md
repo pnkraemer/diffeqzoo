@@ -13,6 +13,8 @@ jupyter:
     name: python3
 ---
 
+# Solve IVPs with SciPy
+
 ```python
 import odezoo
 
