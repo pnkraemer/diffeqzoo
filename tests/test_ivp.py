@@ -21,6 +21,11 @@ def case_three_body():
     return ivps.three_body()
 
 
+@pytest_cases.case
+def case_pleiades():
+    return ivps.pleiades()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
 

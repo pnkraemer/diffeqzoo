@@ -39,6 +39,28 @@ def lotka_volterra():
     )
 
 
+def pleiades():
+    """Pleiades problem."""
+
+    x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
+    y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
+    dx0 = [0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5]
+    dy0 = [0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0]
+    u0 = numpy_like.asarray(x0 + y0)
+    du0 = numpy_like.asarray(dx0 + dy0)
+
+    time_span = (0.0, 3.0)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.pleiades,
+        initial_values=(u0, du0),
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=True,
+        order=2,
+    )
+
+
 def van_der_pol():
     """Van-der-Pol system as a second order differential equation."""
     p = (1.0,)

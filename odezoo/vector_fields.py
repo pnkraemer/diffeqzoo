@@ -21,3 +21,27 @@ def three_body(Y, dY, /, standardised_moon_mass):
     du0p = Y[0] + 2 * dY[1] - mp * (Y[0] + mu) / D1 - mu * (Y[0] - mp) / D2
     du1p = Y[1] - 2 * dY[0] - mp * Y[1] / D1 - mu * Y[1] / D2
     return numpy_like.asarray([du0p, du1p])
+
+
+def pleiades(u, _, /):
+    """Following the PLEI definition in Hairer I.
+
+    The vector field maps u -> u''; but to satisfy some sort of API for second-order problems,
+    we include an unused argument for u'.
+    This way, the function can be called like any other second-order ODE,
+    which simplifies the testing behaviour.
+    """
+    x, y = u[:7], u[7:]
+    x_diff = x[:, None] - x[None, :]
+    y_diff = y[:, None] - y[None, :]
+    r = (x_diff**2 + y_diff**2) ** 1.5
+
+    # We divide by r (elementwise) further below, but r contains zeros.
+    # Those zeros in r imply zeros in the nominator, so the following
+    # manipulation does not alter the result (but avoids warnings)
+    r = numpy_like.where(r == 0, r + 1e-12, r)
+
+    mj = numpy_like.arange(1, 8)[None, :]
+    ddx = numpy_like.sum(mj * x_diff / r, axis=1)
+    ddy = numpy_like.sum(mj * y_diff / r, axis=1)
+    return numpy_like.concatenate((ddx, ddy))
