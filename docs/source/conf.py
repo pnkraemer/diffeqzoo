@@ -40,8 +40,9 @@ html_theme = "furo"
 html_theme_options = {
     "dark_css_variables": {
         "color-brand-primary": "lightgreen",
-        "color-brand-content": "lightgreen",
-        "color-admonition-background": "orange",
+    },
+    "light_css_variables": {
+        "color-brand-primary": "darkgreen",
     },
     "navigation_with_keys": True,
 }

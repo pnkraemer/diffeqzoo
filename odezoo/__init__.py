@@ -2,7 +2,7 @@
 import warnings as _warnings  # don't expose warnings in the namespace
 
 
-class _BackendImplementation:
+class backend:
     """Backend implementation of NumPy-like functions via either numpy or jax.
 
     >>> from odezoo import backend  # one-stop-shop for numpy, scipy, etc.
@@ -16,6 +16,20 @@ class _BackendImplementation:
     >>> backend.change_to("numpy")  # works
     >>> backend.numpy.asarray(2.)  # numpy
     array(2.)
+
+    Attributes
+    ----------
+    backend.numpy
+        NumPy implementation, either via `numpy` or via `jax.numpy`.
+    backend.has_been_selected
+        Whether a backend has been selected. If yes, the implementation in
+        `backend.numpy` is available.
+        If not, a backend must be selected via :meth:`backend.select(choice)`.
+
+    Note
+    ----
+    If you want to change the backend, use
+    :meth:`backend.change_to(choice)` instead of :meth:`backend.select`.
     """
 
     def __init__(self):
@@ -48,6 +62,7 @@ class _BackendImplementation:
         self._select_backend(backend_name.lower())
 
     def change_to(self, backend_name, /):
+        """Change the backend implementation."""
         if not self.has_been_selected:
             raise RuntimeError(
                 "The first backend-selection must be via `backend.select()`."
@@ -98,10 +113,13 @@ class _BackendImplementation:
 
     @property
     def numpy(self):
+        """Access to NumPy implementation."""
         if not self.has_been_selected:
             raise Exception("A backend implementation has not been selected yet.")
         return self._numpy_backend
 
 
-backend = _BackendImplementation()
-backend.__doc__ = _BackendImplementation.__doc__
+_docs = backend.__doc__
+# The variable has the same name as the class to enforce a singleton.
+backend = backend()
+backend.__doc__ = _docs
