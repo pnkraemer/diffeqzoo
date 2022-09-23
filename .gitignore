@@ -1,3 +1,7 @@
+# version number
+odezoo/_version.py
+
+# IDE stuff
 .idea/
 
 # Notebooks are synced with jupytext.
