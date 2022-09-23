@@ -2,7 +2,7 @@
 
 # Notebooks are synced with jupytext.
 # Only the *.md conversion is version-controlled.
-docs/*.ipynb
+docs/example_notebooks/*.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
