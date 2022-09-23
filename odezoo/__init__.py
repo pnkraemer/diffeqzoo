@@ -64,12 +64,15 @@ class _BackendImplementation:
         self._select_backend(backend_name.lower())
 
     def _select_backend(self, backend_name, /):
-        """This method is where the actual import-assign magic happens.
+        """Select a backend.
+
+        This method is where the actual import-assign magic happens.
 
         If you're looking for global variables and dirty hacks, look here.
         """
         if backend_name == "jax":
-            # Import the module (only now! It should be usable if `jax` is not installed)
+            # Import the module (only now!
+            # It should be usable if `jax` is not installed)
             import jax.numpy as jnp
 
             # Save the imported module. It might be needed later.

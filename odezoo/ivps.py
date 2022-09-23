@@ -12,7 +12,6 @@ as benchmark problems (e.g., in papers).
 """
 from typing import Callable, Iterable, NamedTuple, Optional
 
-import odezoo
 from odezoo import backend, vector_fields
 
 

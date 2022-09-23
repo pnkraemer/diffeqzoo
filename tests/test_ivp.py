@@ -3,7 +3,7 @@
 
 import pytest_cases
 
-from odezoo import backend, ivps
+from odezoo import ivps
 
 
 @pytest_cases.case
