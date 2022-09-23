@@ -1,4 +1,15 @@
-"""Initial value problem examples."""
+"""Initial value problem examples.
+
+The following information should be available for each equation:
+
+- The equation (in a copy/pastable latex-math format)
+- The original reference
+- The meaning of each parameter (if possible)
+- "Notable" info (i.e. why this problem may be interesting)
+
+Providing this information makes it easy to use the problems
+as benchmark problems (e.g., in papers).
+"""
 
 from typing import Callable, Iterable, NamedTuple, Optional
 
@@ -66,6 +77,24 @@ def lorenz96(
     )
 
 
+def rigid_body(
+    *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
+):
+    r"""Rigid body dynamics without external forces."""
+    if initial_values is None:
+        u0 = numpy_like.array([1.0, 0.0, 0.9])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.rigid_body,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        order=1,
+    )
+
+
 def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
     u0_equilibrium = numpy_like.ones(num_variables) * forcing
     return numpy_like.concatenate(([u0_equilibrium[0] + perturb], u0_equilibrium[1:]))
@@ -117,7 +146,6 @@ def three_body(
     time_span=(0.0, 17.0652165601579625588917206249)
 ):
     """Restricted three-body problem as a second order differential equation."""
-
     if initial_values is None:
         u0 = numpy_like.asarray([0.994, 0])
         du0 = numpy_like.asarray([0, -2.00158510637908252240537862224])

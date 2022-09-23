@@ -55,3 +55,8 @@ def lorenz96(y, /, forcing):
     C = numpy_like.roll(y, shift=1)
     D = y
     return (A - B) * C - D + forcing
+
+
+def rigid_body(y, /, p1, p2, p3):
+    r"""Rigid body dynamics without external forces."""
+    return numpy_like.asarray([p1 * y[1] * y[2], p2 * y[0] * y[2], p3 * y[0] * y[1]])
