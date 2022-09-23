@@ -8,10 +8,6 @@
 
 from datetime import datetime
 
-import odezoo
-
-odezoo.set_backend("numpy")
-
 project = "odezoo"
 copyright = f"{str(datetime.utcnow().year)}, Nicholas Krämer"
 author = "Nicholas Krämer"
