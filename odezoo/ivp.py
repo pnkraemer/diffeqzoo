@@ -1,44 +1,41 @@
 """Initial value problem examples."""
 
 from collections import namedtuple
+from typing import Any, Callable, Iterable, NamedTuple, Optional
 
 from odezoo import numpy_like
 
-MetaInformation = namedtuple(
-    "MetaInformation",
-    ("is_autonomous", "has_periodic_solution", "order"),
-    defaults=("unknown",) * 3,
-)
-"""Store meta-information about the ODE (periodicity, etc.)."""
+
+class MetaInformation(NamedTuple):
+    """Store meta-information about the ODE (periodicity, etc.)."""
+
+    is_autonomous: Optional[bool] = None
+    has_periodic_solution: Optional[bool] = None
+    order: Optional[int] = None
 
 
-Parameters = namedtuple(
-    "Parameters",
-    (
-        "vector_field_args",
-        "initial_values",
-        "time_span",
-    ),
-    defaults=(None,) * 3,
-)
-"""Store the ODE parameters separately from the ODE vector field."""
+class Parameters(NamedTuple):
+    """Store the ODE parameters separately from the ODE vector field."""
+
+    initial_values: Iterable
+    vector_field_args: Iterable = ()
+    time_span: Iterable = ()
 
 
-InitialValueProblem = namedtuple(
-    "InitialValueProblem",
-    (
-        "vector_field",
-        "vector_field_jacobian",
-        "solution",
-        "parameters",
-        "meta_information",
-    ),
-    defaults=(None,) * 4,
-)
+class InitialValueProblem(NamedTuple):
+    vector_field: Callable
+    parameters: Parameters
+    jacobian: Optional[Callable] = None
+    solution: Optional[Callable] = None
+    meta_information: Optional[MetaInformation] = None
 
 
 def lotka_volterra():
     """Lotka--Volterra / predator-prey model."""
+
+    meta_information = MetaInformation(
+        is_autonomous=True, has_periodic_solution=True, order=1
+    )
 
     def f(y, /, *params):
         a, b, c, d = params
@@ -46,15 +43,11 @@ def lotka_volterra():
             [a * y[0] - b * y[0] * y[1], -c * y[1] + d * y[0] * y[1]]
         )
 
-    meta_information = MetaInformation(
-        is_autonomous=True, has_periodic_solution=True, order=1
-    )
-
     p = (0.5, 0.05, 0.5, 0.05)
     u0 = numpy_like.asarray([20.0, 20.0])
     time_span = (0.0, 20.0)
     parameters_proposed = Parameters(
-        vector_field_args=p, initial_values=u0, time_span=time_span
+        vector_field_args=p, initial_values=(u0,), time_span=time_span
     )
 
     return InitialValueProblem(
