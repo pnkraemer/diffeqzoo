@@ -1,15 +1,15 @@
 """ODE zoo."""
 
-BACKEND_HAS_BEEN_SET = False
-"""We choose the backend (NumPy/JAX) exactly once. Not zero times, not twice."""
+_BACKEND_HAS_BEEN_SET = False
+# """We choose the backend (NumPy/JAX) exactly once. Not zero times, not twice."""
 
 
 def set_backend(backend_name, /):
     """Set the backend to either JAX or NumPy."""
-    global numpy_like, BACKEND_HAS_BEEN_SET
+    global numpy_like, _BACKEND_HAS_BEEN_SET
 
     # Check that the backend is still to be set.
-    if BACKEND_HAS_BEEN_SET:
+    if _BACKEND_HAS_BEEN_SET:
         raise RuntimeError("Backend has been set already. Can't change it anymore.")
 
     # Assert that the backend is one of the known ones.
@@ -21,4 +21,4 @@ def set_backend(backend_name, /):
         import jax.numpy as numpy_like
     else:
         import numpy as numpy_like
-    BACKEND_HAS_BEEN_SET = True
+    _BACKEND_HAS_BEEN_SET = True
