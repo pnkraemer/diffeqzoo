@@ -3,22 +3,22 @@
 
 import pytest_cases
 
-from odezoo import ivp
+from odezoo import ivps
 
 
 @pytest_cases.case
 def case_lotka_volterra():
-    return ivp.lotka_volterra()
+    return ivps.lotka_volterra()
 
 
 @pytest_cases.case
 def case_van_der_pol():
-    return ivp.van_der_pol()
+    return ivps.van_der_pol()
 
 
 @pytest_cases.case
 def case_three_body():
-    return ivp.three_body()
+    return ivps.three_body()
 
 
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
