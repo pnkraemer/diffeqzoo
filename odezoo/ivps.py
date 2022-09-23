@@ -97,7 +97,9 @@ def rigid_body(
 
 def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
     u0_equilibrium = numpy_like.ones(num_variables) * forcing
-    return numpy_like.concatenate(([u0_equilibrium[0] + perturb], u0_equilibrium[1:]))
+    return numpy_like.concatenate(
+        [numpy_like.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
+    )
 
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
