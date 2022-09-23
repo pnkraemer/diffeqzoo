@@ -26,7 +26,8 @@ def three_body(Y, dY, /, standardised_moon_mass):
 def pleiades(u, _, /):
     """Following the PLEI definition in Hairer I.
 
-    The vector field maps u -> u''; but to satisfy some sort of API for second-order problems,
+    The vector field maps u -> u'', but to satisfy
+    some sort of API for second-order problems,
     we include an unused argument for u'.
     This way, the function can be called like any other second-order ODE,
     which simplifies the testing behaviour.
@@ -48,6 +49,7 @@ def pleiades(u, _, /):
 
 
 def lorenz96(y, /, forcing):
+    """Lorenz96 dynamics."""
     A = numpy_like.roll(y, shift=-1)
     B = numpy_like.roll(y, shift=2)
     C = numpy_like.roll(y, shift=1)
