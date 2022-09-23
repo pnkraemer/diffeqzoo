@@ -18,7 +18,7 @@ def van_der_pol(u, du, /, stiffness_constant):
 def three_body(Y, dY, /, standardised_moon_mass):
     """Restricted three body dynamics."""
 
-    mu, mp = standardised_moon_mass, 1.0 - standardised_moon_massg
+    mu, mp = standardised_moon_mass, 1.0 - standardised_moon_mass
     D1 = numpy_like.linalg.norm(numpy_like.asarray([Y[0] + mu, Y[1]])) ** 3.0
     D2 = numpy_like.linalg.norm(numpy_like.asarray([Y[0] - mp, Y[1]])) ** 3.0
     du0p = Y[0] + 2 * dY[1] - mp * (Y[0] + mu) / D1 - mu * (Y[0] - mp) / D2

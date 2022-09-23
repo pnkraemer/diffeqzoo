@@ -1,7 +1,6 @@
 """Initial value problem examples."""
 
-from collections import namedtuple
-from typing import Any, Callable, Iterable, NamedTuple, Optional
+from typing import Callable, Iterable, NamedTuple, Optional
 
 from odezoo import numpy_like, vector_fields
 
