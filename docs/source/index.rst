@@ -29,6 +29,7 @@ Welcome to odezoo's documentation!
    :caption: Developer documentation:
 
    dev_documentation/contribution
+   dev_documentation/design_choices
 
 
 Indices and tables
