@@ -26,6 +26,11 @@ def case_pleiades():
     return ivps.pleiades()
 
 
+@pytest_cases.case
+def case_lorenz96():
+    return ivps.lorenz96()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
 

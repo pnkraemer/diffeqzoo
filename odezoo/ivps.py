@@ -39,6 +39,29 @@ def lotka_volterra():
     )
 
 
+def lorenz96(*, num_variables=10, forcing=8.0):
+    """Lorenz96 model."""
+
+    p = (forcing,)
+    u0 = _lorenz96_chaotic_u0(forcing=forcing, num_variables=num_variables)
+    time_span = (0.0, 30.0)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.lorenz96,
+        vector_field_args=p,
+        initial_values=(u0,),
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=True,
+        order=1,
+    )
+
+
+def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb=0.01):
+    u0_equilibrium = numpy_like.ones(num_variables) * forcing
+    return numpy_like.concatenate(([u0_equilibrium[0] + perturb], u0_equilibrium[1:]))
+
+
 def pleiades():
     """Pleiades problem."""
 
@@ -56,7 +79,7 @@ def pleiades():
         initial_values=(u0, du0),
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=True,
+        has_periodic_solution=False,
         order=2,
     )
 

@@ -45,3 +45,11 @@ def pleiades(u, _, /):
     ddx = numpy_like.sum(mj * x_diff / r, axis=1)
     ddy = numpy_like.sum(mj * y_diff / r, axis=1)
     return numpy_like.concatenate((ddx, ddy))
+
+
+def lorenz96(y, /, forcing):
+    A = numpy_like.roll(y, shift=-1)
+    B = numpy_like.roll(y, shift=2)
+    C = numpy_like.roll(y, shift=1)
+    D = y
+    return (A - B) * C - D + forcing
