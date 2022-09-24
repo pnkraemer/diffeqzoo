@@ -109,7 +109,7 @@ def sird(u, /, beta, gamma, eta, population_count):
     return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
 
 
-def hires(u, /):
+def hires(u, /):  # todo: move parameters here
     """High irradiance response."""
     du1 = -1.71 * u[0] + 0.43 * u[1] + 8.32 * u[2] + 0.0007
     du2 = 1.71 * u[0] - 8.75 * u[1]
