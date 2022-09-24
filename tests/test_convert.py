@@ -1,6 +1,6 @@
 """Tests for ODE conversion."""
 
-from odezoo import convert, ivps, vector_fields
+from odezoo import convert, ivps
 
 
 def test_second_to_first_order_autonomous():

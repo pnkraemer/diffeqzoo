@@ -33,6 +33,7 @@ class InitialValueProblem(NamedTuple):
 
     @property
     def dimension(self):
+        """Dimension of the IVP."""
         return self.initial_values[0].shape[0]
 
 
