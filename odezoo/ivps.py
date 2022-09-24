@@ -12,11 +12,48 @@ as benchmark problems (e.g., in papers).
 """
 from typing import Callable, Iterable, NamedTuple, Optional
 
-from odezoo import backend, vector_fields
+from odezoo import _descriptions, backend, vector_fields
 
 
 class InitialValueProblem(NamedTuple):
-    """Initial value problems."""
+    """A data structure for initial value problems.
+
+    Attributes
+    ----------
+    vector_field
+        Vector field. A callable with either of the signatures
+        ``f(u)``, ``f(u, t)``, ``f(u, *params)``, ``f(u, du, t)``, and so on.
+    initial_values
+        Initial values. Commonly an iterable of arrays, for example,
+        ``(u0,)``, ``(du0,)``, and so on.
+    time_span
+        Time span. An iterable of two scalars.
+
+    vector_field_args
+        Vector field parameters. Optional. Commonly in a format such that
+        the vector field can be called like ``f(u, *args)``.
+
+    jacobian
+        The Jacobian function of the vector field with respect to the state.
+        Commonly, the signature of the Jacobian mimics the behaviour of
+        `jax.jacfwd`. That is, for second-order problems, it
+        returns a tuple of two Jacobians ``Df(u, du)=(D_u f(), D_(du) f)``.
+    solution
+        ODE solution. Commonly, it maps ``(t, *args)`` to the
+        IVP solution at time ``t``.
+
+    is_autonomous
+        Whether the ODE is autonomous.
+        By definition, the vector field of an autonomous equation
+        does not depend on the time-variable ``t``.
+
+    order
+        The order of the differential equation
+        (which is the highest occurring derivative).
+    dimension
+        The dimension of the differential equation, which we define as
+        the dimension of the domain and the range of the vector field.
+    """
 
     vector_field: Callable
     initial_values: Iterable
@@ -28,7 +65,6 @@ class InitialValueProblem(NamedTuple):
     solution: Optional[Callable] = None
 
     is_autonomous: Optional[bool] = None
-    has_periodic_solution: Optional[bool] = None
     order: Optional[int] = None
     dimension: Optional[int] = None
 
@@ -46,7 +82,6 @@ def lotka_volterra(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=True,
         order=1,
         dimension=2,
     )
@@ -65,7 +100,6 @@ def fitzhugh_nagumo(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=True,
         order=1,
         dimension=2,
     )
@@ -82,7 +116,6 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=1,
     )
@@ -102,7 +135,6 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=3,
     )
@@ -124,7 +156,6 @@ def seir(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=4,
     )
@@ -146,7 +177,6 @@ def sird(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=4,
     )
@@ -173,7 +203,6 @@ def lorenz96(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=num_variables,
     )
@@ -196,7 +225,6 @@ def lorenz63(
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=1,
         dimension=3,
     )
@@ -231,6 +259,27 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     """Use this function as follows.
 
+    Parameters
+    ----------
+    initial_values
+        Initial values. It is a tuple of 14-dimensional arrays ``(u0, du0)``,
+        i.e., ``u0.shape == du0.shape == (14,)``.
+        Optional.
+        If the initial values are not specified,
+        some useful defaults are provided.
+        ("Useful" in the sense that the simulation
+        "looks like a Pleiades solution".)
+    time_span
+        Time span of the simulation. Optional. If not speficied,
+        some useful defaults are provided.
+
+    Returns
+    -------
+    InitialValueProblem
+        Initial value problem including vector fields, parameters,
+        and meta information about the differential equation.
+
+
     Examples
     --------
     >>> from odezoo import ivps, backend
@@ -243,6 +292,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     See Also
     --------
     odezoo.vector_fields.pleiades : Pleiades dynamics / vector-field.
+
     """
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
@@ -258,13 +308,12 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=False,
         order=2,
         dimension=14,
     )
 
 
-pleiades.__doc__ = vector_fields.pleiades.__doc__ + pleiades.__doc__
+pleiades.__doc__ = _descriptions.PLEIADES + pleiades.__doc__
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
@@ -280,7 +329,6 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
         initial_values=initial_values,
         time_span=time_span,
         is_autonomous=True,
-        has_periodic_solution=True,
         order=2,
         dimension=1,
     )
@@ -301,7 +349,6 @@ def three_body(
     return InitialValueProblem(
         vector_field=vector_fields.three_body,
         is_autonomous=True,
-        has_periodic_solution=True,
         order=2,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
