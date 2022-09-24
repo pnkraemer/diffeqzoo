@@ -52,6 +52,106 @@ def lotka_volterra(
     )
 
 
+def fitzhugh_nagumo(
+    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
+):
+    r"""FitzHugh-Nagumo model."""
+    if initial_values is None:
+        initial_values = (backend.numpy.asarray([1.0, -1.0]),)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.fitzhugh_nagumo,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=True,
+        order=1,
+        dimension=2,
+    )
+
+
+def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
+    """Logistic ODE model."""
+    if initial_values is None:
+        initial_values = (backend.numpy.asarray([0.1]),)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.logistic,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=1,
+    )
+
+
+def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
+    """SIR model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([998.0, 1.0, 1.0])
+        initial_values = (u0,)
+
+    parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
+
+    return InitialValueProblem(
+        vector_field=vector_fields.sir,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=3,
+    )
+
+
+def seir(
+    *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
+):
+    """SEIR model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
+        initial_values = (u0,)
+
+    parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
+
+    return InitialValueProblem(
+        vector_field=vector_fields.seir,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=4,
+    )
+
+
+def sird(
+    *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
+):
+    """SIRD model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
+        initial_values = (u0,)
+
+    parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
+
+    return InitialValueProblem(
+        vector_field=vector_fields.sird,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=4,
+    )
+
+
 def lorenz96(
     *,
     initial_values=None,
@@ -76,6 +176,29 @@ def lorenz96(
         has_periodic_solution=False,
         order=1,
         dimension=num_variables,
+    )
+
+
+def lorenz63(
+    *,
+    initial_values=None,
+    time_span=(0.0, 20.0),
+    parameters=(10.0, 28.0, 8.0 / 3.0),
+):
+    """Lorenz63 model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([0.0, 1.0, 1.05])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.lorenz63,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=3,
     )
 
 
@@ -167,4 +290,41 @@ def three_body(
         initial_values=initial_values,
         time_span=time_span,
         dimension=2,
+    )
+
+
+def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
+    """High Irradiance Response (HIRES).
+
+    A chemical reaction involving eight reactants.
+    """
+    if initial_values is None:
+        u0 = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.hires,
+        is_autonomous=True,
+        order=1,
+        vector_field_args=(),  # todo: move vf-params here
+        initial_values=initial_values,
+        time_span=time_span,
+        dimension=8,
+    )
+
+
+def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
+    """Rober ODE problem due to Robertson (1966)."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([1.0, 0.0, 0.0])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.rober,
+        is_autonomous=True,
+        order=1,
+        vector_field_args=(k1, k2, k3),
+        initial_values=initial_values,
+        time_span=time_span,
+        dimension=3,
     )

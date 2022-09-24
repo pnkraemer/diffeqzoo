@@ -59,6 +59,72 @@ def lorenz96(y, /, forcing):
     return (A - B) * C - D + forcing
 
 
+def lorenz63(u, /, a, b, c):
+    """Lorenz63 dynamics."""
+    return backend.numpy.asarray(
+        [a * (u[1] - u[0]), u[0] * (b - u[2]) - u[1], u[0] * u[1] - c * u[2]]
+    )
+
+
 def rigid_body(y, /, p1, p2, p3):
     r"""Rigid body dynamics without external forces."""
     return backend.numpy.asarray([p1 * y[1] * y[2], p2 * y[0] * y[2], p3 * y[0] * y[1]])
+
+
+def logistic(u, p0, p1, /):
+    """Logistic ODE dynamics."""
+    return p0 * u * (1.0 - p1 * u)
+
+
+def fitzhugh_nagumo(u, /, a, b, c, d):
+    """FitzHugh--Nagumo model."""
+    return backend.numpy.asarray(
+        [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
+    )
+
+
+def sir(u, /, beta, gamma, population_count):
+    """SIR model."""
+    du0_next = -beta * u[0] * u[1] / population_count
+    du1_next = beta * u[0] * u[1] / population_count - gamma * u[1]
+    du2_next = gamma * u[1]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next])
+
+
+def seir(u, /, alpha, beta, gamma, population_count):
+    """SEIR model."""
+    du0_next = -beta * u[0] * u[2] / population_count
+    du1_next = beta * u[0] * u[2] / population_count - alpha * u[1]
+    du2_next = alpha * u[1] - gamma * u[2]
+    du3_next = gamma * u[2]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
+
+
+def sird(u, /, beta, gamma, eta, population_count):
+    """SIRD model."""
+    du0_next = -beta * u[0] * u[1] / population_count
+    du1_next = beta * u[0] * u[1] / population_count - gamma * u[1] - eta * u[1]
+    du2_next = gamma * u[1]
+    du3_next = eta * u[1]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
+
+
+def hires(u, /):  # todo: move parameters here
+    """High irradiance response."""
+    du1 = -1.71 * u[0] + 0.43 * u[1] + 8.32 * u[2] + 0.0007
+    du2 = 1.71 * u[0] - 8.75 * u[1]
+    du3 = -10.03 * u[2] + 0.43 * u[3] + 0.035 * u[4]
+    du4 = 8.32 * u[1] + 1.71 * u[2] - 1.12 * u[3]
+    du5 = -1.745 * u[4] + 0.43 * u[5] + 0.43 * u[6]
+    du6 = -280.0 * u[5] * u[7] + 0.69 * u[3] + 1.71 * u[4] - 0.43 * u[5] + 0.69 * u[6]
+    du7 = 280.0 * u[5] * u[7] - 1.81 * u[6]
+    du8 = -280.0 * u[5] * u[7] + 1.81 * u[6]
+    return backend.numpy.asarray([du1, du2, du3, du4, du5, du6, du7, du8])
+
+
+def rober(u, /, k1, k2, k3):
+    """Rober ODE problem."""
+    du0 = -k1 * u[0] + k3 * u[1] * u[2]
+    du1 = k1 * u[0] - k2 * u[1] ** 2 - k3 * u[1] * u[2]
+    du2 = k2 * u[1] ** 2
+    return backend.numpy.asarray([du0, du1, du2])
