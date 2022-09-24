@@ -291,3 +291,27 @@ def three_body(
         time_span=time_span,
         dimension=2,
     )
+
+
+def hires(
+    *,
+    initial_values=None,
+    time_span=(0.0, 321.8122),
+):
+    """High Irradiance Response (HIRES).
+
+    A chemical reaction involving eight reactants.
+    """
+    if initial_values is None:
+        u0 = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.hires,
+        is_autonomous=True,
+        order=1,
+        vector_field_args=(),  # todo: move vf-params here
+        initial_values=initial_values,
+        time_span=time_span,
+        dimension=8,
+    )
