@@ -13,4 +13,5 @@ def test_second_to_first_order_autonomous():
     assert len(ivp_converted.initial_values) == 1
     assert ivp_converted.order == 1
 
+    # Assert that the dimension doubles
     assert ivp_converted.dimension / 2 == ivp.dimension

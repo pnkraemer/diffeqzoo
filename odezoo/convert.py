@@ -3,6 +3,8 @@ from odezoo import backend, ivps
 
 
 def second_to_first_order_autonomous(*, ivp):
+    """Convert an autonomous second-order problem to a first-order problem."""
+
     def f(y, /, *args):
         u, du = y[: ivp.dimension], y[ivp.dimension :]
         return ivp.vector_field(u, du, *args)
