@@ -38,6 +38,11 @@ def pleiades(u, /):
     -------
     ddu: array
         Second time-derivative of the current state. ``ddu.shape = (14,)``.
+
+    See Also
+    --------
+    odezoo.ivps.pleiades : Full specification of the Pleiades problem.
+
     """
     x, y = u[:7], u[7:]
     x_diff = x[:, None] - x[None, :]

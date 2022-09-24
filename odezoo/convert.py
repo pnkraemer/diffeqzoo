@@ -29,7 +29,6 @@ def second_to_first_order_autonomous(*, ivp):
         initial_values=inits,  # new
         time_span=ivp.time_span,
         is_autonomous=True,
-        has_periodic_solution=ivp.has_periodic_solution,
         order=order,  # new
         dimension=dimension,  # new
     )

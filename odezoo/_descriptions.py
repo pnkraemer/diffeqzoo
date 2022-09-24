@@ -33,5 +33,6 @@ PLEIADES = r"""Pleiades problem from celestial mechanics.
     ----------
     .. [1] Hairer, E., Nørsett, S. P., and Wanner, G. (1993).
        Solving Ordinary Differential Equations I, Nonstiff Problems. Springer.
+       Page 244.
 
     """
