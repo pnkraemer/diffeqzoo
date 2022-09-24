@@ -41,6 +41,11 @@ def case_logistic():
     return ivps.logistic()
 
 
+@pytest_cases.case
+def case_fitzhhugh_nagumo():
+    return ivps.fitzhugh_nagumo()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
     f, u0, (t0, _), f_args, *_ = ode_model

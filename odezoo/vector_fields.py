@@ -67,3 +67,10 @@ def rigid_body(y, /, p1, p2, p3):
 def logistic(u, p0, p1, /):
     """Logistic ODE dynamics."""
     return p0 * u * (1.0 - p1 * u)
+
+
+def fitzhugh_nagumo(u, /, a, b, c, d):
+    """FitzHugh--Nagumo model."""
+    return backend.numpy.asarray(
+        [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
+    )
