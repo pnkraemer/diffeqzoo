@@ -15,6 +15,13 @@ def second_to_first_order_autonomous(*, ivp):
 
     inits = (backend.numpy.concatenate(ivp.initial_values, axis=0),)
 
+    if ivp.order is not None:
+        order = 1
+    else:
+        order = None
+
+    dimension = ivp.dimension * 2 or None
+
     return ivps.InitialValueProblem(
         vector_field=f,  # new
         jacobian=df,  # new
@@ -23,5 +30,6 @@ def second_to_first_order_autonomous(*, ivp):
         time_span=ivp.time_span,
         is_autonomous=True,
         has_periodic_solution=ivp.has_periodic_solution,
-        order=1,  # new
+        order=order,  # new
+        dimension=dimension,  # new
     )
