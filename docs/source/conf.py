@@ -45,7 +45,10 @@ html_theme_options = {
         "color-brand-primary": "darkgreen",
     },
     "navigation_with_keys": True,
+    "sidebar_hide_name": True,
 }
+html_logo = "logo.png"
+
 
 # -- Options for todo extension ----------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#configuration
