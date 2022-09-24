@@ -82,3 +82,19 @@ def sir(u, /, beta, gamma, population_count):
     du1_next = beta * u[0] * u[1] / population_count - gamma * u[1]
     du2_next = gamma * u[1]
     return backend.numpy.asarray([du0_next, du1_next, du2_next])
+
+
+def seir(u, /, alpha, beta, gamma, population_count):
+    du0_next = -beta * u[0] * u[2] / population_count
+    du1_next = beta * u[0] * u[2] / population_count - alpha * u[1]
+    du2_next = alpha * u[1] - gamma * u[2]
+    du3_next = gamma * u[2]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
+
+
+def sird(u, /, beta, gamma, eta, population_count):
+    du0_next = -beta * u[0] * u[1] / population_count
+    du1_next = beta * u[0] * u[1] / population_count - gamma * u[1] - eta * u[1]
+    du2_next = gamma * u[1]
+    du3_next = eta * u[1]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])

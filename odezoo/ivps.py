@@ -108,6 +108,50 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
     )
 
 
+def seir(
+    *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
+):
+    """SEIR model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
+        initial_values = (u0,)
+
+    parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
+
+    return InitialValueProblem(
+        vector_field=vector_fields.seir,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=4,
+    )
+
+
+def sird(
+    *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
+):
+    """SIRD model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
+        initial_values = (u0,)
+
+    parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
+
+    return InitialValueProblem(
+        vector_field=vector_fields.sird,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=4,
+    )
+
+
 def lorenz96(
     *,
     initial_values=None,

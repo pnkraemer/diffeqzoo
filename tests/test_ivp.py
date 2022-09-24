@@ -51,6 +51,16 @@ def case_sir():
     return ivps.sir()
 
 
+@pytest_cases.case
+def case_seir():
+    return ivps.seir()
+
+
+@pytest_cases.case
+def case_sird():
+    return ivps.sird()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
     f, u0, (t0, _), f_args, *_ = ode_model
