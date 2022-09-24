@@ -18,9 +18,6 @@ from odezoo import _descriptions, backend, vector_fields
 class InitialValueProblem(NamedTuple):
     """A data structure for initial value problems.
 
-    Examples
-    ----
-
     Attributes
     ----------
     vector_field
