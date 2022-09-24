@@ -30,11 +30,7 @@ class InitialValueProblem(NamedTuple):
     is_autonomous: Optional[bool] = None
     has_periodic_solution: Optional[bool] = None
     order: Optional[int] = None
-
-    @property
-    def dimension(self):
-        """Dimension of the IVP."""
-        return self.initial_values[0].shape[0]
+    dimension: Optional[int] = None
 
 
 def lotka_volterra(
@@ -52,6 +48,7 @@ def lotka_volterra(
         is_autonomous=True,
         has_periodic_solution=True,
         order=1,
+        dimension=2,
     )
 
 
@@ -78,6 +75,7 @@ def lorenz96(
         is_autonomous=True,
         has_periodic_solution=False,
         order=1,
+        dimension=num_variables,
     )
 
 
@@ -96,6 +94,7 @@ def rigid_body(
         time_span=time_span,
         is_autonomous=True,
         order=1,
+        dimension=3,
     )
 
 
@@ -124,6 +123,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
         is_autonomous=True,
         has_periodic_solution=False,
         order=2,
+        dimension=14,
     )
 
 
@@ -142,6 +142,7 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
         is_autonomous=True,
         has_periodic_solution=True,
         order=2,
+        dimension=1,
     )
 
 
@@ -165,4 +166,5 @@ def three_body(
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
         time_span=time_span,
+        dimension=2,
     )
