@@ -293,11 +293,7 @@ def three_body(
     )
 
 
-def hires(
-    *,
-    initial_values=None,
-    time_span=(0.0, 321.8122),
-):
+def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     """High Irradiance Response (HIRES).
 
     A chemical reaction involving eight reactants.
@@ -314,4 +310,21 @@ def hires(
         initial_values=initial_values,
         time_span=time_span,
         dimension=8,
+    )
+
+
+def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
+    """Rober ODE problem due to Robertson (1966)."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([1.0, 0.0, 0.0])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.rober,
+        is_autonomous=True,
+        order=1,
+        vector_field_args=(k1, k2, k3),
+        initial_values=initial_values,
+        time_span=time_span,
+        dimension=3,
     )

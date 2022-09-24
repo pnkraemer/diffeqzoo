@@ -120,3 +120,11 @@ def hires(u, /):  # todo: move parameters here
     du7 = 280.0 * u[5] * u[7] - 1.81 * u[6]
     du8 = -280.0 * u[5] * u[7] + 1.81 * u[6]
     return backend.numpy.asarray([du1, du2, du3, du4, du5, du6, du7, du8])
+
+
+def rober(u, /, k1, k2, k3):
+    """Rober ODE problem."""
+    du0 = -k1 * u[0] + k3 * u[1] * u[2]
+    du1 = k1 * u[0] - k2 * u[1] ** 2 - k3 * u[1] * u[2]
+    du2 = k2 * u[1] ** 2
+    return backend.numpy.asarray([du0, du1, du2])

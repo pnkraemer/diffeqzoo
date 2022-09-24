@@ -71,6 +71,11 @@ def case_hires():
     return ivps.hires()
 
 
+@pytest_cases.case
+def case_rober():
+    return ivps.rober()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
     f, u0, (t0, _), f_args, *_ = ode_model
