@@ -12,7 +12,7 @@ as benchmark problems (e.g., in papers).
 """
 from typing import Callable, Iterable, NamedTuple, Optional
 
-from odezoo import backend, vector_fields
+from odezoo import _descriptions, backend, vector_fields
 
 
 class InitialValueProblem(NamedTuple):
@@ -231,6 +231,27 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     """Use this function as follows.
 
+    Parameters
+    ----------
+    initial_values
+        Initial values. It is a tuple of 14-dimensional arrays ``(u0, du0)``,
+        i.e., ``u0.shape == du0.shape == (14,)``.
+        Optional.
+        If the initial values are not specified,
+        some useful defaults are provided.
+        ("Useful" in the sense that the simulation
+        "looks like a Pleiades solution".)
+    time_span
+        Time span of the simulation. Optional. If not speficied,
+        some useful defaults are provided.
+
+    Returns
+    -------
+    InitialValueProblem
+        Initial value problem including vector fields, parameters,
+        and meta information about the differential equation.
+
+
     Examples
     --------
     >>> from odezoo import ivps, backend
@@ -243,6 +264,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     See Also
     --------
     odezoo.vector_fields.pleiades : Pleiades dynamics / vector-field.
+
     """
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
@@ -264,7 +286,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     )
 
 
-pleiades.__doc__ = vector_fields.pleiades.__doc__ + pleiades.__doc__
+pleiades.__doc__ = _descriptions.PLEIADES + pleiades.__doc__
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):

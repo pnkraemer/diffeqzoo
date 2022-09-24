@@ -1,6 +1,6 @@
 """ODE vector fields."""
 
-from odezoo import backend
+from odezoo import _descriptions, backend
 
 
 def lotka_volterra(y, /, a, b, c, d):
@@ -26,26 +26,18 @@ def three_body(Y, dY, /, standardised_moon_mass):
 
 
 def pleiades(u, /):
-    r"""Pleiades problem from celestial mechanics.
+    """Apply the second-order dynamics :math:`f` as follows.
 
-    The Pleiades problem describes the gravitational interaction(s) of seven stars
-    (the "Pleiades", or "Seven Sisters") in a plane.
-    It is a 14-dimensional, second-order differential equation
-    and commonly solved as a 28-dimensional, first-order equation. [1]_
-    Here, it is implemented in its original, second-order form.
-
-    The Pleiades problem is not stiff
-    It is a popular benchmark problem because
-    it is not very difficult to solve numerically, but
-    (a) it requires high accuracy in each ODE solver step, and
-    (b) its 14 (or 28) dimensions start to expose those numerical solvers
-    that do not scale well to high dimensions.
-
-    References
+    Parameters
     ----------
-    .. [1] Hairer, E., Nørsett, S. P., and Wanner, G. (1993).
-       Solving Ordinary Differential Equations I, Nonstiff Problems. Springer.
+    u
+        Current value of the dynamical system. Positional only.
+        ``u.shape = (14,)``.
 
+    Returns
+    -------
+    ddu: array
+        Second time-derivative of the current state. ``ddu.shape = (14,)``.
     """
     x, y = u[:7], u[7:]
     x_diff = x[:, None] - x[None, :]
@@ -61,6 +53,9 @@ def pleiades(u, /):
     ddx = backend.numpy.sum(mj * x_diff / r, axis=1)
     ddy = backend.numpy.sum(mj * y_diff / r, axis=1)
     return backend.numpy.concatenate((ddx, ddy))
+
+
+pleiades.__doc__ = _descriptions.PLEIADES + pleiades.__doc__
 
 
 def lorenz96(y, /, forcing):
