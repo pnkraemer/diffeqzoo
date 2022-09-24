@@ -25,7 +25,7 @@ def three_body(Y, dY, /, standardised_moon_mass):
     return backend.numpy.asarray([du0p, du1p])
 
 
-def pleiades(u, _, /):
+def pleiades(u, /):
     r"""Pleiades problem from celestial mechanics.
 
     The Pleiades problem describes the gravitational interaction(s) of seven stars
