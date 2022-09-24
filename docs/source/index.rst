@@ -11,6 +11,7 @@ Welcome to odezoo's documentation!
    :caption: Examples:
 
    example_notebooks/solve_ivp_with_scipy
+   example_notebooks/solve_ivp_with_diffrax
 
 .. toctree::
    :maxdepth: 1
