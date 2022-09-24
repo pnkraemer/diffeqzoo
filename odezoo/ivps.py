@@ -229,7 +229,36 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
-    """Pleiades problem."""
+    r"""Pleiades problem from celestial mechanics.
+
+    The Pleiades problem describes the gravitational interaction(s) of seven stars
+    (the "Pleiades", or "Seven Sisters") in a plane.
+    It is a 14-dimensional, second-order differential equation
+    and commonly solved as a 28-dimensional, first-order equation.
+    Here, it is implemented in its original, second-order form.
+
+    The Pleiades problem is not stiff
+    It is a popular benchmark problem because
+    it is not very difficult to solve numerically, but
+    (a) it requires high accuracy in each ODE solver step, and
+    (b) its 14 (or 28) dimensions start to expose those numerical solvers
+    that do not scale well to high dimensions.
+
+    Examples
+    --------
+    >>> from odezoo import ivps, backend
+    >>> backend.select("numpy")
+    >>> f, (u0, du0), *_ = ivps.pleiades()
+    >>> ddu = f(u0, du0)
+    >>> print(backend.numpy.round(ddu, 1))
+    [ 2.9  0.5 -0.5 -0.7  0.4 -0.2 -0.1 -1.8 -0.7  0.5 -0.  -0.3 -0.5  1. ]
+
+    References
+    ----------
+    [1] Hairer, E., et al.
+        Solving Ordinary Differential Equations I: Nonstiff Problems.
+        2nd rev. ed, Springer, 2009.
+    """
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
         y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
