@@ -31,6 +31,10 @@ class InitialValueProblem(NamedTuple):
     has_periodic_solution: Optional[bool] = None
     order: Optional[int] = None
 
+    @property
+    def dimension(self):
+        return self.initial_values[0].shape[0]
+
 
 def lotka_volterra(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
