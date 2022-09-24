@@ -36,6 +36,11 @@ def case_rigid_body():
     return ivps.rigid_body()
 
 
+@pytest_cases.case
+def case_logistic():
+    return ivps.logistic()
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
     f, u0, (t0, _), f_args, *_ = ode_model

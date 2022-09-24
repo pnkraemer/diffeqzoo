@@ -52,6 +52,23 @@ def lotka_volterra(
     )
 
 
+def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
+    """Logistic ODE model."""
+    if initial_values is None:
+        initial_values = (backend.numpy.asarray([0.1]),)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.logistic,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=1,
+    )
+
+
 def lorenz96(
     *,
     initial_values=None,
