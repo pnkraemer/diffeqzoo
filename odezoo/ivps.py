@@ -179,6 +179,29 @@ def lorenz96(
     )
 
 
+def lorenz63(
+    *,
+    initial_values=None,
+    time_span=(0.0, 20.0),
+    parameters=(10.0, 28.0, 8.0 / 3.0),
+):
+    """Lorenz63 model."""
+    if initial_values is None:
+        u0 = backend.numpy.asarray([0.0, 1.0, 1.05])
+        initial_values = (u0,)
+
+    return InitialValueProblem(
+        vector_field=vector_fields.lorenz63,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+        is_autonomous=True,
+        has_periodic_solution=False,
+        order=1,
+        dimension=3,
+    )
+
+
 def rigid_body(
     *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
 ):

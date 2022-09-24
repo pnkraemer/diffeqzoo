@@ -32,6 +32,11 @@ def case_lorenz96():
 
 
 @pytest_cases.case
+def case_lorenz63():
+    return ivps.lorenz63()
+
+
+@pytest_cases.case
 def case_rigid_body():
     return ivps.rigid_body()
 

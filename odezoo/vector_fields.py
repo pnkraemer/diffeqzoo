@@ -59,6 +59,13 @@ def lorenz96(y, /, forcing):
     return (A - B) * C - D + forcing
 
 
+def lorenz63(u, /, a, b, c):
+    """Lorenz63 dynamics."""
+    return backend.numpy.asarray(
+        [a * (u[1] - u[0]), u[0] * (b - u[2]) - u[1], u[0] * u[1] - c * u[2]]
+    )
+
+
 def rigid_body(y, /, p1, p2, p3):
     r"""Rigid body dynamics without external forces."""
     return backend.numpy.asarray([p1 * y[1] * y[2], p2 * y[0] * y[2], p3 * y[0] * y[1]])
