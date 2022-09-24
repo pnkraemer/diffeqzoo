@@ -23,7 +23,10 @@ def case_three_body():
 
 @pytest_cases.case
 def case_pleiades():
-    return ivps.pleiades()
+
+    # The pleiades dynamics are second-order, but the vector field ignores u'.
+    f, *args = ivps.pleiades()
+    return ivps.InitialValueProblem(lambda u, du, *a: f(u, *a), *args)
 
 
 @pytest_cases.case

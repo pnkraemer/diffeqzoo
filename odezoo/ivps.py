@@ -229,7 +229,21 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
-    """Pleiades problem."""
+    """Use this function as follows.
+
+    Examples
+    --------
+    >>> from odezoo import ivps, backend
+    >>> backend.select("numpy")
+    >>> f, (u0, _), *_ = ivps.pleiades()
+    >>> ddu = f(u0)  # second-order dynamics
+    >>> print(backend.numpy.round(ddu, 1))
+    [ 2.9  0.5 -0.5 -0.7  0.4 -0.2 -0.1 -1.8 -0.7  0.5 -0.  -0.3 -0.5  1. ]
+
+    See Also
+    --------
+    odezoo.vector_fields.pleiades : Pleiades dynamics / vector-field.
+    """
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
         y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
@@ -248,6 +262,9 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
         order=2,
         dimension=14,
     )
+
+
+pleiades.__doc__ = vector_fields.pleiades.__doc__ + pleiades.__doc__
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
