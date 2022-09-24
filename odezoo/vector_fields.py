@@ -74,3 +74,11 @@ def fitzhugh_nagumo(u, /, a, b, c, d):
     return backend.numpy.asarray(
         [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
     )
+
+
+def sir(u, /, beta, gamma, population_count):
+    """SIR model."""
+    du0_next = -beta * u[0] * u[1] / population_count
+    du1_next = beta * u[0] * u[1] / population_count - gamma * u[1]
+    du2_next = gamma * u[1]
+    return backend.numpy.asarray([du0_next, du1_next, du2_next])
