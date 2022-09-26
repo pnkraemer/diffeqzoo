@@ -265,11 +265,9 @@ three_body_first_order = transform.second_to_first_order_auto(
 )
 
 
+@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
-    """High Irradiance Response (HIRES).
-
-    A chemical reaction involving eight reactants.
-    """
+    """Construct the High Irradiance Response (HIRES) problem."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
 
@@ -281,8 +279,9 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     )
 
 
+@_docstring_utils.long_description(_descriptions.ROBER)
 def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
-    """Rober ODE problem due to Robertson (1966)."""
+    """Construct the ROBER problem due to Robertson (1966)."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([1.0, 0.0, 0.0])
 
