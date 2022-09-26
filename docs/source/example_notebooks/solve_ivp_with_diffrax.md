@@ -29,7 +29,7 @@ backend.select("jax")
 ```python
 ivp = ivps.rigid_body()
 
-f, (y0,), (t0, t1), f_args, *_ = ivp
+f, y0, (t0, t1), f_args, *_ = ivp
 
 
 @jax.jit
@@ -59,8 +59,4 @@ sol = diffeqsolve(
 ```python
 plt.plot(sol.ts, sol.ys)
 plt.show()
-```
-
-```python
-
 ```

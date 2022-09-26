@@ -13,4 +13,3 @@ Submodules
 
    odezoo.ivps
    odezoo.vector_fields
-   odezoo.convert

@@ -10,7 +10,7 @@ The following information should be available for each equation:
 Providing this information makes it easy to use the problems
 as benchmark problems (e.g., in papers).
 """
-from typing import Callable, Iterable, NamedTuple, Optional
+from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from odezoo import _descriptions, backend, vector_fields
 
@@ -34,8 +34,8 @@ class _InitialValueProblem(NamedTuple):
     # """
 
     vector_field: Callable
-    initial_values: Iterable
-    time_span: Iterable
+    initial_values: Union[Iterable, Any]  # u0 or (u0, du0, ddu0, ...)
+    time_span: Iterable  # (t0, t1)
 
     vector_field_args: Iterable = ()
 

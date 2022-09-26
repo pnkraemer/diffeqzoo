@@ -5,8 +5,8 @@
 >>> backend.select("numpy")
 >>>
 >>> # Create test problems like this
->>> f, u0, t_span, f_args, *_ = ivps.lotka_volterra()
->>> x = f(*u0, *f_args)
+>>> f, u0, t_span, f_args = ivps.lotka_volterra()
+>>> x = f(u0, *f_args)
 >>> print(x)
 [-10.  10.]
 >>>
@@ -15,18 +15,18 @@
 <class 'numpy.ndarray'>
 >>>
 >>> # All sorts of ODEs are available, e.g., Rigid-Body:
->>> f, u0, t_span, f_args, *_ = ivps.rigid_body()
->>> print(f(*u0, *f_args))
+>>> f, u0, t_span, f_args = ivps.rigid_body()
+>>> print(f(u0, *f_args))
 [-0.     1.125 -0.   ]
 >>>
 >>> # If you only want the vector field, take only the vector field
->>> print(vector_fields.rigid_body(*u0, *f_args))
+>>> print(vector_fields.rigid_body(u0, *f_args))
 [-0.     1.125 -0.   ]
 >>>
 >>> ## make it jax
 >>> backend.change_to("jax")
->>> f, u0, t_span, f_args, *_ = ivps.rigid_body()
->>> x = f(*u0, *f_args)
+>>> f, u0, t_span, f_args = ivps.rigid_body()
+>>> x = f(u0, *f_args)
 >>> print(x)
 [-0.     1.125 -0.   ]
 >>> print(type(x))

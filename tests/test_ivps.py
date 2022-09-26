@@ -92,7 +92,7 @@ def case_rober():
 
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
-    """All IVPs are forced into the interface
+    """All IVPs are forced into the interface.
 
     f(y, du, ..., t, p)
     (t0, t1)
