@@ -40,7 +40,7 @@ def lotka_volterra(
 def fitzhugh_nagumo(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
 ):
-    r"""FitzHugh-Nagumo model."""
+    r"""Construct the FitzHugh-Nagumo model."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([1.0, -1.0])
 
@@ -50,6 +50,11 @@ def fitzhugh_nagumo(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+fitzhugh_nagumo.__doc__ = _docstring_utils.add_long_description(
+    fitzhugh_nagumo.__doc__, long_description=_descriptions.FITZHUGH_NAGUMO
+)
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):

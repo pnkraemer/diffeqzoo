@@ -45,3 +45,37 @@ PLEIADES = r"""
     odezoo.vector_fields.pleiades_autonomous_api
     odezoo.vector_fields.pleiades_first_order
     """
+
+FITZHUGH_NAGUMO = r"""
+
+
+    The FitzHugh-Nagumo model is a simple example of an excitable system
+    (for example: a neuron).
+    This simplified, 2d-version of the Hodgkin-Huxley model
+    (which describes the spike generation in squid giant axons)
+    was suggested by FitzHugh [1]_ and Nagumo et al. [2]_
+
+    It no a non-stiff, first-order problem,
+
+    .. math::
+        \dot u(t) = f(u(t), \theta)
+
+    and generally easy to solve by most ODE solvers.
+
+    References
+    ----------
+    .. [1] FitzHugh R. (1961)
+       Impulses and physiological states in theoretical models of nerve membrane.
+       Biophysical J. 1:445-466
+
+    .. [2] Nagumo J., Arimoto S., and Yoshizawa S. (1962)
+       An active pulse transmission line simulating nerve axon.
+       Proc IRE. 50:2061–2070.
+
+    See Also
+    --------
+    odezoo.ivps.fitzhugh_nagumo
+    odezoo.vector_fields.fitzhugh_nagumo
+
+
+"""
