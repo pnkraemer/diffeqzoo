@@ -9,13 +9,13 @@ an appropriate description of the dynamics.
 """
 
 
-PLEIADES = r"""Pleiades problem from celestial mechanics.
+PLEIADES = r"""
 
-    The Pleiades problem describes the gravitational interaction(s) of seven stars
+    The Pleiades problem from celestial mechanics describes the gravitational interaction(s) of seven stars
     (the "Pleiades", or "Seven Sisters") in a plane.
     It is a 14-dimensional, second-order differential equation
     and commonly solved as a 28-dimensional, first-order equation. [1]_
-    Here, it is implemented in its original, second-order form,
+    In in its original, second-order form, it is
 
     .. math::
         \ddot u(t) = f(u(t)),
@@ -35,4 +35,12 @@ PLEIADES = r"""Pleiades problem from celestial mechanics.
        Solving Ordinary Differential Equations I, Nonstiff Problems. Springer.
        Page 244.
 
+    See Also
+    --------
+    odezoo.ivps.pleiades
+    odezoo.ivps.pleiades_autonomous_api
+    odezoo.ivps.pleiades_first_order
+    odezoo.vector_fields.pleiades
+    odezoo.vector_fields.pleiades_autonomous_api
+    odezoo.vector_fields.pleiades_first_order
     """
