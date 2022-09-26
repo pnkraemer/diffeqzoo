@@ -16,27 +16,9 @@ from odezoo import _descriptions, backend, vector_fields
 
 
 class _InitialValueProblem(NamedTuple):
-    # """A data structure for initial value problems.
-    #
-    # Attributes
-    # ----------
-    # vector_field
-    #     Vector field. A callable with either of the signatures
-    #     ``f(u)``, ``f(u, t)``, ``f(u, *params)``, ``f(u, du, t)``, and so on.
-    # initial_values
-    #     Initial values. Commonly an iterable of arrays, for example,
-    #     ``(u0,)``, ``(du0,)``, and so on.
-    # time_span
-    #     Time span. An iterable of two scalars.
-    # vector_field_args
-    #     Vector field parameters. Optional. Commonly in a format such that
-    #     the vector field can be called like ``f(u, *args)``.
-    # """
-
     vector_field: Callable
     initial_values: Union[Iterable, Any]  # u0 or (u0, du0, ddu0, ...)
     time_span: Iterable  # (t0, t1)
-
     vector_field_args: Iterable = ()
 
 
@@ -86,8 +68,7 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
     """SIR model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0])
 
     parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
 
@@ -104,8 +85,7 @@ def seir(
 ):
     """SEIR model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
 
     parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
 
@@ -122,8 +102,7 @@ def sird(
 ):
     """SIRD model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
 
     parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
 
@@ -145,10 +124,9 @@ def lorenz96(
 ):
     """Lorenz96 model."""
     if initial_values is None:
-        u0 = _lorenz96_chaotic_u0(
+        initial_values = _lorenz96_chaotic_u0(
             forcing=forcing, num_variables=num_variables, perturb=perturb
         )
-        initial_values = u0
 
     return _InitialValueProblem(
         vector_field=vector_fields.lorenz96,
@@ -166,8 +144,7 @@ def lorenz63(
 ):
     """Lorenz63 model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([0.0, 1.0, 1.05])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
 
     return _InitialValueProblem(
         vector_field=vector_fields.lorenz63,
@@ -182,8 +159,7 @@ def rigid_body(
 ):
     r"""Rigid body dynamics without external forces."""
     if initial_values is None:
-        u0 = backend.numpy.array([1.0, 0.0, 0.9])
-        initial_values = u0
+        initial_values = backend.numpy.array([1.0, 0.0, 0.9])
 
     return _InitialValueProblem(
         vector_field=vector_fields.rigid_body,
@@ -228,7 +204,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     --------
     >>> from odezoo import ivps, backend
     >>> backend.select("numpy")
-    >>> f, (u0, _), *_ = ivps.pleiades()
+    >>> f, (u0, du0), time_span, f_args = ivps.pleiades()
     >>> ddu = f(u0)  # second-order dynamics
     >>> print(backend.numpy.round(ddu, 1))
     [ 2.9  0.5 -0.5 -0.7  0.4 -0.2 -0.1 -1.8 -0.7  0.5 -0.  -0.3 -0.5  1. ]
@@ -298,8 +274,7 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     A chemical reaction involving eight reactants.
     """
     if initial_values is None:
-        u0 = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
 
     return _InitialValueProblem(
         vector_field=vector_fields.hires,
@@ -312,8 +287,7 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
 def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
     """Rober ODE problem due to Robertson (1966)."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([1.0, 0.0, 0.0])
-        initial_values = u0
+        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0])
 
     return _InitialValueProblem(
         vector_field=vector_fields.rober,
