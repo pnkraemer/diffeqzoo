@@ -104,6 +104,7 @@ def sird(u, /, beta, gamma, eta, population_count):
     return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
 
 
+@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(u, /):  # todo: move parameters here
     """High irradiance response."""
     du1 = -1.71 * u[0] + 0.43 * u[1] + 8.32 * u[2] + 0.0007
@@ -117,6 +118,7 @@ def hires(u, /):  # todo: move parameters here
     return backend.numpy.asarray([du1, du2, du3, du4, du5, du6, du7, du8])
 
 
+@_docstring_utils.long_description(_descriptions.ROBER)
 def rober(u, /, k1, k2, k3):
     """Rober ODE problem."""
     du0 = -k1 * u[0] + k3 * u[1] * u[2]

@@ -52,7 +52,7 @@ PLEIADES = r"""
 
     References
     ----------
-    A common citation for the Pleiades problem is p. 245 in the book by Hairer et al.:
+    A common citation for the Pleiades problem is p. 245 in the book by Hairer et al. (1993):
 
     .. code-block:: tex
 
@@ -83,7 +83,7 @@ FITZHUGH_NAGUMO = r"""
     (for example: a neuron).
     This simplified, 2d-version of the Hodgkin-Huxley model
     (which describes the spike generation in squid giant axons)
-    was suggested by FitzHugh and Nagumo et al.
+    was suggested by FitzHugh (1961) and Nagumo et al. (1962)
 
     It no a non-stiff, first-order problem,
 
@@ -132,11 +132,11 @@ FITZHUGH_NAGUMO = r"""
 
 """
 
-HIRES = """
+HIRES = r"""
 
     The "High Irradiance Response" ODE (HIRES) from plant physiology describes how light
     is involved in morphogenesis.
-    It was proposed by Schäfer (1975) and named "HIRES" by Hairer and Wanner.
+    It was proposed by Schäfer (1975) and named "HIRES" by Hairer and Wanner (1996).
 
     It is a system of 8 nonlinear differential equations,
 
@@ -173,6 +173,49 @@ HIRES = """
             year={1996},
             publisher={Springer}
         }
+
+
+"""
+
+ROBER = r"""
+
+
+    The ROBER problem describes the kinetics of an autocatalytic reaction, and was proposed by Robertson (1966).
+    It was named "ROBER" by Hairer and Wanner (1996).
+
+    It is a three-dimensional, stiff initial value problem,
+
+    .. math::
+        \dot u(t) = f(u(t))
+
+    and a common test problem for numerical solvers for stiff differential equations.
+
+    References
+    ----------
+
+    The following bibtex(s) point to the original paper about
+    the ROBER model and the book by Hairer and Wanner. (Source: Google Scholar).
+
+    .. code-block:: tex
+
+        @article{robertson1966solution,
+            title={The solution of a set of reaction rate equations},
+            author={Robertson, HH},
+            journal={Numerical Analysis: An Introduction},
+            publisher={Academic Press},
+            year={1966},
+            pages={178-182},
+        }
+
+    .. code-block:: tex
+
+        @book{wanner1996solving,
+            title={Solving Ordinary Differential Equations II, Stiff and Differential-Algebraic Problems},
+            author={Hairer, Ernst and Wanner, Gerhard},
+            year={1996},
+            publisher={Springer}
+        }
+
 
 
 """

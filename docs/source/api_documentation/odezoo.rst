@@ -5,6 +5,7 @@ odezoo package
    :no-inheritance-diagram:
    :include-all-objects:
 
+
 Submodules
 ----------
 
