@@ -6,6 +6,26 @@ here and prepended to the respective docstring via
 `fun.__doc__ = <common_doc> + fun.__doc__`. This makes sure that
 every occurrence of, e.g., the Pleiades problem, comes with
 an appropriate description of the dynamics.
+
+A common (non-binding) template for this kind of information is
+
+```
+
+<long_description>
+
+<maths_and/or_latex_code>
+
+<why_it_is_interesting>
+
+<references_and/or_bibtex>
+
+<see_also>
+
+```
+
+but do what you like.
+
+
 """
 
 
@@ -15,7 +35,7 @@ PLEIADES = r"""
     gravitational interaction(s) of seven stars
     (the "Pleiades", or "Seven Sisters") in a plane.
     It is a 14-dimensional, second-order differential equation
-    and commonly solved as a 28-dimensional, first-order equation. [1]_
+    and commonly solved as a 28-dimensional, first-order equation.
     In in its original, second-order form, it is
 
     .. math::
@@ -32,9 +52,19 @@ PLEIADES = r"""
 
     References
     ----------
-    .. [1] Hairer, E., Nørsett, S. P., and Wanner, G. (1993).
-       Solving Ordinary Differential Equations I, Nonstiff Problems. Springer.
-       Page 244.
+    A common citation for the Pleiades problem is p. 245 in the book by Hairer et al.:
+
+    .. code-block:: tex
+
+        @book{hairer1993solving,
+            title={Solving Ordinary Differential equations I, Nonstiff Problems},
+            author={Hairer, Ernst and N{\o}rsett, Syvert P and Wanner, Gerhard},
+            year={1993},
+            publisher={Springer}
+            edition={2}
+        }
+
+    If you know a better source, please make some noise!
 
     See Also
     --------
@@ -53,7 +83,7 @@ FITZHUGH_NAGUMO = r"""
     (for example: a neuron).
     This simplified, 2d-version of the Hodgkin-Huxley model
     (which describes the spike generation in squid giant axons)
-    was suggested by FitzHugh [1]_ and Nagumo et al. [2]_
+    was suggested by FitzHugh and Nagumo et al.
 
     It no a non-stiff, first-order problem,
 
@@ -64,13 +94,35 @@ FITZHUGH_NAGUMO = r"""
 
     References
     ----------
-    .. [1] FitzHugh R. (1961)
-       Impulses and physiological states in theoretical models of nerve membrane.
-       Biophysical J. 1:445-466
+    The following bibtex(s) point to the original papers about
+    the FitzHugh-Nagumo models. (Source: Google Scholar).
 
-    .. [2] Nagumo J., Arimoto S., and Yoshizawa S. (1962)
-       An active pulse transmission line simulating nerve axon.
-       Proc IRE. 50:2061–2070.
+    .. code-block:: tex
+
+        @article{fitzhugh1961impulses,
+            title={Impulses and physiological states in
+            theoretical models of nerve membrane},
+            author={FitzHugh, Richard},
+            journal={Biophysical Journal},
+            volume={1},
+            number={6},
+            pages={445--466},
+            year={1961},
+            publisher={Elsevier}
+        }
+
+    .. code-block:: tex
+
+        @article{nagumo1962active,
+            title={An active pulse transmission line simulating nerve axon},
+            author={Nagumo, Jinichi and Arimoto, Suguru and Yoshizawa, Shuji},
+            journal={Proceedings of the IRE},
+            volume={50},
+            number={10},
+            pages={2061--2070},
+            year={1962},
+            publisher={IEEE}
+        }
 
     See Also
     --------
