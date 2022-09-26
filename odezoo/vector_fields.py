@@ -11,7 +11,7 @@ def lotka_volterra(y, /, a, b, c, d):
 
 
 def pleiades(u, /):
-    """The Pleiades problem in its original, second-order form."""
+    """Evaluate the Pleiades vector field in its original, second-order form."""
     x, y = u[:7], u[7:]
     x_diff = x[:, None] - x[None, :]
     y_diff = y[:, None] - y[None, :]
@@ -34,7 +34,11 @@ pleiades.__doc__ = _docstring_utils.add_long_description(
 
 
 def pleiades_autonomous_api(u, _, /):
-    """The Pleiades problem implemented as :math:`\ddot u(t) = f(u(t), \dot u(t))` (with an unused second argument)."""
+    """Evaluate the Pleiades vector field as \
+    :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
+    (with an unused second argument)."""  # noqa: D301
+    # """Transform the vector-field of a second-order, \
+    # autonomous differential equation into an equivalent first-order form."""
     return pleiades(u)
 
 
@@ -150,7 +154,8 @@ def three_body(Y, dY, /, standardised_moon_mass):
     return backend.numpy.asarray([du0p, du1p])
 
 
+_3bdocs = "Restricted three-body dynamics as a first-order differential equation."
 three_body_first_order = transform.second_to_first_order_vf_auto(
     three_body,
-    short_summary="""Restricted three-body dynamics as a first-order differential equation.""",
+    short_summary=_3bdocs,
 )

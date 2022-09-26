@@ -11,7 +11,8 @@ an appropriate description of the dynamics.
 
 PLEIADES = r"""
 
-    The Pleiades problem from celestial mechanics describes the gravitational interaction(s) of seven stars
+    The Pleiades problem from celestial mechanics describes the
+    gravitational interaction(s) of seven stars
     (the "Pleiades", or "Seven Sisters") in a plane.
     It is a 14-dimensional, second-order differential equation
     and commonly solved as a 28-dimensional, first-order equation. [1]_

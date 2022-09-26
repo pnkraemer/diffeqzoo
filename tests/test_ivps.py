@@ -31,9 +31,21 @@ def case_three_body():
 
 
 @pytest_cases.case
+def case_three_body_first_order():
+    f, u0, time_span, f_args = ivps.three_body_first_order()
+    return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
+
+
+@pytest_cases.case
 def case_pleiades():
     f, u0s, time_span, f_args = ivps.pleiades()
     return lambda y, dy, _, *args: f(y, *args), u0s, time_span, f_args
+
+
+@pytest_cases.case
+def case_pleiades_first_order():
+    f, u0, time_span, f_args = ivps.pleiades_first_order()
+    return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
 
 
 @pytest_cases.case

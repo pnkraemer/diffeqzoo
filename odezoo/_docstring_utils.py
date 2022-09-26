@@ -4,7 +4,6 @@
 def add_long_description(docstring, /, *, long_description):
     """Add a long description to a docstring.
 
-
     This could be some mathematical content, or a warning about
     using a function in a specific way.
     """
@@ -18,6 +17,7 @@ def add_long_description(docstring, /, *, long_description):
 
 
 def replace_short_summary(docstring, /, *, short_summary):
+    """Replace the short summary in a docstring with a new short summary."""
     if docstring is None:
         return short_summary
     n = docstring.find("\n")

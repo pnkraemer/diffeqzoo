@@ -177,7 +177,7 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
-    """The Pleiades problem in its original, second-order form."""
+    """Construct the Pleiades problem in its original, second-order form."""
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
         y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
@@ -200,7 +200,9 @@ pleiades.__doc__ = _docstring_utils.add_long_description(
 
 
 def pleiades_autonomous_api(**kwargs):
-    """The Pleiades problem implemented as :math:`\ddot u(t) = f(u(t), \dot u(t))` (with an unused second argument)."""
+    """Construct the Pleiades problem as \
+    :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
+    (with an unused second argument)."""  # noqa: D301
     _, initial_values, time_span, args = pleiades(**kwargs)
 
     return _InitialValueProblem(
@@ -222,7 +224,7 @@ pleiades_first_order = transform.second_to_first_order_auto(
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
-    """The Van-der-Pol system as a second-order differential equation."""
+    """Construct the Van-der-Pol system as a second-order differential equation."""
     if initial_values is None:
         u0 = backend.numpy.asarray([2.0])
         du0 = backend.numpy.asarray([0.0])
@@ -248,7 +250,8 @@ def three_body(
     standardised_moon_mass=0.012277471,
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
-    """The restricted three-body problem as a second-order differential equation."""
+    """Construct the restricted three-body problem as \
+    a second-order differential equation."""
     if initial_values is None:
         u0 = backend.numpy.asarray([0.994, 0])
         du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
@@ -262,9 +265,10 @@ def three_body(
     )
 
 
+_3bdocs = "The restricted three-body problem as a first-order differential equation."
 three_body_first_order = transform.second_to_first_order_auto(
     three_body,
-    short_summary="""The restricted three-body problem as a first-order differential equation.""",
+    short_summary=_3bdocs,
 )
 
 
