@@ -27,8 +27,8 @@ backend.select("numpy")
 
 ```python
 ivp_selection = [
+    ivps.van_der_pol_first_order(),
     ivps.lotka_volterra(),
-    ivps.lotka_volterra(parameters=(1.0, 0.2, 0.1, 1.0)),
     ivps.rigid_body(),
     ivps.lorenz96(),
 ]
