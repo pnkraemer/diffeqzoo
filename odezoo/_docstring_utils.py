@@ -1,19 +1,31 @@
 """Utility functions to manipulate docstrings."""
 
 
-def add_long_description(docstring, /, *, long_description):
-    """Add a long description to a docstring.
+def long_description(description, /):
+    """Add a long description to the docstring of a function.
 
-    This could be some mathematical content, or a warning about
-    using a function in a specific way.
+    Use this function as a decorator.
     """
-    if docstring is None:
-        return long_description
-    n = docstring.find("\n")
 
-    if n == -1:
-        return docstring + long_description
-    return docstring[:n] + long_description + docstring[n:]
+    def add_long_description(obj, /):
+        """Add a long description to a docstring.
+
+        This could be some mathematical content, or a warning about
+        using a function in a specific way.
+        """
+        obj.__doc__ = construct_docstring(obj)
+        return obj
+
+    def construct_docstring(obj, /):
+        if obj.__doc__ is None:
+            return description
+        n = obj.__doc__.find("\n")
+
+        if n == -1:
+            return obj.__doc__ + description
+        return obj.__doc__[:n] + description + obj.__doc__[n:]
+
+    return add_long_description
 
 
 def replace_short_summary(docstring, /, *, short_summary):
