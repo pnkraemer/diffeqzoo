@@ -40,7 +40,7 @@ def solve_ivp(ivp, **kwargs):
         return ivp.vector_field(y, *args)
 
     t_span = ivp.time_span
-    (y0,) = ivp.initial_values
+    y0 = ivp.initial_values
     args = ivp.vector_field_args
 
     solution = scipy.integrate.solve_ivp(

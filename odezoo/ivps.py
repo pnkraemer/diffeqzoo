@@ -10,63 +10,16 @@ The following information should be available for each equation:
 Providing this information makes it easy to use the problems
 as benchmark problems (e.g., in papers).
 """
-from typing import Callable, Iterable, NamedTuple, Optional
+from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from odezoo import _descriptions, backend, vector_fields
 
 
-class InitialValueProblem(NamedTuple):
-    """A data structure for initial value problems.
-
-    Attributes
-    ----------
-    vector_field
-        Vector field. A callable with either of the signatures
-        ``f(u)``, ``f(u, t)``, ``f(u, *params)``, ``f(u, du, t)``, and so on.
-    initial_values
-        Initial values. Commonly an iterable of arrays, for example,
-        ``(u0,)``, ``(du0,)``, and so on.
-    time_span
-        Time span. An iterable of two scalars.
-
-    vector_field_args
-        Vector field parameters. Optional. Commonly in a format such that
-        the vector field can be called like ``f(u, *args)``.
-
-    jacobian
-        The Jacobian function of the vector field with respect to the state.
-        Commonly, the signature of the Jacobian mimics the behaviour of
-        `jax.jacfwd`. That is, for second-order problems, it
-        returns a tuple of two Jacobians ``Df(u, du)=(D_u f(), D_(du) f)``.
-    solution
-        ODE solution. Commonly, it maps ``(t, *args)`` to the
-        IVP solution at time ``t``.
-
-    is_autonomous
-        Whether the ODE is autonomous.
-        By definition, the vector field of an autonomous equation
-        does not depend on the time-variable ``t``.
-
-    order
-        The order of the differential equation
-        (which is the highest occurring derivative).
-    dimension
-        The dimension of the differential equation, which we define as
-        the dimension of the domain and the range of the vector field.
-    """
-
+class _InitialValueProblem(NamedTuple):
     vector_field: Callable
-    initial_values: Iterable
-    time_span: Iterable
-
+    initial_values: Union[Iterable, Any]  # u0 or (u0, du0, ddu0, ...)
+    time_span: Iterable  # (t0, t1)
     vector_field_args: Iterable = ()
-
-    jacobian: Optional[Callable] = None
-    solution: Optional[Callable] = None
-
-    is_autonomous: Optional[bool] = None
-    order: Optional[int] = None
-    dimension: Optional[int] = None
 
 
 def lotka_volterra(
@@ -74,16 +27,13 @@ def lotka_volterra(
 ):
     """Lotka--Volterra / predator-prey model."""
     if initial_values is None:
-        initial_values = (backend.numpy.asarray([20.0, 20.0]),)
+        initial_values = backend.numpy.asarray([20.0, 20.0])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.lotka_volterra,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=2,
     )
 
 
@@ -92,51 +42,41 @@ def fitzhugh_nagumo(
 ):
     r"""FitzHugh-Nagumo model."""
     if initial_values is None:
-        initial_values = (backend.numpy.asarray([1.0, -1.0]),)
+        initial_values = backend.numpy.asarray([1.0, -1.0])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.fitzhugh_nagumo,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=2,
     )
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
     """Logistic ODE model."""
     if initial_values is None:
-        initial_values = (backend.numpy.asarray([0.1]),)
+        initial_values = backend.numpy.asarray([0.1])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.logistic,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=1,
     )
 
 
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
     """SIR model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0])
 
     parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.sir,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=3,
     )
 
 
@@ -145,19 +85,15 @@ def seir(
 ):
     """SEIR model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
 
     parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.seir,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=4,
     )
 
 
@@ -166,19 +102,15 @@ def sird(
 ):
     """SIRD model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
 
     parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.sird,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=4,
     )
 
 
@@ -192,19 +124,15 @@ def lorenz96(
 ):
     """Lorenz96 model."""
     if initial_values is None:
-        u0 = _lorenz96_chaotic_u0(
+        initial_values = _lorenz96_chaotic_u0(
             forcing=forcing, num_variables=num_variables, perturb=perturb
         )
-        initial_values = (u0,)
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.lorenz96,
         vector_field_args=(forcing,),
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=num_variables,
     )
 
 
@@ -216,17 +144,13 @@ def lorenz63(
 ):
     """Lorenz63 model."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([0.0, 1.0, 1.05])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.lorenz63,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=3,
     )
 
 
@@ -235,17 +159,13 @@ def rigid_body(
 ):
     r"""Rigid body dynamics without external forces."""
     if initial_values is None:
-        u0 = backend.numpy.array([1.0, 0.0, 0.9])
-        initial_values = (u0,)
+        initial_values = backend.numpy.array([1.0, 0.0, 0.9])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.rigid_body,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=1,
-        dimension=3,
     )
 
 
@@ -284,7 +204,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     --------
     >>> from odezoo import ivps, backend
     >>> backend.select("numpy")
-    >>> f, (u0, _), *_ = ivps.pleiades()
+    >>> f, (u0, du0), time_span, f_args = ivps.pleiades()
     >>> ddu = f(u0)  # second-order dynamics
     >>> print(backend.numpy.round(ddu, 1))
     [ 2.9  0.5 -0.5 -0.7  0.4 -0.2 -0.1 -1.8 -0.7  0.5 -0.  -0.3 -0.5  1. ]
@@ -303,13 +223,10 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
         du0 = backend.numpy.asarray(dx0 + dy0)
         initial_values = (u0, du0)
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.pleiades,
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=2,
-        dimension=14,
     )
 
 
@@ -323,14 +240,11 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
         du0 = backend.numpy.asarray([0.0])
         initial_values = (u0, du0)
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.van_der_pol,
         vector_field_args=(stiffness_constant,),
         initial_values=initial_values,
         time_span=time_span,
-        is_autonomous=True,
-        order=2,
-        dimension=1,
     )
 
 
@@ -346,14 +260,11 @@ def three_body(
         du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
         initial_values = (u0, du0)
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.three_body,
-        is_autonomous=True,
-        order=2,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
         time_span=time_span,
-        dimension=2,
     )
 
 
@@ -363,32 +274,24 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     A chemical reaction involving eight reactants.
     """
     if initial_values is None:
-        u0 = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.hires,
-        is_autonomous=True,
-        order=1,
         vector_field_args=(),  # todo: move vf-params here
         initial_values=initial_values,
         time_span=time_span,
-        dimension=8,
     )
 
 
 def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
     """Rober ODE problem due to Robertson (1966)."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([1.0, 0.0, 0.0])
-        initial_values = (u0,)
+        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0])
 
-    return InitialValueProblem(
+    return _InitialValueProblem(
         vector_field=vector_fields.rober,
-        is_autonomous=True,
-        order=1,
         vector_field_args=(k1, k2, k3),
         initial_values=initial_values,
         time_span=time_span,
-        dimension=3,
     )
