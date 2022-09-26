@@ -45,8 +45,6 @@ def case_pleiades():
 @pytest_cases.case
 def case_pleiades_first_order():
     f, u0, time_span, f_args = ivps.pleiades_first_order()
-    print(ivps.pleiades_first_order)
-
     return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
 
 
