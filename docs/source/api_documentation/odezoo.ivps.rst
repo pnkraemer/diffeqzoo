@@ -3,4 +3,4 @@ odezoo.ivps module
 
 .. automodapi:: odezoo.ivps
    :no-inheritance-diagram:
-   :skip: NamedTuple
+   :skip: NamedTuple, backend

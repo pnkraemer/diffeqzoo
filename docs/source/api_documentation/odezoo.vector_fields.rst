@@ -5,3 +5,4 @@ odezoo.vector\_fields module
    :no-inheritance-diagram:
    :include-all-objects:
    :inherited-members:
+   :skip: backend
