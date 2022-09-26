@@ -86,6 +86,11 @@ def fitzhugh_nagumo(u, /, a, b, c, d):
     )
 
 
+fitzhugh_nagumo.__doc__ = _docstring_utils.add_long_description(
+    fitzhugh_nagumo.__doc__, long_description=_descriptions.FITZHUGH_NAGUMO
+)
+
+
 def sir(u, /, beta, gamma, population_count):
     """SIR model."""
     du0_next = -beta * u[0] * u[1] / population_count
