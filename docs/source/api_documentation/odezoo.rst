@@ -9,7 +9,7 @@ Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 1
 
    odezoo.ivps
    odezoo.vector_fields
+   odezoo.transform

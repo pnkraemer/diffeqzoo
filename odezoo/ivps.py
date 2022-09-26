@@ -12,7 +12,7 @@ as benchmark problems (e.g., in papers).
 """
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _descriptions, backend, vector_fields
+from odezoo import _descriptions, _docstring_utils, backend, transform, vector_fields
 
 
 class _InitialValueProblem(NamedTuple):
@@ -177,43 +177,7 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
-    """Use this function as follows.
-
-    Parameters
-    ----------
-    initial_values
-        Initial values. It is a tuple of 14-dimensional arrays ``(u0, du0)``,
-        i.e., ``u0.shape == du0.shape == (14,)``.
-        Optional.
-        If the initial values are not specified,
-        some useful defaults are provided.
-        ("Useful" in the sense that the simulation
-        "looks like a Pleiades solution".)
-    time_span
-        Time span of the simulation. Optional. If not speficied,
-        some useful defaults are provided.
-
-    Returns
-    -------
-    InitialValueProblem
-        Initial value problem including vector fields, parameters,
-        and meta information about the differential equation.
-
-
-    Examples
-    --------
-    >>> from odezoo import ivps, backend
-    >>> backend.select("numpy")
-    >>> f, (u0, du0), time_span, f_args = ivps.pleiades()
-    >>> ddu = f(u0)  # second-order dynamics
-    >>> print(backend.numpy.round(ddu, 1))
-    [ 2.9  0.5 -0.5 -0.7  0.4 -0.2 -0.1 -1.8 -0.7  0.5 -0.  -0.3 -0.5  1. ]
-
-    See Also
-    --------
-    odezoo.vector_fields.pleiades : Pleiades dynamics / vector-field.
-
-    """
+    """Construct the Pleiades problem in its original, second-order form."""
     if initial_values is None:
         x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
         y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
@@ -230,11 +194,37 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     )
 
 
-pleiades.__doc__ = _descriptions.PLEIADES + pleiades.__doc__
+pleiades.__doc__ = _docstring_utils.add_long_description(
+    pleiades.__doc__, long_description=_descriptions.PLEIADES
+)
+
+
+def pleiades_autonomous_api(**kwargs):
+    """Construct the Pleiades problem as \
+    :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
+    (with an unused second argument)."""  # noqa: D301
+    _, initial_values, time_span, args = pleiades(**kwargs)
+
+    return _InitialValueProblem(
+        vector_field=vector_fields.pleiades_autonomous_api,
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+pleiades_autonomous_api.__doc__ = _docstring_utils.add_long_description(
+    pleiades_autonomous_api.__doc__, long_description=_descriptions.PLEIADES
+)
+
+
+pleiades_first_order = transform.second_to_first_order_auto(
+    pleiades_autonomous_api,
+    short_summary="""The Pleiades problem as a first-order differential equation.""",
+)
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
-    """Van-der-Pol system as a second order differential equation."""
+    """Construct the Van-der-Pol system as a second-order differential equation."""
     if initial_values is None:
         u0 = backend.numpy.asarray([2.0])
         du0 = backend.numpy.asarray([0.0])
@@ -248,13 +238,20 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
     )
 
 
+van_der_pol_first_order = transform.second_to_first_order_auto(
+    van_der_pol,
+    short_summary="""The Van-der-Pol system as a first-order differential equation.""",
+)
+
+
 def three_body(
     *,
     initial_values=None,
     standardised_moon_mass=0.012277471,
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
-    """Restricted three-body problem as a second order differential equation."""
+    """Construct the restricted three-body problem as \
+    a second-order differential equation."""
     if initial_values is None:
         u0 = backend.numpy.asarray([0.994, 0])
         du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
@@ -266,6 +263,13 @@ def three_body(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+_3bdocs = "The restricted three-body problem as a first-order differential equation."
+three_body_first_order = transform.second_to_first_order_auto(
+    three_body,
+    short_summary=_3bdocs,
+)
 
 
 def hires(*, initial_values=None, time_span=(0.0, 321.8122)):

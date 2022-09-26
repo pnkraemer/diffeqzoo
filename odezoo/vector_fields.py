@@ -1,6 +1,6 @@
 """ODE vector fields."""
 
-from odezoo import _descriptions, backend
+from odezoo import _descriptions, _docstring_utils, backend, transform
 
 
 def lotka_volterra(y, /, a, b, c, d):
@@ -10,40 +10,8 @@ def lotka_volterra(y, /, a, b, c, d):
     )
 
 
-def van_der_pol(u, du, /, stiffness_constant):
-    """Van-der-Pol dynamics."""
-    return stiffness_constant * ((1.0 - u**2) * du - u)
-
-
-def three_body(Y, dY, /, standardised_moon_mass):
-    """Restricted three body dynamics."""
-    mu, mp = standardised_moon_mass, 1.0 - standardised_moon_mass
-    D1 = backend.numpy.linalg.norm(backend.numpy.asarray([Y[0] + mu, Y[1]])) ** 3.0
-    D2 = backend.numpy.linalg.norm(backend.numpy.asarray([Y[0] - mp, Y[1]])) ** 3.0
-    du0p = Y[0] + 2 * dY[1] - mp * (Y[0] + mu) / D1 - mu * (Y[0] - mp) / D2
-    du1p = Y[1] - 2 * dY[0] - mp * Y[1] / D1 - mu * Y[1] / D2
-    return backend.numpy.asarray([du0p, du1p])
-
-
 def pleiades(u, /):
-    """Apply the second-order dynamics :math:`f` as follows.
-
-    Parameters
-    ----------
-    u
-        Current value of the dynamical system. Positional only.
-        ``u.shape = (14,)``.
-
-    Returns
-    -------
-    ddu: array
-        Second time-derivative of the current state. ``ddu.shape = (14,)``.
-
-    See Also
-    --------
-    odezoo.ivps.pleiades : Full specification of the Pleiades problem.
-
-    """
+    """Evaluate the Pleiades vector field in its original, second-order form."""
     x, y = u[:7], u[7:]
     x_diff = x[:, None] - x[None, :]
     y_diff = y[:, None] - y[None, :]
@@ -60,7 +28,29 @@ def pleiades(u, /):
     return backend.numpy.concatenate((ddx, ddy))
 
 
-pleiades.__doc__ = _descriptions.PLEIADES + pleiades.__doc__
+pleiades.__doc__ = _docstring_utils.add_long_description(
+    pleiades.__doc__, long_description=_descriptions.PLEIADES
+)
+
+
+def pleiades_autonomous_api(u, _, /):
+    """Evaluate the Pleiades vector field as \
+    :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
+    (with an unused second argument)."""  # noqa: D301
+    # """Transform the vector-field of a second-order, \
+    # autonomous differential equation into an equivalent first-order form."""
+    return pleiades(u)
+
+
+pleiades_autonomous_api.__doc__ = _docstring_utils.add_long_description(
+    pleiades_autonomous_api.__doc__, long_description=_descriptions.PLEIADES
+)
+
+# Transform the autonomous-API-version into a first-order problem.
+pleiades_first_order = transform.second_to_first_order_vf_auto(
+    pleiades_autonomous_api,
+    short_summary="""The Pleiades problem as a first-order differential equation.""",
+)
 
 
 def lorenz96(y, /, forcing):
@@ -141,3 +131,31 @@ def rober(u, /, k1, k2, k3):
     du1 = k1 * u[0] - k2 * u[1] ** 2 - k3 * u[1] * u[2]
     du2 = k2 * u[1] ** 2
     return backend.numpy.asarray([du0, du1, du2])
+
+
+def van_der_pol(u, du, /, stiffness_constant):
+    """Van-der-Pol dynamics as a second-order differential equation."""
+    return stiffness_constant * ((1.0 - u**2) * du - u)
+
+
+van_der_pol_first_order = transform.second_to_first_order_vf_auto(
+    van_der_pol,
+    short_summary="""Van-der-Pol dynamics as a first-order differential equation.""",
+)
+
+
+def three_body(Y, dY, /, standardised_moon_mass):
+    """Restricted three-body dynamics as a second-order differential equation."""
+    mu, mp = standardised_moon_mass, 1.0 - standardised_moon_mass
+    D1 = backend.numpy.linalg.norm(backend.numpy.asarray([Y[0] + mu, Y[1]])) ** 3.0
+    D2 = backend.numpy.linalg.norm(backend.numpy.asarray([Y[0] - mp, Y[1]])) ** 3.0
+    du0p = Y[0] + 2 * dY[1] - mp * (Y[0] + mu) / D1 - mu * (Y[0] - mp) / D2
+    du1p = Y[1] - 2 * dY[0] - mp * Y[1] / D1 - mu * Y[1] / D2
+    return backend.numpy.asarray([du0p, du1p])
+
+
+_3bdocs = "Restricted three-body dynamics as a first-order differential equation."
+three_body_first_order = transform.second_to_first_order_vf_auto(
+    three_body,
+    short_summary=_3bdocs,
+)
