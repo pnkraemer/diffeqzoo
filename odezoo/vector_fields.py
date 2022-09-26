@@ -10,6 +10,7 @@ def lotka_volterra(y, /, a, b, c, d):
     )
 
 
+@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades(u, /):
     """Evaluate the Pleiades vector field in its original, second-order form."""
     x, y = u[:7], u[7:]
@@ -28,28 +29,18 @@ def pleiades(u, /):
     return backend.numpy.concatenate((ddx, ddy))
 
 
-pleiades.__doc__ = _docstring_utils.add_long_description(
-    pleiades.__doc__, long_description=_descriptions.PLEIADES
-)
-
-
+@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades_autonomous_api(u, _, /):
     """Evaluate the Pleiades vector field as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument)."""  # noqa: D301
-    # """Transform the vector-field of a second-order, \
-    # autonomous differential equation into an equivalent first-order form."""
     return pleiades(u)
 
-
-pleiades_autonomous_api.__doc__ = _docstring_utils.add_long_description(
-    pleiades_autonomous_api.__doc__, long_description=_descriptions.PLEIADES
-)
 
 # Transform the autonomous-API-version into a first-order problem.
 pleiades_first_order = transform.second_to_first_order_vf_auto(
     pleiades_autonomous_api,
-    short_summary="""The Pleiades problem as a first-order differential equation.""",
+    short_summary="The Pleiades problem as a first-order differential equation.",
 )
 
 
@@ -79,16 +70,12 @@ def logistic(u, p0, p1, /):
     return p0 * u * (1.0 - p1 * u)
 
 
+@_docstring_utils.long_description(_descriptions.FITZHUGH_NAGUMO)
 def fitzhugh_nagumo(u, /, a, b, c, d):
     """FitzHugh--Nagumo model."""
     return backend.numpy.asarray(
         [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
     )
-
-
-fitzhugh_nagumo.__doc__ = _docstring_utils.add_long_description(
-    fitzhugh_nagumo.__doc__, long_description=_descriptions.FITZHUGH_NAGUMO
-)
 
 
 def sir(u, /, beta, gamma, population_count):

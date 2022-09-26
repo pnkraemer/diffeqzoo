@@ -37,6 +37,7 @@ def lotka_volterra(
     )
 
 
+@_docstring_utils.long_description(_descriptions.FITZHUGH_NAGUMO)
 def fitzhugh_nagumo(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
 ):
@@ -50,11 +51,6 @@ def fitzhugh_nagumo(
         initial_values=initial_values,
         time_span=time_span,
     )
-
-
-fitzhugh_nagumo.__doc__ = _docstring_utils.add_long_description(
-    fitzhugh_nagumo.__doc__, long_description=_descriptions.FITZHUGH_NAGUMO
-)
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
@@ -181,6 +177,7 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
     )
 
 
+@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     """Construct the Pleiades problem in its original, second-order form."""
     if initial_values is None:
@@ -199,11 +196,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     )
 
 
-pleiades.__doc__ = _docstring_utils.add_long_description(
-    pleiades.__doc__, long_description=_descriptions.PLEIADES
-)
-
-
+@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades_autonomous_api(**kwargs):
     """Construct the Pleiades problem as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
@@ -215,11 +208,6 @@ def pleiades_autonomous_api(**kwargs):
         initial_values=initial_values,
         time_span=time_span,
     )
-
-
-pleiades_autonomous_api.__doc__ = _docstring_utils.add_long_description(
-    pleiades_autonomous_api.__doc__, long_description=_descriptions.PLEIADES
-)
 
 
 pleiades_first_order = transform.second_to_first_order_auto(

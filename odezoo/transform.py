@@ -41,9 +41,11 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
     # Assign the transformed function to the same module as the
     # untransformed function (makes the transformed function appear in docs)
     ivp_fn_transformed.__module__ = ivp_fn.__module__
+
     # Add a disclaimer that the function has been transformed to first-order
-    ivp_fn_transformed.__doc__ = _docstring_utils.add_long_description(
-        ivp_fn.__doc__, long_description=disclaimer
+    ivp_fn_transformed.__doc__ = ivp_fn.__doc__
+    ivp_fn_transformed = _docstring_utils.long_description(disclaimer)(
+        ivp_fn_transformed
     )
 
     # If the user desires, replace the short summary in the docstring
@@ -80,9 +82,7 @@ def second_to_first_order_vf_auto(fn, /, short_summary=None):
     fn_transformed.__module__ = fn.__module__
 
     # Add a disclaimer that the function has been transformed to first-order
-    fn_transformed.__doc__ = _docstring_utils.add_long_description(
-        fn.__doc__, long_description=disclaimer
-    )
+    fn_transformed = _docstring_utils.long_description(disclaimer)(fn_transformed)
 
     # If the user desires, replace the short summary in the docstring
     if short_summary is not None:
