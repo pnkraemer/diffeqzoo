@@ -248,6 +248,23 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
     )
 
 
+def van_der_pol_first_order(*, initial_values=None, **kwargs):
+    """Van-der-Pol system transformed to a first-order differential equation."""
+
+    # Take initial values, time-span, and f-args from van_der_pol()
+    if initial_values is not None:
+        initial_values = (initial_values[:1], initial_values[1:])
+    _, u0s, tspan, f_args = van_der_pol(initial_values=initial_values, **kwargs)
+    initial_values = backend.numpy.concatenate(u0s, axis=None)
+
+    return _InitialValueProblem(
+        vector_field=vector_fields.van_der_pol_first_order,
+        vector_field_args=f_args,
+        initial_values=initial_values,
+        time_span=tspan,
+    )
+
+
 def three_body(
     *,
     initial_values=None,

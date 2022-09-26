@@ -10,6 +10,13 @@ def lotka_volterra(y, /, a, b, c, d):
     )
 
 
+def van_der_pol_first_order(u, /, stiffness_constant):
+    """Van-der-Pol dynamics transformed to a first-order problem."""
+    y, dy = (u[:1], u[1:])
+    ddy = van_der_pol(y, dy, stiffness_constant)
+    return backend.numpy.concatenate((dy, ddy), axis=None)
+
+
 def van_der_pol(u, du, /, stiffness_constant):
     """Van-der-Pol dynamics."""
     return stiffness_constant * ((1.0 - u**2) * du - u)

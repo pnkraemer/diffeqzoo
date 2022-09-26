@@ -19,6 +19,12 @@ def case_van_der_pol():
 
 
 @pytest_cases.case
+def case_van_der_pol_first_order():
+    f, u0, time_span, f_args = ivps.van_der_pol_first_order()
+    return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
+
+
+@pytest_cases.case
 def case_three_body():
     f, u0s, time_span, f_args = ivps.three_body()
     return lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span, f_args
