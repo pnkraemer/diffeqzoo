@@ -52,7 +52,8 @@ PLEIADES = r"""
 
     References
     ----------
-    A common citation for the Pleiades problem is p. 245 in the book by Hairer et al. (1993):
+    A common citation for the Pleiades problem is p. 245 in the book
+    by Hairer et al. (1993):
 
     .. code-block:: tex
 
@@ -155,7 +156,8 @@ HIRES = r"""
     .. code-block:: tex
 
         @article{schafer1975new,
-            title={A new approach to explain the "high irradiance responses" of photomorphogenesis on the basis of phytochrome},
+            title={A new approach to explain the "high irradiance responses"
+            of photomorphogenesis on the basis of phytochrome},
             author={Sch{\"a}fer, E},
             journal={Journal of Mathematical Biology},
             volume={2},
@@ -168,7 +170,8 @@ HIRES = r"""
     .. code-block:: tex
 
         @book{wanner1996solving,
-            title={Solving Ordinary Differential Equations II, Stiff and Differential-Algebraic Problems},
+            title={Solving Ordinary Differential Equations II,
+            Stiff and Differential-Algebraic Problems},
             author={Hairer, Ernst and Wanner, Gerhard},
             year={1996},
             publisher={Springer}
@@ -180,7 +183,8 @@ HIRES = r"""
 ROBER = r"""
 
 
-    The ROBER problem describes the kinetics of an autocatalytic reaction, and was proposed by Robertson (1966).
+    The ROBER problem describes the kinetics of an autocatalytic reaction,
+    and was proposed by Robertson (1966).
     It was named "ROBER" by Hairer and Wanner (1996).
 
     It is a three-dimensional, stiff initial value problem,
@@ -210,7 +214,8 @@ ROBER = r"""
     .. code-block:: tex
 
         @book{wanner1996solving,
-            title={Solving Ordinary Differential Equations II, Stiff and Differential-Algebraic Problems},
+            title={Solving Ordinary Differential Equations II,
+            Stiff and Differential-Algebraic Problems},
             author={Hairer, Ernst and Wanner, Gerhard},
             year={1996},
             publisher={Springer}
