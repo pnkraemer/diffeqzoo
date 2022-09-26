@@ -131,3 +131,48 @@ FITZHUGH_NAGUMO = r"""
 
 
 """
+
+HIRES = """
+
+    The "High Irradiance Response" ODE (HIRES) from plant physiology describes how light
+    is involved in morphogenesis.
+    It was proposed by Schäfer (1975) and named "HIRES" by Hairer and Wanner.
+
+    It is a system of 8 nonlinear differential equations,
+
+    .. math::
+        \dot u(t) = f(u(t))
+
+    and a common testproblem for ODE solvers that can handle stiff problems.
+
+
+    References
+    ----------
+
+    The following bibtex(s) point to the original paper about
+    the HIRES model and the book by Hairer and Wanner. (Source: Google Scholar).
+
+    .. code-block:: tex
+
+        @article{schafer1975new,
+            title={A new approach to explain the "high irradiance responses" of photomorphogenesis on the basis of phytochrome},
+            author={Sch{\"a}fer, E},
+            journal={Journal of Mathematical Biology},
+            volume={2},
+            number={1},
+            pages={41--56},
+            year={1975},
+            publisher={Springer}
+        }
+
+    .. code-block:: tex
+
+        @book{wanner1996solving,
+            title={Solving Ordinary Differential Equations II, Stiff and Differential-Algebraic Problems},
+            author={Hairer, Ernst and Wanner, Gerhard},
+            year={1996},
+            publisher={Springer}
+        }
+
+
+"""

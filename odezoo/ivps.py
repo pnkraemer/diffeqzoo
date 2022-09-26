@@ -265,11 +265,9 @@ three_body_first_order = transform.second_to_first_order_auto(
 )
 
 
+@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
-    """High Irradiance Response (HIRES).
-
-    A chemical reaction involving eight reactants.
-    """
+    """High Irradiance Response (HIRES)."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
 
