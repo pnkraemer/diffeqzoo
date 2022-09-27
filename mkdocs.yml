@@ -4,11 +4,17 @@ repo_url: https://github.com/pnkraemer/odezoo
 repo_name: pnkraemer/odezoo
 #strict: true
 nav:
-  - Home: index.md
-  - Installation: installation.md
-  - Usage: usage.md
-  - Modules: api.md
-  - Contributing: contributing.md
+  - ODEZoo:
+      - index.md
+  - Quickstart:
+      - quickstart/installation.md
+      - quickstart/usage.md
+  - API Documentation:
+      - api_docs/api.md
+  - The sharp edges:
+      - sharp_edges/backend.md
+  - Developer Documentation:
+      - dev_docs/contributing.md
   - Changelog: changelog.md
 theme:
   name: material
