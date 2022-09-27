@@ -20,6 +20,7 @@ nav:
       - dev_docs/open_a_pr.md
       - dev_docs/dev_setup.md
       - dev_docs/_deploying.md
+      - dev_docs/notebooks.md
   - The Sharp Edges:
       - sharp_edges/backend.md
   - Changelog: changelog.md
@@ -82,8 +83,13 @@ plugins:
         - odezoo
   - mkdocs-jupyter:
       include: ["*.ipynb"]  # Default: ["*.py", "*.ipynb"]
-      execute: false
-
+      ignore: ["*.md"]
+      execute: true
+      allow_errors: false
+      include_source: true
+  - exclude:
+      glob:
+        - example_notebooks/*.md
 extra:
   social:
     - icon: fontawesome/brands/twitter

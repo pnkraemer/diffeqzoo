@@ -1064,6 +1064,17 @@ Markdown = ">=3.3"
 mkdocs = ">=1.1"
 
 [[package]]
+name = "mkdocs-exclude"
+version = "1.0.2"
+description = "A mkdocs plugin that lets you exclude files or trees."
+category = "main"
+optional = true
+python-versions = "*"
+
+[package.dependencies]
+mkdocs = "*"
+
+[[package]]
 name = "mkdocs-include-markdown-plugin"
 version = "1.0.0"
 description = "Mkdocs Markdown includer plugin."
@@ -2151,7 +2162,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 
 [extras]
 dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml", "bump2version"]
-doc = ["mkdocs", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocstrings", "mkdocstrings-python", "mkdocs-autorefs", "mkdocs-jupyter", "jupytext", "jupyter"]
+doc = ["mkdocs", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocs-exclude", "mkdocstrings", "mkdocstrings-python", "mkdocs-autorefs", "mkdocs-jupyter", "jupytext", "jupyter"]
 execute-examples = ["scipy", "diffrax", "matplotlib"]
 numpy = ["numpy"]
 test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov", "nbqa"]
@@ -2159,7 +2170,7 @@ test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov",
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.12"
-content-hash = "f2d9b9a7225d32f69e219cf50f9522780ba327f1f889f6f247dd80ff5c49f5c3"
+content-hash = "6f67695786d65e4640694ea75348a20b353371c33635dfb68d3692bae1d9799c"
 
 [metadata.files]
 absl-py = [
@@ -2948,6 +2959,9 @@ mkdocs = [
 mkdocs-autorefs = [
     {file = "mkdocs-autorefs-0.4.1.tar.gz", hash = "sha256:70748a7bd025f9ecd6d6feeba8ba63f8e891a1af55f48e366d6d6e78493aba84"},
     {file = "mkdocs_autorefs-0.4.1-py3-none-any.whl", hash = "sha256:a2248a9501b29dc0cc8ba4c09f4f47ff121945f6ce33d760f145d6f89d313f5b"},
+]
+mkdocs-exclude = [
+    {file = "mkdocs-exclude-1.0.2.tar.gz", hash = "sha256:ba6fab3c80ddbe3fd31d3e579861fd3124513708271180a5f81846da8c7e2a51"},
 ]
 mkdocs-include-markdown-plugin = [
     {file = "mkdocs_include_markdown_plugin-1.0.0-py3-none-any.whl", hash = "sha256:5143312d4aa99dfbfb40bab04ea193928f8142ea8d02f64a52e55bf9d6b61b58"},

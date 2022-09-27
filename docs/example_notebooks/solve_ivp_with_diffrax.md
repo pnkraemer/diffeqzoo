@@ -31,7 +31,6 @@ ivp = ivps.rigid_body()
 
 f, y0, (t0, t1), f_args, *_ = ivp
 
-
 @jax.jit
 def vector_field(_, y, args):
     return f(y, *args)
