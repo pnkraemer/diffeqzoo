@@ -10,7 +10,7 @@ format:
 lint:
 	flake8 $(sources) tests
 
-unittest:
+unittest2:
 	pytest
 
 coverage:

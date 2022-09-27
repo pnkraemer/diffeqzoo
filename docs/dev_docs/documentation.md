@@ -45,7 +45,7 @@ To build the documentation, run
 mkdocs build
 ```
 
-# Configure MkDocs
+## Configure MkDocs
 
 To configure the parameters of the documentation, edit ``mkdocs.yml``.
 See the [MkDocs reference](https://www.mkdocs.org/).
