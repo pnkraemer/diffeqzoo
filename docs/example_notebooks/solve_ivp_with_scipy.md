@@ -1,7 +1,7 @@
 ---
 jupyter:
   jupytext:
-    formats: ipynb,md,py:percent
+    formats: ipynb,md
     text_representation:
       extension: .md
       format_name: markdown
@@ -27,7 +27,6 @@ backend.select("numpy")
 
 ```python
 ivp_selection = [
-    ivps.van_der_pol_first_order(),
     ivps.lotka_volterra(),
     ivps.rigid_body(),
     ivps.lorenz96(),
@@ -43,9 +42,7 @@ def solve_ivp(ivp, **kwargs):
     y0 = ivp.initial_values
     args = ivp.vector_field_args
 
-    solution = scipy.integrate.solve_ivp(
-        fun=fun, t_span=t_span, y0=y0, args=args, **kwargs
-    )
+    solution = scipy.integrate.solve_ivp(fun=fun, t_span=t_span, y0=y0, args=args, **kwargs)
 
     plotgrid = np.linspace(*t_span)
     return plotgrid, solution.sol(plotgrid).T

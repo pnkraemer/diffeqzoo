@@ -1,16 +1,13 @@
 """ODE vector fields."""
 
-from odezoo import _descriptions, _docstring_utils, backend, transform
+from odezoo import backend
 
 
 def lotka_volterra(y, /, a, b, c, d):
     """Lotka--Volterra dynamics."""
-    return backend.numpy.asarray(
-        [a * y[0] - b * y[0] * y[1], -c * y[1] + d * y[0] * y[1]]
-    )
+    return backend.numpy.asarray([a * y[0] - b * y[0] * y[1], -c * y[1] + d * y[0] * y[1]])
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades(u, /):
     """Evaluate the Pleiades vector field in its original, second-order form."""
     x, y = u[:7], u[7:]
@@ -29,19 +26,11 @@ def pleiades(u, /):
     return backend.numpy.concatenate((ddx, ddy))
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades_autonomous_api(u, _, /):
     """Evaluate the Pleiades vector field as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument)."""  # noqa: D301
     return pleiades(u)
-
-
-# Transform the autonomous-API-version into a first-order problem.
-pleiades_first_order = transform.second_to_first_order_vf_auto(
-    pleiades_autonomous_api,
-    short_summary="The Pleiades problem as a first-order differential equation.",
-)
 
 
 def lorenz96(y, /, forcing):
@@ -55,9 +44,7 @@ def lorenz96(y, /, forcing):
 
 def lorenz63(u, /, a, b, c):
     """Lorenz63 dynamics."""
-    return backend.numpy.asarray(
-        [a * (u[1] - u[0]), u[0] * (b - u[2]) - u[1], u[0] * u[1] - c * u[2]]
-    )
+    return backend.numpy.asarray([a * (u[1] - u[0]), u[0] * (b - u[2]) - u[1], u[0] * u[1] - c * u[2]])
 
 
 def rigid_body(y, /, p1, p2, p3):
@@ -70,12 +57,9 @@ def logistic(u, p0, p1, /):
     return p0 * u * (1.0 - p1 * u)
 
 
-@_docstring_utils.long_description(_descriptions.FITZHUGH_NAGUMO)
 def fitzhugh_nagumo(u, /, a, b, c, d):
     """FitzHugh--Nagumo model."""
-    return backend.numpy.asarray(
-        [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
-    )
+    return backend.numpy.asarray([u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d])
 
 
 def sir(u, /, beta, gamma, population_count):
@@ -104,7 +88,6 @@ def sird(u, /, beta, gamma, eta, population_count):
     return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
 
 
-@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(u, /):  # todo: move parameters here
     """High irradiance response."""
     du1 = -1.71 * u[0] + 0.43 * u[1] + 8.32 * u[2] + 0.0007
@@ -118,7 +101,6 @@ def hires(u, /):  # todo: move parameters here
     return backend.numpy.asarray([du1, du2, du3, du4, du5, du6, du7, du8])
 
 
-@_docstring_utils.long_description(_descriptions.ROBER)
 def rober(u, /, k1, k2, k3):
     """Rober ODE problem."""
     du0 = -k1 * u[0] + k3 * u[1] * u[2]
@@ -132,12 +114,6 @@ def van_der_pol(u, du, /, stiffness_constant):
     return stiffness_constant * ((1.0 - u**2) * du - u)
 
 
-van_der_pol_first_order = transform.second_to_first_order_vf_auto(
-    van_der_pol,
-    short_summary="""Van-der-Pol dynamics as a first-order differential equation.""",
-)
-
-
 def three_body(Y, dY, /, standardised_moon_mass):
     """Restricted three-body dynamics as a second-order differential equation."""
     mu, mp = standardised_moon_mass, 1.0 - standardised_moon_mass
@@ -146,10 +122,3 @@ def three_body(Y, dY, /, standardised_moon_mass):
     du0p = Y[0] + 2 * dY[1] - mp * (Y[0] + mu) / D1 - mu * (Y[0] - mp) / D2
     du1p = Y[1] - 2 * dY[0] - mp * Y[1] / D1 - mu * Y[1] / D2
     return backend.numpy.asarray([du0p, du1p])
-
-
-_3bdocs = "Restricted three-body dynamics as a first-order differential equation."
-three_body_first_order = transform.second_to_first_order_vf_auto(
-    three_body,
-    short_summary=_3bdocs,
-)

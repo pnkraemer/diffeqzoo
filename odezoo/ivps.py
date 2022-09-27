@@ -10,9 +10,11 @@ The following information should be available for each equation:
 Providing this information makes it easy to use the problems
 as benchmark problems (e.g., in papers).
 """
+
+
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _descriptions, _docstring_utils, backend, transform, vector_fields
+from odezoo import backend, vector_fields
 
 
 class _InitialValueProblem(NamedTuple):
@@ -22,9 +24,7 @@ class _InitialValueProblem(NamedTuple):
     vector_field_args: Iterable = ()
 
 
-def lotka_volterra(
-    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
-):
+def lotka_volterra(*, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)):
     """Lotka--Volterra / predator-prey model."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([20.0, 20.0])
@@ -37,10 +37,7 @@ def lotka_volterra(
     )
 
 
-@_docstring_utils.long_description(_descriptions.FITZHUGH_NAGUMO)
-def fitzhugh_nagumo(
-    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
-):
+def fitzhugh_nagumo(*, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)):
     r"""Construct the FitzHugh-Nagumo model."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([1.0, -1.0])
@@ -81,9 +78,7 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
     )
 
 
-def seir(
-    *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
-):
+def seir(*, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1):
     """SEIR model."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
@@ -98,9 +93,7 @@ def seir(
     )
 
 
-def sird(
-    *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
-):
+def sird(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005):
     """SIRD model."""
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
@@ -125,9 +118,7 @@ def lorenz96(
 ):
     """Lorenz96 model."""
     if initial_values is None:
-        initial_values = _lorenz96_chaotic_u0(
-            forcing=forcing, num_variables=num_variables, perturb=perturb
-        )
+        initial_values = _lorenz96_chaotic_u0(forcing=forcing, num_variables=num_variables, perturb=perturb)
 
     return _InitialValueProblem(
         vector_field=vector_fields.lorenz96,
@@ -155,9 +146,7 @@ def lorenz63(
     )
 
 
-def rigid_body(
-    *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
-):
+def rigid_body(*, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)):
     r"""Rigid body dynamics without external forces."""
     if initial_values is None:
         initial_values = backend.numpy.array([1.0, 0.0, 0.9])
@@ -172,12 +161,9 @@ def rigid_body(
 
 def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
     u0_equilibrium = backend.numpy.ones(num_variables) * forcing
-    return backend.numpy.concatenate(
-        [backend.numpy.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
-    )
+    return backend.numpy.concatenate([backend.numpy.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]])
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     """Construct the Pleiades problem in its original, second-order form."""
     if initial_values is None:
@@ -196,7 +182,6 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     )
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades_autonomous_api(**kwargs):
     """Construct the Pleiades problem as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
@@ -208,12 +193,6 @@ def pleiades_autonomous_api(**kwargs):
         initial_values=initial_values,
         time_span=time_span,
     )
-
-
-pleiades_first_order = transform.second_to_first_order_auto(
-    pleiades_autonomous_api,
-    short_summary="""The Pleiades problem as a first-order differential equation.""",
-)
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
@@ -229,12 +208,6 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
         initial_values=initial_values,
         time_span=time_span,
     )
-
-
-van_der_pol_first_order = transform.second_to_first_order_auto(
-    van_der_pol,
-    short_summary="""The Van-der-Pol system as a first-order differential equation.""",
-)
 
 
 def three_body(
@@ -258,14 +231,6 @@ def three_body(
     )
 
 
-_3bdocs = "The restricted three-body problem as a first-order differential equation."
-three_body_first_order = transform.second_to_first_order_auto(
-    three_body,
-    short_summary=_3bdocs,
-)
-
-
-@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     """Construct the High Irradiance Response (HIRES) problem."""
     if initial_values is None:
@@ -279,7 +244,6 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     )
 
 
-@_docstring_utils.long_description(_descriptions.ROBER)
 def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
     """Construct the ROBER problem due to Robertson (1966)."""
     if initial_values is None:

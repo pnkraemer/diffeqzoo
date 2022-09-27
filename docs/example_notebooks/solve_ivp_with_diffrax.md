@@ -1,7 +1,7 @@
 ---
 jupyter:
   jupytext:
-    formats: ipynb,py:percent,md
+    formats: ipynb,md
     text_representation:
       extension: .md
       format_name: markdown
@@ -30,7 +30,6 @@ backend.select("jax")
 ivp = ivps.rigid_body()
 
 f, y0, (t0, t1), f_args, *_ = ivp
-
 
 @jax.jit
 def vector_field(_, y, args):

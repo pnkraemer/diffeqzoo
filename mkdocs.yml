@@ -1,0 +1,113 @@
+site_name: odezoo
+site_url: https://pnkraemer.github.io/odezoo
+repo_url: https://github.com/pnkraemer/odezoo
+repo_name: pnkraemer/odezoo
+strict: true
+
+nav:
+  - ODEZoo:
+      - index.md
+  - Quickstart:
+      - quickstart/installation.md
+      - quickstart/usage.md
+  - Examples:
+      - example_notebooks/solve_ivp_with_diffrax.ipynb
+      - example_notebooks/solve_ivp_with_scipy.ipynb
+  - API Documentation:
+      - api_docs/initial_value_problems.md
+  - Developer Documentation:
+      - dev_docs/contributing.md
+      - dev_docs/open_a_pr.md
+      - dev_docs/dev_setup.md
+      - dev_docs/_deploying.md
+      - dev_docs/notebooks.md
+  - The Sharp Edges:
+      - sharp_edges/backend.md
+  - Changelog: changelog.md
+
+theme:
+  name: material
+  language: en
+  #logo: assets/logo.png
+  palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+  features:
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs.sticky
+
+markdown_extensions:
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.tabbed
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      linenums: false
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - toc:
+      baselevel: 2
+      permalink: true
+      slugify: !!python/name:pymdownx.slugs.uslugify
+  - meta
+plugins:
+  - include-markdown
+  - autorefs
+  - search:
+      lang: en
+  - mkdocstrings:
+      watch:
+        - odezoo
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]  # Default: ["*.py", "*.ipynb"]
+      ignore: ["*.md"]
+      execute: true
+      allow_errors: false
+      include_source: true
+  - exclude:
+      glob:
+        - example_notebooks/*.md
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      # replace with your own tweet link below
+      link: https://github.com/waynerv/cookiecutter-pypackage
+      name: Tweet
+    - icon: fontawesome/brands/facebook
+      # replace with your own facebook link below
+      link: https://github.com/waynerv/cookiecutter-pypackage
+      name: Facebook
+    - icon: fontawesome/brands/github
+      link: https://github.com/pnkraemer/odezoo
+      name: Github
+    - icon: material/email
+      link: "mailto:pnkraemer@duck.com"
+  # to enable disqus, uncomment the following and put your disqus id below
+  # disqus: disqus_id
+# uncomment the following and put your google tracking id below to enable GA
+#google_analytics:
+  #- UA-xxx
+  #- auto

@@ -64,16 +64,12 @@ class backend:
     def change_to(self, backend_name, /):
         """Change the backend implementation."""
         if not self.has_been_selected:
-            raise RuntimeError(
-                "The first backend-selection must be via `backend.select()`."
-            )
+            raise RuntimeError("The first backend-selection must be via `backend.select()`.")
 
         # If a user thinks they are changing the implementation,
         # but they are not, a warning is appropriate.
         if self._backend_name == backend_name.lower():
-            _warnings.warn(
-                "The desired backend implementation matches the current selection."
-            )
+            _warnings.warn("The desired backend implementation matches the current selection.")
 
         # After all those warnings, finally change the backend.
         self._select_backend(backend_name.lower())
