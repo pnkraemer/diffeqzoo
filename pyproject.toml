@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "odezoo"
-version = "0.0.1"
+version = "0.0.2"
 homepage = "https://github.com/pnkraemer/odezoo"
 description = "Ordinary differential equation problem definitions."
 authors = ["Nicholas Krämer <pnkraemer@duck.com>"]
