@@ -17,6 +17,7 @@ nav:
       - dev_docs/contributing.md
       - dev_docs/open_a_pr.md
       - dev_docs/dev_setup.md
+      - dev_docs/_deploying.md
   - The Sharp Edges:
       - sharp_edges/backend.md
   - Changelog: changelog.md

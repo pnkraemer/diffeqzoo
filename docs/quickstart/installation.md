@@ -1,6 +1,6 @@
 # Installation
 
-## Stable release
+## From PyPi
 
 To install odezoo, run
 
@@ -10,12 +10,23 @@ pip install odezoo
 
 This is the preferred method to install odezoo, as it will always install the most recent stable release.
 
+It assumes that you will install NumPy or JAX yourself.
+If this is not the case, run
+
+```commandline
+pip install odezoo[numpy]
+```
+or
+```commandline
+pip install odezoo[jax]
+```
+
 !!! warning
 
-    Currently, the package is not on pypi, so the above installation does not work.
+    Currently, the package is not on pypi, so the above installations do not work.
 
 
-## Most recent version
+## From GitHub
 
 To get the most recent version from GitHub, run
 

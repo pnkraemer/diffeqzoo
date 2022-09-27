@@ -2,4 +2,4 @@
 
 ## 0.0.1 (2022-09-27)
 
-* First release on PyPI.
+* Created the initial version of this package.
