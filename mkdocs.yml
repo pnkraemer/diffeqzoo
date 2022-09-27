@@ -2,7 +2,8 @@ site_name: odezoo
 site_url: https://pnkraemer.github.io/odezoo
 repo_url: https://github.com/pnkraemer/odezoo
 repo_name: pnkraemer/odezoo
-#strict: true
+strict: true
+
 nav:
   - ODEZoo:
       - index.md
@@ -10,7 +11,8 @@ nav:
       - quickstart/installation.md
       - quickstart/usage.md
   - Examples:
-      - example_notebooks/example.md
+      - example_notebooks/solve_ivp_with_diffrax.ipynb
+      - example_notebooks/solve_ivp_with_scipy.ipynb
   - API Documentation:
       - api_docs/initial_value_problems.md
   - Developer Documentation:
@@ -78,6 +80,10 @@ plugins:
   - mkdocstrings:
       watch:
         - odezoo
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]  # Default: ["*.py", "*.ipynb"]
+      execute: false
+
 extra:
   social:
     - icon: fontawesome/brands/twitter
