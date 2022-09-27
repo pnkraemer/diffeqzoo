@@ -9,13 +9,18 @@ nav:
   - Quickstart:
       - quickstart/installation.md
       - quickstart/usage.md
+  - Examples:
+      - example_notebooks/example.md
   - API Documentation:
       - api_docs/api.md
-  - The sharp edges:
-      - sharp_edges/backend.md
   - Developer Documentation:
       - dev_docs/contributing.md
+      - dev_docs/dependency_management.md
+      - dev_docs/documentation.md
+  - The Sharp Edges:
+      - sharp_edges/backend.md
   - Changelog: changelog.md
+
 theme:
   name: material
   language: en
@@ -28,7 +33,9 @@ theme:
     - navigation.indexes
     - navigation.instant
     - navigation.tabs.sticky
+    -
 markdown_extensions:
+  - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
@@ -44,7 +51,6 @@ markdown_extensions:
       linenums: false
   - pymdownx.superfences
   - pymdownx.inlinehilite
-  - pymdownx.details
   - admonition
   - toc:
       baselevel: 2
@@ -53,6 +59,7 @@ markdown_extensions:
   - meta
 plugins:
   - include-markdown
+  - autorefs
   - search:
       lang: en
   - mkdocstrings:

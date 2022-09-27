@@ -8,7 +8,11 @@
 
 
 
-Ordinary differential equation problem definitions
+Ordinary differential equation problem definitions.
+
+!!! warning
+
+    This project is in development. Expect rough edges and rapidly changing APIs.
 
 
 * Documentation: <https://pnkraemer.github.io/odezoo>
@@ -17,10 +21,34 @@ Ordinary differential equation problem definitions
 * Free software: MIT
 
 
-## Features
 
-* TODO
+## Features include
+
+* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, Rigid body, ...)
+* Standard stiff benchmark problems (Stiff van-der-Pol, HIRES, ROBER, ...)
+* Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
+* Chaotic systems (Lorenz63, Lorenz96)
+* N-Body problems
+
+
+**As well as**
+
+* Flexibly NumPy and JAX-backends. Other than one of those two, there are 0 (zero!) dependencies.
+* Mathematical descriptions of the ODE problems
+* BibTex entries for each original reference, to be used in scientific publications
+
+and many more goodies.
+
+* All sorts of ODEs
+* in either NumPy or Jax (your choice!)
+* etc.
+
+
+## Disclaimers about tooling
+
+
 
 ## Credits
 
-This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [waynerv/cookiecutter-pypackage](https://github.com/waynerv/cookiecutter-pypackage) project template.
+* This package was initially created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [waynerv/cookiecutter-pypackage](https://github.com/waynerv/cookiecutter-pypackage) project template.
+* Inspiration for the ``MkDocs`` usage has been taken from ``diffrax`` and ``fastapi``.
