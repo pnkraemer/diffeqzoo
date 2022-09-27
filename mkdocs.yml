@@ -12,7 +12,7 @@ nav:
   - Examples:
       - example_notebooks/example.md
   - API Documentation:
-      - api_docs/api.md
+      - api_docs/initial_value_problems.md
   - Developer Documentation:
       - dev_docs/contributing.md
       - dev_docs/open_a_pr.md
