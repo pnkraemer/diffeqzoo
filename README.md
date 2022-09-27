@@ -24,27 +24,31 @@ Ordinary differential equation problem definitions.
 
 ## Features include
 
-* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, Rigid body, ...)
-* Standard stiff benchmark problems (Stiff van-der-Pol, HIRES, ROBER, ...)
-* Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
-* Chaotic systems (Lorenz63, Lorenz96)
+* Standard non-stiff benchmark problems (_Lotka--Volterra_, _FitzHugh--Nagumo_, _Van-der-Pol_, ...)
+* Standard stiff benchmark problems (_HIRES_, _ROBER_, ...)
+* Compartmental epidemiological models (_SIR_, _SEIR_, _SIRD_, ...)
+* Chaotic systems (_Lorenz63_, _Lorenz96_)
 * N-Body problems
-
+* Second-order and first-order versions of ODE vector fields
 
 **As well as**
 
-* Flexibly NumPy and JAX-backends. Other than one of those two, there are 0 (zero!) dependencies.
+* Flexible NumPy and JAX-backends.
 * Mathematical descriptions of the ODE problems
 * BibTex entries for each original reference, to be used in scientific publications
 
 and many more goodies.
 
-* All sorts of ODEs
-* in either NumPy or Jax (your choice!)
-* etc.
+
+## Design goals
+
+`ODEZoo` provides only ODE example problems (no solvers!).
+
+`ODEZoo` has minimal implementation logic. Everything is constructed using python built-ins and either numpy or jax. A user does not have to learn any classes or interfaces.
+
+`ODEZoo` must be trivial to learn, and it must be easy to copy & paste out of its source.
 
 
-## Disclaimers about tooling
 
 
 
