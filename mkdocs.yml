@@ -27,9 +27,21 @@ theme:
   language: en
   #logo: assets/logo.png
   palette:
-    scheme: preference
-    primary: indigo
-    accent: indigo
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
   features:
     - navigation.indexes
     - navigation.instant
