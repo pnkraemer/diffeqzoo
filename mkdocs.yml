@@ -15,8 +15,6 @@ nav:
       - api_docs/api.md
   - Developer Documentation:
       - dev_docs/contributing.md
-      - dev_docs/dependency_management.md
-      - dev_docs/documentation.md
   - The Sharp Edges:
       - sharp_edges/backend.md
   - Changelog: changelog.md
@@ -33,7 +31,7 @@ theme:
     - navigation.indexes
     - navigation.instant
     - navigation.tabs.sticky
-    -
+
 markdown_extensions:
   - pymdownx.details
   - pymdownx.emoji:
