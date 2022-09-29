@@ -48,6 +48,13 @@ def case_bratu_autonomous_api():
     return f, bconds, tspan, f_args, u_dummy
 
 
+@pytest_cases.case
+def case_pendulum_autonomous_api():
+    f, bconds, tspan, f_args = bvps.pendulum_autonomous_api()
+    u_dummy = (backend.numpy.ones(()),) * 2
+    return f, bconds, tspan, f_args, u_dummy
+
+
 @pytest_cases.parametrize_with_cases("ode_model", cases=".")
 def test_separable_bvp(ode_model):
     f, (g0, g1), _, f_args, u_dummy = ode_model
