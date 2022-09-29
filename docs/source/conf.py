@@ -22,6 +22,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.napoleon",
     "myst_parser",
+    "sphinx_toolbox.collapse",
 ]
 
 source_suffix = [".rst", ".md", ".ipynb"]

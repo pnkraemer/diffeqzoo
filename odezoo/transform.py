@@ -2,7 +2,7 @@
 
 import inspect
 
-from odezoo import _docstring_utils, backend
+from odezoo import backend
 
 
 def second_to_first_order_auto(ivp_fn, /, short_summary=None):
@@ -44,13 +44,11 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
 
     # Add a disclaimer that the function has been transformed to first-order
     ivp_fn_transformed.__doc__ = ivp_fn.__doc__
-    ivp_fn_transformed = _docstring_utils.long_description(disclaimer)(
-        ivp_fn_transformed
-    )
+    ivp_fn_transformed = long_description(disclaimer)(ivp_fn_transformed)
 
     # If the user desires, replace the short summary in the docstring
     if short_summary is not None:
-        ivp_fn_transformed.__doc__ = _docstring_utils.replace_short_summary(
+        ivp_fn_transformed.__doc__ = replace_short_summary(
             ivp_fn_transformed.__doc__, short_summary=short_summary
         )
 
@@ -82,11 +80,11 @@ def second_to_first_order_vf_auto(fn, /, short_summary=None):
     fn_transformed.__module__ = fn.__module__
 
     # Add a disclaimer that the function has been transformed to first-order
-    fn_transformed = _docstring_utils.long_description(disclaimer)(fn_transformed)
+    fn_transformed = long_description(disclaimer)(fn_transformed)
 
     # If the user desires, replace the short summary in the docstring
     if short_summary is not None:
-        fn_transformed.__doc__ = _docstring_utils.replace_short_summary(
+        fn_transformed.__doc__ = replace_short_summary(
             fn_transformed.__doc__, short_summary=short_summary
         )
 
@@ -109,3 +107,41 @@ def _disclaimer(*, fun_original, fun_wrapper):
 
 
     """
+
+
+def long_description(description, /):
+    """Add a long description to the docstring of a function.
+
+    Use this function as a decorator.
+    """
+
+    def add_long_description(obj, /):
+        """Add a long description to a docstring.
+
+        This could be some mathematical content, or a warning about
+        using a function in a specific way.
+        """
+        obj.__doc__ = construct_docstring(obj)
+        return obj
+
+    def construct_docstring(obj, /):
+        if obj.__doc__ is None:
+            return description
+        n = obj.__doc__.find("\n")
+
+        if n == -1:
+            return obj.__doc__ + description
+        return obj.__doc__[:n] + description + obj.__doc__[n:]
+
+    return add_long_description
+
+
+def replace_short_summary(docstring, /, *, short_summary):
+    """Replace the short summary in a docstring with a new short summary."""
+    if docstring is None:
+        return short_summary
+    n = docstring.find("\n")
+
+    if n == -1:
+        return short_summary
+    return short_summary + docstring[n:]

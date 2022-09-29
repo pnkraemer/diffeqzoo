@@ -1,6 +1,6 @@
 """ODE vector fields."""
 
-from odezoo import _descriptions, _docstring_utils, backend, transform
+from odezoo import backend, transform
 
 
 def lotka_volterra(y, /, a, b, c, d):
@@ -10,7 +10,6 @@ def lotka_volterra(y, /, a, b, c, d):
     )
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades(u, /):
     """Evaluate the Pleiades vector field in its original, second-order form."""
     x, y = u[:7], u[7:]
@@ -29,7 +28,6 @@ def pleiades(u, /):
     return backend.numpy.concatenate((ddx, ddy))
 
 
-@_docstring_utils.long_description(_descriptions.PLEIADES)
 def pleiades_autonomous_api(u, _, /):
     """Evaluate the Pleiades vector field as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
@@ -70,7 +68,6 @@ def logistic(u, p0, p1, /):
     return p0 * u * (1.0 - p1 * u)
 
 
-@_docstring_utils.long_description(_descriptions.FITZHUGH_NAGUMO)
 def fitzhugh_nagumo(u, /, a, b, c, d):
     """FitzHugh--Nagumo model."""
     return backend.numpy.asarray(
@@ -104,7 +101,6 @@ def sird(u, /, beta, gamma, eta, population_count):
     return backend.numpy.asarray([du0_next, du1_next, du2_next, du3_next])
 
 
-@_docstring_utils.long_description(_descriptions.HIRES)
 def hires(u, /):  # todo: move parameters here
     """High irradiance response."""
     du1 = -1.71 * u[0] + 0.43 * u[1] + 8.32 * u[2] + 0.0007
@@ -118,7 +114,6 @@ def hires(u, /):  # todo: move parameters here
     return backend.numpy.asarray([du1, du2, du3, du4, du5, du6, du7, du8])
 
 
-@_docstring_utils.long_description(_descriptions.ROBER)
 def rober(u, /, k1, k2, k3):
     """Rober ODE problem."""
     du0 = -k1 * u[0] + k3 * u[1] * u[2]

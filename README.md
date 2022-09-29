@@ -1,7 +1,7 @@
 # ODE zoo
 
 ```python 
->>> from odezoo import ivps, vector_fields, backend
+>>> from odezoo import ivps, backend
 >>> backend.select("numpy")
 >>>
 >>> # Create test problems like this
@@ -17,10 +17,6 @@
 >>> # All sorts of ODEs are available, e.g., Rigid-Body:
 >>> f, u0, t_span, f_args = ivps.rigid_body()
 >>> print(f(u0, *f_args))
-[-0.     1.125 -0.   ]
->>>
->>> # If you only want the vector field, take only the vector field
->>> print(vector_fields.rigid_body(u0, *f_args))
 [-0.     1.125 -0.   ]
 >>>
 >>> ## make it jax
