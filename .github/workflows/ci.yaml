@@ -37,8 +37,6 @@ jobs:
         pip install .[numpy,jax,test]
     - name: Run tests
         make test
-        python -m doctest *.md
-        python -m doctest odezoo/*.py
 
   example:
     runs-on: ubuntu-latest
