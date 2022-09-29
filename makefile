@@ -1,6 +1,6 @@
 sources = odezoo
 
-.PHONY: format lint test pre-commit clean
+.PHONY: format lint test pre-commit clean doc
 
 format:
 	isort .
@@ -19,9 +19,15 @@ lint:
 test:
 	BACKEND=NumPy pytest
 	BACKEND=JAX pytest
+	python -m doctest *.md
+	python -m doctest odezoo/*.py
 
+example:
+	jupytext --sync docs/source/example_notebooks/*
+	jupytext --execute docs/source/example_notebooks/*
 
 pre-commit:
+	pre-commit autoupdate
 	pre-commit run --all-files
 
 clean:
@@ -29,3 +35,4 @@ clean:
 	rm -rf *.egg-info
 	rm -rf dist site
 	rm -rf docs/source/api/
+	cd docs; make clean
