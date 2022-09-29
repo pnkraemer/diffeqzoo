@@ -28,7 +28,4 @@ clean:
 	rm -rf .pytest_cache
 	rm -rf *.egg-info
 	rm -rf dist site
-	cd docs
-	make clean
-	rm -rf source/api/
-	cd ..
+	rm -rf docs/source/api/
