@@ -1,6 +1,6 @@
 """ODE vector fields."""
 
-from odezoo import _descriptions, backend, transform
+from odezoo import backend, transform
 
 
 def lotka_volterra(y, /, a, b, c, d):

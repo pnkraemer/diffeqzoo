@@ -1,7 +1,7 @@
 """Initial value problem examples."""
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _descriptions, _vector_fields, backend, transform
+from odezoo import _vector_fields, backend, transform
 
 
 class _InitialValueProblem(NamedTuple):
@@ -30,7 +30,6 @@ def fitzhugh_nagumo(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
 ):
     r"""Construct the FitzHugh-Nagumo model.
-
 
     The FitzHugh-Nagumo model is a simple example of an excitable system
     (for example: a neuron).
@@ -217,7 +216,6 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     r"""Construct the Pleiades problem in its original, second-order form.
-
 
     The Pleiades problem from celestial mechanics describes the
     gravitational interaction(s) of seven stars
@@ -417,8 +415,7 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
 
 
 def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
-    """Construct the ROBER problem due to Robertson (1966).
-
+    r"""Construct the ROBER problem due to Robertson (1966).
 
     The ROBER problem describes the kinetics of an autocatalytic reaction,
     and was proposed by Robertson (1966).
