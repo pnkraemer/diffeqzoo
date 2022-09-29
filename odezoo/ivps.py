@@ -1,7 +1,7 @@
 """Initial value problem examples."""
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _descriptions, backend, transform, _vector_fields
+from odezoo import _descriptions, _vector_fields, backend, transform
 
 
 class _InitialValueProblem(NamedTuple):
@@ -284,9 +284,9 @@ def pleiades_autonomous_api(**kwargs):
     """Construct the Pleiades problem as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument).
-    
+
     See :func:`pleiades` for a more detailed problem description.
-    
+
     See Also
     --------
     odezoo.ivps.pleiades

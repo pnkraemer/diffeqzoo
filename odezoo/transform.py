@@ -44,9 +44,7 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
 
     # Add a disclaimer that the function has been transformed to first-order
     ivp_fn_transformed.__doc__ = ivp_fn.__doc__
-    ivp_fn_transformed = long_description(disclaimer)(
-        ivp_fn_transformed
-    )
+    ivp_fn_transformed = long_description(disclaimer)(ivp_fn_transformed)
 
     # If the user desires, replace the short summary in the docstring
     if short_summary is not None:
