@@ -36,6 +36,6 @@ clean:
 	rm -rf dist site
 	rm -rf docs/source/api/
 	cd docs; make clean
-
+	cd docs/source/example_notebooks; rm -rf .ipynb_checkpoints
 doc:
 	cd docs; make html
