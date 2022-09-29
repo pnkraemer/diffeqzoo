@@ -14,6 +14,8 @@ class _SeparableBoundaryValueProblem(NamedTuple):
 
 
 def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
+    """Bratu's problem."""
+
     def g0(u):
         return u
 
@@ -29,6 +31,8 @@ def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
 
 
 def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
+    """Bratu's problem with a signature (u, u')."""
+
     def g0(u, _):
         return u
 
@@ -45,6 +49,8 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
 
 
 def pendulum_autonomous_api(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)):
+    """Pendulum problem with a signature (u, u')."""
+
     def g0(u, _):
         return u
 
@@ -60,6 +66,8 @@ def pendulum_autonomous_api(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,
 
 
 def pendulum(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)):
+    """Pendulum problem."""
+
     def g0(u):
         return u
 

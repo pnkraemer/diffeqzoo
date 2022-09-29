@@ -12,4 +12,5 @@ Submodules
 .. toctree::
 
    odezoo.ivps
+   odezoo.bvps
    odezoo.transform
