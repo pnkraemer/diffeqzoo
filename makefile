@@ -1,6 +1,6 @@
 sources = odezoo
 
-.PHONY: format lint test pre-commit clean doc
+.PHONY: format lint test pre-commit doc clean
 
 format:
 	isort .
@@ -36,3 +36,6 @@ clean:
 	rm -rf dist site
 	rm -rf docs/source/api/
 	cd docs; make clean
+
+doc:
+	cd docs; make html

@@ -18,7 +18,7 @@ which appear in different parts of the specification
 
 There are also the `numpy` and the `jax` optional dependencies.
 Combine any of the execution-based workflows (test, example) with either one, e.g.,
-```commandline
+```
 pip install odezoo[jax]
 pip install odezoo[example,numpy]
 pip install odezoo[test,jax,numpy]
@@ -30,7 +30,7 @@ pip install odezoo[test,jax,numpy]
 To apply _all_ {linting, formatting, testing, ...} operations, use the makefile.
 In the root, run
 
-```commandline
+```
 make format
 make lint
 make test
