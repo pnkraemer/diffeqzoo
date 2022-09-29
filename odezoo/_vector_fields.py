@@ -148,3 +148,13 @@ three_body_first_order = transform.second_to_first_order_vf_auto(
     three_body,
     short_summary=_3bdocs,
 )
+
+
+def bratu(u, /, k):
+    """Bratu's problem."""
+    return -k * backend.numpy.exp(u)
+
+
+def bratu_autonomous_api(u, _, /, k):
+    """Bratu's problem with signature (u, u')."""
+    return -k * backend.numpy.exp(u)
