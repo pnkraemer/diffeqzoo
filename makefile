@@ -1,28 +1,34 @@
 sources = odezoo
 
 .PHONY: format lint test pre-commit clean
-test: format lint unittest
 
 format:
 	isort .
 	black .
+	nbqa black docs/
+	nbqa flake8 docs/
+	jupytext --sync docs/source/example_notebooks/*
 
 lint:
 	isort --check --diff .
-    black --check --diff .
-    flake8
+	black --check --diff .
+	nbqa isort --check --diff .
+	nbqa black --check --diff .
+	nbqa flake8 docs/
 
 test:
-	pytest
+	BACKEND=NumPy pytest
+	BACKEND=JAX pytest
+
 
 pre-commit:
 	pre-commit run --all-files
 
 clean:
-	rm -rf {% if cookiecutter.use_mypy == 'y' -%}.mypy_cache {% endif -%} .pytest_cache
+	rm -rf .pytest_cache
 	rm -rf *.egg-info
 	rm -rf dist site
-    cd docs
-    make clean
-    rm -rf source/api/
-    cd ..
+	cd docs
+	make clean
+	rm -rf source/api/
+	cd ..
