@@ -12,5 +12,4 @@ Submodules
 .. toctree::
 
    odezoo.ivps
-   odezoo.vector_fields
    odezoo.transform
