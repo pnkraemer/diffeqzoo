@@ -168,3 +168,19 @@ def pendulum(u, /, p):
 def pendulum_autonomous_api(u, _, /, p):
     """Bratu's problem."""
     return -p * backend.numpy.sin(u)
+
+
+# todo: merge with sir() vector field
+def measles(t, u, /, mu, lmbda, eta, beta0):
+    b = _beta(t, beta0)
+    return backend.numpy.asarray(
+        [
+            mu - b * u[0] * u[2],
+            b * u[0] * u[2] - u[1] / lmbda,
+            u[1] / lmbda - u[2] / eta,
+        ]
+    )
+
+
+def _beta(t, beta0):
+    return beta0 * (1 + backend.numpy.cos(2 * backend.numpy.pi * t))

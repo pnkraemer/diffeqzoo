@@ -31,7 +31,7 @@ backend.select("numpy")
 ```
 
 ```python
-def solve_bvp(bvp, **kwargs):
+def solve_two_point_bvp(bvp, **kwargs):
     f, (g0, g1), tspan, f_args = bvp
 
     def fun(_, y):
@@ -66,7 +66,45 @@ fig, axes = plt.subplots(
 )
 
 for ax, bvp in zip(axes, bvp_selection):
+    xs, ys = solve_two_point_bvp(bvp)
+    ax.plot(xs, ys)
+plt.show()
+```
+
+```python
+def solve_bvp(bvp, **kwargs):
+    f, bcond, tspan, f_args = bvp
+
+    def fun(t, y):
+        return f(t, y, *f_args)
+
+    x = np.linspace(*tspan, 50)
+    y = backend.numpy.ones((3, x.shape[0]))
+
+
+    solution = scipy.integrate.solve_bvp(fun=fun, bc=bcond, x=x, y=y, **kwargs)
+
+    plotgrid = np.linspace(*tspan)
+    return plotgrid, solution.sol(plotgrid).T
+```
+
+```python
+bvp_selection = (bvps.measles(),)
+
+fig, axes = plt.subplots(
+    ncols=len(bvp_selection),
+    figsize=(5, 2),
+    tight_layout=True,
+    sharey=True,
+    sharex=False,
+)
+
+for ax, bvp in zip(backend.numpy.atleast_1d(axes), bvp_selection):
     xs, ys = solve_bvp(bvp)
     ax.plot(xs, ys)
 plt.show()
+```
+
+```python
+
 ```
