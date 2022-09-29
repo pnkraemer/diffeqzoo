@@ -13,30 +13,30 @@ class _SeparableBoundaryValueProblem(NamedTuple):
 
 
 def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
+    def g0(u):
+        return u
 
-    # Boundary conditions
-    eye_d = backend.numpy.asarray([1, 0])
-    u0 = backend.numpy.asarray(0.0)
-    umax = backend.numpy.asarray(0.0)
+    def g1(u):
+        return u
 
     return _SeparableBoundaryValueProblem(
         vector_field=_vector_fields.bratu,
-        boundary_conditions=((eye_d, u0), (eye_d, umax)),
+        boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
     )
 
 
 def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
+    def g0(u, _):
+        return u
 
-    # Boundary conditions
-    eye_d = backend.numpy.asarray([1, 0])
-    u0 = backend.numpy.asarray(0.0)
-    umax = backend.numpy.asarray(0.0)
+    def g1(u, _):
+        return u
 
     return _SeparableBoundaryValueProblem(
         vector_field=_vector_fields.bratu_autonomous_api,
-        boundary_conditions=((eye_d, u0), (eye_d, umax)),
+        boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
     )
@@ -44,15 +44,15 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
 
 
 def pendulum(*, time_span=(0.0, backend.numpy.pi / 2.0), parameters=(9.81,)):
+    def g0(u):
+        return u
 
-    # Boundary conditions
-    eye_d = backend.numpy.asarray([1, 0])
-    u0 = backend.numpy.asarray(-backend.numpy.pi / 2)
-    umax = backend.numpy.asarray(-backend.numpy.pi / 2)
+    def g1(u):
+        return u
 
     return _SeparableBoundaryValueProblem(
         vector_field=_vector_fields.pendulum,
-        boundary_conditions=((eye_d, u0), (eye_d, umax)),
+        boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
     )
