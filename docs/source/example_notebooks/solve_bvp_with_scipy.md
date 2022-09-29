@@ -81,7 +81,6 @@ def solve_bvp(bvp, **kwargs):
     x = np.linspace(*tspan, 50)
     y = backend.numpy.ones((3, x.shape[0]))
 
-
     solution = scipy.integrate.solve_bvp(fun=fun, bc=bcond, x=x, y=y, **kwargs)
 
     plotgrid = np.linspace(*tspan)
