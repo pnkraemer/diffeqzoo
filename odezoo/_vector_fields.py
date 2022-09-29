@@ -155,6 +155,11 @@ def bratu(u, /, k):
     return -k * backend.numpy.exp(u)
 
 
+def pendulum(u, /, p):
+    """Bratu's problem."""
+    return -p * backend.numpy.sin(u)
+
+
 def bratu_autonomous_api(u, _, /, k):
     """Bratu's problem with signature (u, u')."""
     return -k * backend.numpy.exp(u)

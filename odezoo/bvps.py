@@ -25,7 +25,6 @@ def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
         vector_field_args=parameters,
         time_span=time_span,
     )
-    return f_bratu, (t0, tmax), (u0, umax)
 
 
 def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
@@ -42,3 +41,18 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
         time_span=time_span,
     )
     return f_bratu, (t0, tmax), (u0, umax)
+
+
+def pendulum(*, time_span=(0.0, backend.numpy.pi / 2.0), parameters=(9.81,)):
+
+    # Boundary conditions
+    eye_d = backend.numpy.asarray([1, 0])
+    u0 = backend.numpy.asarray(-backend.numpy.pi / 2)
+    umax = backend.numpy.asarray(-backend.numpy.pi / 2)
+
+    return _SeparableBoundaryValueProblem(
+        vector_field=_vector_fields.pendulum,
+        boundary_conditions=((eye_d, u0), (eye_d, umax)),
+        vector_field_args=parameters,
+        time_span=time_span,
+    )

@@ -27,6 +27,25 @@ def case_bratu():
 
 
 @pytest_cases.case
+def case_pendulum():
+    f_, ((L, l), (R, r)), tspan, f_args = bvps.pendulum()
+
+    def g0(*state):
+        full_state = backend.numpy.concatenate(state, axis=None)
+        return backend.numpy.dot(L, full_state) - l
+
+    def g1(*state):
+        full_state = backend.numpy.concatenate(state, axis=None)
+        return backend.numpy.dot(R, full_state) - r
+
+    def f(u, _, *args):
+        return f_(u, *args)
+
+    u_dummy = (backend.numpy.ones(()),) * 2
+    return f, (g0, g1), tspan, f_args, u_dummy
+
+
+@pytest_cases.case
 def case_bratu_autonomous_api():
     f, ((L, l), (R, r)), tspan, f_args = bvps.bratu_autonomous_api()
 
