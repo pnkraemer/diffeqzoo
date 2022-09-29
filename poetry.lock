@@ -3,7 +3,7 @@ name = "absl-py"
 version = "1.2.0"
 description = "Abseil Python Common Libraries, see https://github.com/abseil/abseil-py."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [[package]]
@@ -351,7 +351,7 @@ name = "etils"
 version = "0.8.0"
 description = "Collection of common python utils"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -521,7 +521,7 @@ name = "importlib-resources"
 version = "5.9.0"
 description = "Read resources from Python packages"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
@@ -655,15 +655,16 @@ testing = ["flake8 (<5)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-chec
 
 [[package]]
 name = "jax"
-version = "0.3.18"
+version = "0.3.20"
 description = "Differentiate, compile, and transform Numpy code."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
 absl-py = "*"
 etils = {version = "*", extras = ["epath"]}
+jaxlib = {version = "0.3.20", optional = true, markers = "extra == \"cpu\""}
 numpy = ">=1.20"
 opt_einsum = "*"
 scipy = ">=1.5"
@@ -672,12 +673,25 @@ typing_extensions = "*"
 [package.extras]
 australis = ["protobuf (>=3.13,<4)"]
 ci = ["jaxlib (==0.3.15)"]
-cpu = ["jaxlib (==0.3.18)"]
-cuda = ["jaxlib (==0.3.18+cuda11.cudnn82)"]
-cuda11_cudnn805 = ["jaxlib (==0.3.18+cuda11.cudnn805)"]
-cuda11_cudnn82 = ["jaxlib (==0.3.18+cuda11.cudnn82)"]
+cpu = ["jaxlib (==0.3.20)"]
+cuda = ["jaxlib (==0.3.20+cuda11.cudnn82)"]
+cuda11_cudnn805 = ["jaxlib (==0.3.20+cuda11.cudnn805)"]
+cuda11_cudnn82 = ["jaxlib (==0.3.20+cuda11.cudnn82)"]
 minimum-jaxlib = ["jaxlib (==0.3.15)"]
-tpu = ["jaxlib (==0.3.18)", "libtpu-nightly (==0.1.dev20220926)", "requests"]
+tpu = ["jaxlib (==0.3.20)", "libtpu-nightly (==0.1.dev20220928)", "requests"]
+
+[[package]]
+name = "jaxlib"
+version = "0.3.20"
+description = "XLA library for JAX"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+absl-py = "*"
+numpy = ">=1.20"
+scipy = ">=1.5"
 
 [[package]]
 name = "jaxtyping"
@@ -1030,21 +1044,21 @@ python-versions = "*"
 
 [[package]]
 name = "mkdocs"
-version = "1.3.1"
+version = "1.4.0"
 description = "Project documentation with Markdown."
 category = "main"
 optional = true
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
-click = ">=3.3"
+click = ">=7.0"
 ghp-import = ">=1.0"
-importlib-metadata = ">=4.3"
-Jinja2 = ">=2.10.2"
+importlib-metadata = {version = ">=4.3", markers = "python_version < \"3.10\""}
+Jinja2 = ">=2.11.1"
 Markdown = ">=3.2.1,<3.4"
 mergedeep = ">=1.3.4"
 packaging = ">=20.5"
-PyYAML = ">=3.10"
+PyYAML = ">=5.1"
 pyyaml-env-tag = ">=0.1"
 watchdog = ">=2.0"
 
@@ -1246,7 +1260,7 @@ test = ["check-manifest", "pep440", "pre-commit", "pytest", "testpath"]
 
 [[package]]
 name = "nbqa"
-version = "1.5.1"
+version = "1.5.2"
 description = "Run any standard Python code quality tool on a Jupyter Notebook"
 category = "main"
 optional = true
@@ -1314,7 +1328,7 @@ name = "numpy"
 version = "1.23.3"
 description = "NumPy is the fundamental package for array computing with Python."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8"
 
 [[package]]
@@ -1322,7 +1336,7 @@ name = "opt-einsum"
 version = "3.3.0"
 description = "Optimizing numpys einsum function"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 
 [package.dependencies]
@@ -1828,7 +1842,7 @@ name = "scipy"
 version = "1.9.1"
 description = "SciPy: Scientific Library for Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8,<3.12"
 
 [package.dependencies]
@@ -2080,7 +2094,7 @@ name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [[package]]
@@ -2153,7 +2167,7 @@ name = "zipp"
 version = "3.8.1"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 
 [package.extras]
@@ -2165,12 +2179,12 @@ dev = ["tox", "pre-commit", "virtualenv", "pip", "twine", "toml", "bump2version"
 doc = ["mkdocs", "mkdocs-include-markdown-plugin", "mkdocs-material", "mkdocs-exclude", "mkdocstrings", "mkdocstrings-python", "mkdocs-autorefs", "mkdocs-jupyter", "jupytext", "jupyter"]
 execute-examples = ["scipy", "diffrax", "matplotlib"]
 numpy = ["numpy"]
-test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov", "nbqa"]
+test = ["pytest", "black", "isort", "flake8", "flake8-docstrings", "pytest-cov", "nbqa", "jupytext"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.12"
-content-hash = "6f67695786d65e4640694ea75348a20b353371c33635dfb68d3692bae1d9799c"
+content-hash = "24cd721e710e8ef8e98d1bdcfff37f8d120adbd924ae29d674d9fadaaa1af7da"
 
 [metadata.files]
 absl-py = [
@@ -2634,7 +2648,20 @@ isort = [
     {file = "jaraco.classes-3.2.3.tar.gz", hash = "sha256:89559fa5c1d3c34eff6f631ad80bb21f378dbcbb35dd161fd2c6b93f5be2f98a"},
 ]
 jax = [
-    {file = "jax-0.3.18.tar.gz", hash = "sha256:8a1a265c671f0770637c95b32d1c5b2af2c85b2f922a0fcdde1177d4e11b296e"},
+    {file = "jax-0.3.20.tar.gz", hash = "sha256:69eaf007c0b3d37cd0592090f355c14c2af9c2ec9f1ec62aacc2c70deb142509"},
+]
+jaxlib = [
+    {file = "jaxlib-0.3.20-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:02e5f13ce268531bd873b0a3dcf31b9d6e5f954d6fa1c682025167ff593b1f4e"},
+    {file = "jaxlib-0.3.20-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:41a2020e7ceb6adc298cedb6f905399f0ae2e1213898592a838c5634f7dbbca6"},
+    {file = "jaxlib-0.3.20-cp310-cp310-manylinux2014_x86_64.whl", hash = "sha256:f50e99b76b96f9d060f1db12f9848241308daa675e3c1346ae5ca76d0cca9057"},
+    {file = "jaxlib-0.3.20-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:fb34e70f0adf60e69396741112241a47c3dd757f917e78f4576e88795b40e755"},
+    {file = "jaxlib-0.3.20-cp37-cp37m-manylinux2014_x86_64.whl", hash = "sha256:ce982049521eb6e61867985eed28504b7497835f25a87c013a8e73f472040731"},
+    {file = "jaxlib-0.3.20-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:13fd05a4d12c7215e3a65a00852ccacbc0a598613e09efa897a2c88e02f55730"},
+    {file = "jaxlib-0.3.20-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:c71fc38dab1ee54c9b7d43accacfcbc5e398939de85dca456a6f6f31b4ad6773"},
+    {file = "jaxlib-0.3.20-cp38-cp38-manylinux2014_x86_64.whl", hash = "sha256:2ff354f99d73a190a650e15018968b0d08f3308fd410f109e5b7fb9056788d91"},
+    {file = "jaxlib-0.3.20-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:13f91d46a242900da64ed76033f73289314c51c047d4e04800a3be092d841607"},
+    {file = "jaxlib-0.3.20-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a530597ef6f5d09b9eee8b52e52769c40c30f2ca04b9e3e2836d77df70301dac"},
+    {file = "jaxlib-0.3.20-cp39-cp39-manylinux2014_x86_64.whl", hash = "sha256:92b00e491d9bb3aa557dc31b09c4f609df385aee850b7cfa50fc479066852c5a"},
 ]
 jaxtyping = [
     {file = "jaxtyping-0.2.7-py3-none-any.whl", hash = "sha256:bcd9f1f6a5424e53f821690e03b3f01ce29c17d6e431b5ceb5b470873b62e38b"},
@@ -2953,8 +2980,8 @@ mistune = [
     {file = "mistune-0.8.4.tar.gz", hash = "sha256:59a3429db53c50b5c6bcc8a07f8848cb00d7dc8bdb431a4ab41920d201d4756e"},
 ]
 mkdocs = [
-    {file = "mkdocs-1.3.1-py3-none-any.whl", hash = "sha256:fda92466393127d2da830bc6edc3a625a14b436316d1caf347690648e774c4f0"},
-    {file = "mkdocs-1.3.1.tar.gz", hash = "sha256:a41a2ff25ce3bbacc953f9844ba07d106233cd76c88bac1f59cb1564ac0d87ed"},
+    {file = "mkdocs-1.4.0-py3-none-any.whl", hash = "sha256:ce057e9992f017b8e1496b591b6c242cbd34c2d406e2f9af6a19b97dd6248faa"},
+    {file = "mkdocs-1.4.0.tar.gz", hash = "sha256:e5549a22d59e7cb230d6a791edd2c3d06690908454c0af82edc31b35d57e3069"},
 ]
 mkdocs-autorefs = [
     {file = "mkdocs-autorefs-0.4.1.tar.gz", hash = "sha256:70748a7bd025f9ecd6d6feeba8ba63f8e891a1af55f48e366d6d6e78493aba84"},
@@ -3007,8 +3034,8 @@ nbformat = [
     {file = "nbformat-5.6.1.tar.gz", hash = "sha256:146b5b9969391387c2089256359f5da7c718b1d8a88ba814320273ea410e646e"},
 ]
 nbqa = [
-    {file = "nbqa-1.5.1-py3-none-any.whl", hash = "sha256:5c9520cb23abe39bf2b3884e6f6590eda496644d2edd9edf0d704e34ff4e520c"},
-    {file = "nbqa-1.5.1.tar.gz", hash = "sha256:056d6bce2347e4d8e9ab65ac9b9ee3cea5758e9e63ae7f25badcde46ee4c9ffc"},
+    {file = "nbqa-1.5.2-py3-none-any.whl", hash = "sha256:5613bb2be69e8c51ff49eefe1cd27682313fb3f3fa5c40c68980ed0a56b2fdf0"},
+    {file = "nbqa-1.5.2.tar.gz", hash = "sha256:a08d09e26f00d1c98f46be23a12f6185593e49fb3b0419fa76dda9ce6db27bed"},
 ]
 nest-asyncio = [
     {file = "nest_asyncio-1.5.5-py3-none-any.whl", hash = "sha256:b98e3ec1b246135e4642eceffa5a6c23a3ab12c82ff816a92c612d68205813b2"},
