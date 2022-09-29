@@ -36,6 +36,7 @@ jobs:
       run:
         pip install .[numpy,jax,test]
     - name: Run tests
+      run:
         make test
 
   example:
@@ -45,9 +46,12 @@ jobs:
       with:
         python-version: "3.x"
     - uses: actions/checkout@v2
-    - name: Sync and execute notebooks
-      run: |
+    - name: Install dependencies
+      run:
         pip install .[numpy,jax,example]
+    - name: Sync and execute notebooks
+      run:
+        make example
 
   doc:
     runs-on: ubuntu-latest
@@ -56,7 +60,9 @@ jobs:
       with:
         python-version: "3.x"
     - uses: actions/checkout@v2
-    - name: Build the HTML docs
-      run: |
+    - name: Install dependencies
+      run:
         pip install .[doc]
+    - name: Build the HTML docs
+      run:
         make doc
