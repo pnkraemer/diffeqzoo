@@ -13,97 +13,98 @@ jupyter:
     name: python3
 ---
 
-<!-- #region -->
 # Solve BVPs with SciPy
 
+There are not many boundary value problem solvers in Python, but SciPy offers one.
 
-## Separable boundary conditions
-<!-- #endregion -->
+The boundary value problems in the `odezoo` can be plugged into SciPy's solver.
 
 ```python
 import matplotlib.pyplot as plt
-import numpy as np
 import scipy.integrate
+import inspect
 
 from odezoo import backend, bvps
 
 backend.select("numpy")
 ```
 
+<!-- #region -->
+There are many kinds of boundary conditions.
+One common distinction is between a two-point boundary condition $g_0(y(0)) = g_1(y(1)) = 0$ and a (general) boundary condition $g(y(0), y(1)) = 0$.
+This tutorial covers both.
+
+
+## General boundary conditions
+
+We start with the more general case, because it is what SciPy's solver expects.
+<!-- #endregion -->
+
 ```python
-def solve_two_point_bvp(bvp, **kwargs):
-    f, (g0, g1), tspan, f_args = bvp
-
-    def fun(_, y):
-        u, du = backend.numpy.split(y, 2)
-        ddu = f(u, *f_args)
-        return backend.numpy.concatenate((du, ddu))
-
-    def bcond(y0, y1):
-        u0, du0 = backend.numpy.split(y0, 2)
-        u1, du1 = backend.numpy.split(y1, 2)
-        return backend.numpy.concatenate((g0(u0), g1(u1)))
-
-    x = np.linspace(*tspan, 15)
-    y = backend.numpy.zeros((2, x.shape[0]))
-    y[0] += 3
-
-    solution = scipy.integrate.solve_bvp(fun=fun, bc=bcond, x=x, y=y, **kwargs)
-
-    plotgrid = np.linspace(*tspan)
-    return plotgrid, solution.sol(plotgrid).T
+print(inspect.signature(scipy.integrate.solve_bvp))
 ```
 
+Let's compute the solution of an example boundary value problem and plot the solution.
+
 ```python
-bvp_selection = (bvps.bratu(), bvps.pendulum())
+f, bc, tspan, f_args = bvps.measles()
 
-fig, axes = plt.subplots(
-    ncols=len(bvp_selection),
-    figsize=(8, 2),
-    tight_layout=True,
-    sharey=True,
-    sharex=False,
-)
+print(inspect.signature(f), inspect.signature(bc))
 
-for ax, bvp in zip(axes, bvp_selection):
-    xs, ys = solve_two_point_bvp(bvp)
-    ax.plot(xs, ys)
+
+def fun(t, y):
+    return f(t, y, *f_args)
+
+
+x = backend.numpy.linspace(*tspan, 50)
+y = backend.numpy.ones((3, x.shape[0]))
+sol = scipy.integrate.solve_bvp(fun=fun, bc=bc, x=x, y=y)
+
+
+# Plotting grids
+xs = backend.numpy.linspace(*tspan)
+ys = sol.sol(xs).T
+
+
+plt.plot(xs, ys)
 plt.show()
 ```
 
-```python
-def solve_bvp(bvp, **kwargs):
-    f, bcond, tspan, f_args = bvp
+## Two-point boundary conditions
 
-    def fun(t, y):
-        return f(t, y, *f_args)
+Some boundary value problems have a boundary condition of the form $g_0(y(0)) = g_1(y(1)) = 0$, and the separability of the boundary conditions can often be exploited for faster solvers.
 
-    x = np.linspace(*tspan, 50)
-    y = backend.numpy.ones((3, x.shape[0]))
-
-    solution = scipy.integrate.solve_bvp(fun=fun, bc=bcond, x=x, y=y, **kwargs)
-
-    plotgrid = np.linspace(*tspan)
-    return plotgrid, solution.sol(plotgrid).T
-```
+But if a solver expects non-separable conditions (like SciPy's solver), we can wrap them easily.
+Note how many boundary value problems are second-order differential equations, and solvers like SciPy's often expect a first-order form.
 
 ```python
-bvp_selection = (bvps.measles(),)
+f, (g0, g1), tspan, f_args = bvps.bratu()
 
-fig, axes = plt.subplots(
-    ncols=len(bvp_selection),
-    figsize=(5, 2),
-    tight_layout=True,
-    sharey=True,
-    sharex=False,
-)
+# split & concatenate to second-order ODEs as first-order ODEs
 
-for ax, bvp in zip(backend.numpy.atleast_1d(axes), bvp_selection):
-    xs, ys = solve_bvp(bvp)
-    ax.plot(xs, ys)
+def fun(t, y):
+    y, dy = backend.numpy.split(y, 2)
+    ddy = f(y, *f_args)
+    return backend.numpy.concatenate((dy, ddy))
+
+
+def bc(y0, y1):
+    y0, _ = backend.numpy.split(y0, 2)
+    y1, _ = backend.numpy.split(y1, 2)
+    return backend.numpy.concatenate((g0(y0), g1(y1)))
+
+
+# Initial guess
+x = backend.numpy.linspace(*tspan, 15)
+y = backend.numpy.zeros((2, x.shape[0]))
+y[0] += 3
+
+sol = scipy.integrate.solve_bvp(fun=fun, bc=bc, x=x, y=y)
+
+# Plotting grid
+xs = backend.numpy.linspace(*tspan)
+ys = sol.sol(xs).T
+
+plt.plot(xs, ys)
 plt.show()
-```
-
-```python
-
 ```
