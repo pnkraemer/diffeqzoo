@@ -6,8 +6,6 @@ odezoo/_version.py
 
 # Notebooks are synced with jupytext.
 # Only the *.md conversion is version-controlled.
-docs/source/example_notebooks/*.ipynb
-docs/source/example_notebooks/*.py
 docs/source/api/
 docs/_build/
 

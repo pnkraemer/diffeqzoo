@@ -13,11 +13,27 @@ jupyter:
     name: python3
 ---
 
+<!-- #region -->
 # Solve IVPs with SciPy
 
+SciPy is everyone's first stop for scientific computing in Python.
+
+
+
+The initial value problems provided by `odezoo` can be plugged into scipy's ordinary differential equation (ODE) solvers.
+
+
+SciPy has two IVP solvers: `odeint` (wraps FORTRAN's `odepack`) and `solve_ivp` (native Python).
+They require slightly different inputs: for example, `odeint` expects vector fields `f(y, t)` and `solve_ivp` expects vector fields `f(t, y)`.
+
+`odezoo` can be used for both.
+
+<!-- #endregion -->
+
 ```python
+import inspect  # to inspect function signatures
+
 import matplotlib.pyplot as plt
-import numpy as np
 import scipy.integrate
 
 from odezoo import backend, ivps
@@ -25,38 +41,66 @@ from odezoo import backend, ivps
 backend.select("numpy")
 ```
 
+## Using solve_ivp
+
+Let's start with `solve_ivp`, because that is the recommendation given in the docs of `scipy.integrate.odeint` ([link](https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.odeint.html)).
+
 ```python
-ivp_selection = [
-    ivps.van_der_pol_first_order(),
-    ivps.lotka_volterra(),
-    ivps.rigid_body(),
-    ivps.lorenz96(),
-]
+print(inspect.signature(scipy.integrate.solve_ivp))
+```
+
+Here is how we solve ODEs from `odezoo` with `solve_ivp`.
+Most ODE test problems are autonomous, which means that the vector fields do not depend on time.
+We can wrap them into a non-autonomous format and plug them into scipy.
+
+```python
+f, y0, t_span, args = ivps.lotka_volterra()
+print(inspect.signature(f), args)
+
+
+def fun(t, y, *args):
+    return f(y, *args)
+
+
+scipy.integrate.solve_ivp(fun=fun, t_span=t_span, y0=y0, args=args)
+```
+
+Let's plot the solution.
+
+```python
+t_eval = backend.numpy.linspace(*t_span, num=200)
+sol = scipy.integrate.solve_ivp(fun=fun, t_span=t_span, t_eval=t_eval, y0=y0, args=args)
+y_eval = sol.y.T
 ```
 
 ```python
-def solve_ivp(ivp, **kwargs):
-    def fun(_, y, *args):
-        return ivp.vector_field(y, *args)
-
-    t_span = ivp.time_span
-    y0 = ivp.initial_values
-    args = ivp.vector_field_args
-
-    solution = scipy.integrate.solve_ivp(
-        fun=fun, t_span=t_span, y0=y0, args=args, **kwargs
-    )
-
-    plotgrid = np.linspace(*t_span)
-    return plotgrid, solution.sol(plotgrid).T
+plt.plot(t_eval, y_eval)
+plt.show()
 ```
 
+## Using odeint
+
+The usage of `odeint` is very similar to that of `solve_ivp`.
+We simply need to rename a few arguments and wrap the vector field slightly differently.
+
+
 ```python
-fig, axes = plt.subplots(ncols=len(ivp_selection), figsize=(8, 2), tight_layout=True)
+print(inspect.signature(scipy.integrate.odeint))
+```
 
-for ax, ivp in zip(axes, ivp_selection):
-    xs, ys = solve_ivp(ivp, dense_output=True)
+Let's compute the ODE solution with `odeint` and plot the solution.
 
-    ax.plot(xs, ys)
+```python
+f, y0, t_span, args = ivps.rigid_body()
+print(inspect.signature(f), args)
+
+
+def func(y, t, *args):
+    return f(y, *args)
+
+
+t = backend.numpy.linspace(*t_span, num=200)
+y = scipy.integrate.odeint(func=func, y0=y0, t=t, args=args)
+plt.plot(t, y)
 plt.show()
 ```

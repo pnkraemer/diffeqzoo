@@ -7,7 +7,7 @@ Content
 ^^^^^^^
 
 .. toctree::
-   :maxdepth: 0
+   :maxdepth: 2
    :caption: Getting started
 
    getting_started/installation
@@ -17,7 +17,7 @@ Content
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Examples
 
    example_notebooks/solve_ivp_with_scipy
