@@ -21,6 +21,7 @@ test:
 	BACKEND=JAX pytest
 	python -m doctest *.md
 	python -m doctest odezoo/*.py
+	python -m doctest docs/source/getting_started/*.md
 
 example:
 	jupytext --sync docs/source/example_notebooks/*
