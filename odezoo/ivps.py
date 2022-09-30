@@ -548,6 +548,7 @@ van_der_pol_first_order = transform.second_to_first_order_auto(
 )
 
 
+# todo: rename to three_body_restricted() or sth like this
 def three_body(
     *,
     initial_values=None,
@@ -557,13 +558,23 @@ def three_body(
     """Construct the restricted three-body problem as \
     a second-order differential equation.
 
-    <description>
+    The restricted three-body problem describes how
+    a body of negligible mass moves under the influence of two massive bodies.
+    It can be described in terms of two-body motion.
 
-    .. collapse:: BibTex for XXX
+    It is commonly pointed to p. 129 of Hairer et al. (1993) as the first reference.
+
+    .. collapse:: BibTex for Hairer et al. (1993)
 
         .. code-block:: tex
 
-            <bibtex>
+            @book{hairer1993solving,
+                title={Solving Ordinary Differential equations I, Nonstiff Problems},
+                author={Hairer, Ernst and N{\o}rsett, Syvert P and Wanner, Gerhard},
+                year={1993},
+                publisher={Springer}
+                edition={2}
+            }
 
     """
     if initial_values is None:
