@@ -35,7 +35,12 @@ clean:
 	rm -rf *.egg-info
 	rm -rf dist site
 	rm -rf docs/source/api/
+	rm -rf docs/_build/
 	cd docs; make clean
 	cd docs/source/example_notebooks; rm -rf .ipynb_checkpoints
+	jupytext --sync docs/source/example_notebooks/*
+	rm docs/source/example_notebooks/solve_bvp_with_scipy.ipynb
+	rm docs/source/example_notebooks/solve_ivp_with_scipy.ipynb
+	rm docs/source/example_notebooks/solve_ivp_with_diffrax.ipynb
 doc:
 	cd docs; make html

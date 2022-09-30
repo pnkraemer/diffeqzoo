@@ -61,6 +61,7 @@ class backend:
             raise RuntimeError("A backend has been selected already.")
         self._select_backend(backend_name.lower())
 
+    # todo: remove? Why would one want this
     def change_to(self, backend_name, /):
         """Change the backend implementation."""
         if not self.has_been_selected:

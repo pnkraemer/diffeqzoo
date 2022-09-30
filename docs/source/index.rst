@@ -11,6 +11,7 @@ Content
    :caption: Getting started
 
    getting_started/installation
+   getting_started/examples
    getting_started/rationale
 
 
