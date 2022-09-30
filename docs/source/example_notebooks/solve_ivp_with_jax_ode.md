@@ -13,7 +13,7 @@ jupyter:
     name: python3
 ---
 
-# Solve IVPs with JAX' ODE solver
+# Solve IVPs with JAX
 
 ```python
 import jax.experimental.ode
