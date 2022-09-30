@@ -518,15 +518,27 @@ pleiades_first_order = transform.second_to_first_order_auto(
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
-    """Construct the Van-der-Pol system as a second-order differential equation.
+    r"""Construct the Van-der-Pol system as a second-order differential equation.
 
-    <description>
+    The Van-der-Pol system is a non-conservative oscillator subject to non-linear damping.
+    It is a popular benchmark problem, because it involves a parameter :math:`\mu`
+    (the "stiffness constant") which governs the stiffness of the problem.
+    For :math:`\mu ~ 1`, the problen is not stiff.
+    For large values (e.g. :math:`\mu ~ 10^6`) the problem is stiff.
+    It was first published by Van der Pol (1920).
 
-    .. collapse:: BibTex for XXX
+    .. collapse:: BibTex for Van der Pol (1920).
 
         .. code-block:: tex
 
-            <bibtex>
+            @article{van1920theory,
+                title={Theory of the amplitude of free and forced triode vibrations},
+                author={Van der Pol, Balthasar},
+                journal={Radio Review},
+                volume={1},
+                pages={701--710},
+                year={1920}
+            }
 
     """
     if initial_values is None:
