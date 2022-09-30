@@ -31,13 +31,12 @@ They require slightly different inputs: for example, `odeint` expects vector fie
 <!-- #endregion -->
 
 ```python
+import inspect  # to inspect function signatures
+
 import matplotlib.pyplot as plt
-import numpy as np
 import scipy.integrate
 
 from odezoo import backend, ivps
-
-import inspect  # to inspect function signatures
 
 backend.select("numpy")
 ```
@@ -62,18 +61,15 @@ print(inspect.signature(f), args)
 def fun(t, y, *args):
     return f(y, *args)
 
-scipy.integrate.solve_ivp(
-    fun=fun, t_span=t_span, y0=y0, args=args
-)
+
+scipy.integrate.solve_ivp(fun=fun, t_span=t_span, y0=y0, args=args)
 ```
 
 Let's plot the solution.
 
 ```python
 t_eval = backend.numpy.linspace(*t_span, num=200)
-sol = scipy.integrate.solve_ivp(
-    fun=fun, t_span=t_span, t_eval=t_eval, y0=y0, args=args
-)
+sol = scipy.integrate.solve_ivp(fun=fun, t_span=t_span, t_eval=t_eval, y0=y0, args=args)
 y_eval = sol.y.T
 ```
 
@@ -98,17 +94,13 @@ Let's compute the ODE solution with `odeint` and plot the solution.
 f, y0, t_span, args = ivps.rigid_body()
 print(inspect.signature(f), args)
 
+
 def func(y, t, *args):
     return f(y, *args)
 
+
 t = backend.numpy.linspace(*t_span, num=200)
-y = scipy.integrate.odeint(
-    func=func, y0=y0, t=t, args=args
-)
+y = scipy.integrate.odeint(func=func, y0=y0, t=t, args=args)
 plt.plot(t, y)
 plt.show()
-```
-
-```python
-
 ```
