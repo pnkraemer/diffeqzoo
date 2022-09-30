@@ -6,7 +6,7 @@ format:
 	isort .
 	black .
 	nbqa black docs/
-	nbqa flake8 docs/
+	nbqa isort docs/
 	jupytext --sync docs/source/example_notebooks/*
 
 lint:
@@ -41,6 +41,7 @@ clean:
 	cd docs/source/example_notebooks; rm -rf .ipynb_checkpoints
 	jupytext --sync docs/source/example_notebooks/*
 	rm docs/source/example_notebooks/solve_bvp_with_scipy.ipynb
+	rm docs/source/example_notebooks/solve_ivp_with_jax_ode.ipynb
 	rm docs/source/example_notebooks/solve_ivp_with_scipy.ipynb
 	rm docs/source/example_notebooks/solve_ivp_with_diffrax.ipynb
 doc:
