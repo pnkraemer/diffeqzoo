@@ -253,13 +253,21 @@ def lorenz96(
 ):
     """Lorenz96 model.
 
-    <description>
+    The Lorenz96 is a chaotic initial value problem, due to Lorenz (1996),
+    and commonly used as a testproblem in data assimilation.
 
-    .. collapse:: BibTex for XXX
+    .. collapse:: BibTex for Lorenz (1996)
 
         .. code-block:: tex
 
-            <bibtex>
+            @inproceedings{lorenz1996predictability,
+                title={Predictability: A problem partly solved},
+                author={Lorenz, Edward N},
+                booktitle={Proceedings of the Seminar on Predictability},
+                volume={1},
+                number={1},
+                year={1996}
+            }
 
     """
     if initial_values is None:
