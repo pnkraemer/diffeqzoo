@@ -290,14 +290,25 @@ def lorenz63(
 ):
     """Lorenz63 model.
 
-    <description>
+    The Lorenz63 model, initially used for atmospheric convection,
+    is a common example of an initial value problem that
+    has a chaotic solution.
 
-    .. collapse:: BibTex for XXX
+    It was proposed by Lorenz (1963).
+
+    .. collapse:: BibTex for Lorenz (1963)
 
         .. code-block:: tex
 
-            <bibtex>
-
+            @article{lorenz1963deterministic,
+                title={Deterministic nonperiodic flow},
+                author={Lorenz, Edward N},
+                journal={Journal of atmospheric sciences},
+                volume={20},
+                number={2},
+                pages={130--141},
+                year={1963}
+            }
     """
     if initial_values is None:
         initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
