@@ -83,13 +83,6 @@ def fitzhugh_nagumo(
     (which describes the spike generation in squid giant axons)
     was suggested by FitzHugh (1961) and Nagumo et al. (1962)
 
-    It is a non-stiff, first-order problem,
-
-    .. math::
-        \dot u(t) = f(u(t), \theta)
-
-    and generally easy to solve by most ODE solvers.
-
     The following bibtex(s) point to the original papers about
     the FitzHugh-Nagumo models. (Source: Google Scholar).
 
@@ -165,15 +158,34 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
 
 
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
-    """SIR model.
+    """SIR model without vital dynamics.
 
-    <description>
+    The SIR model describes the spread of a virus in a population.
+    More specifically, it describes how populations move from being
+    susceptible, to being infected, to being removed from the population.
 
-    .. collapse:: BibTex for XXX
+    It was first proposed by Kermack and McKendrick (1927).
+
+    .. collapse:: BibTex for Kermack and McKendrick (1927).
 
         .. code-block:: tex
 
-            <bibtex>
+            @article{kermack1927contribution,
+                title={A contribution to the mathematical theory of epidemics},
+                author={Kermack, William Ogilvy and McKendrick, Anderson G},
+                journal={Proceedings of the Royal Society of London. Series A},
+                volume={115},
+                number={772},
+                pages={700--721},
+                year={1927},
+                publisher={The Royal Society London}
+            }
+
+
+    See Also
+    --------
+    ivps.seir
+    ivps.sird
 
     """
     if initial_values is None:
@@ -194,13 +206,34 @@ def seir(
 ):
     """SEIR model.
 
-    <description>
+    The SEIR model is a variant of the SIR model,
+    but additionally includes a compartment of the population that
+    has been exposed to the virus (but is not infected yet).
+    See Hethcode (2000).
 
-    .. collapse:: BibTex for XXX
+    .. collapse:: BibTex for Hethcote (2000).
 
         .. code-block:: tex
 
-            <bibtex>
+            @article{hethcote2000mathematics,
+                title={The Mathematics of Infectious Diseases},
+                author={Hethcote, Herbert W},
+                journal={SIAM Review},
+                volume={42},
+                number={4},
+                pages={599--653},
+                year={2000},
+                publisher={SIAM}
+            }
+
+    Note
+    ----
+    If you know a more suitable original reference, please make some noise!
+
+    See Also
+    --------
+    ivps.sir
+    ivps.sird
 
     """
     if initial_values is None:
@@ -221,14 +254,34 @@ def sird(
 ):
     """SIRD model.
 
-    <description>
+    The SIRD model is a variant of the SIR model that
+    distinguishes the recovered compartment from the deceased compartment
+    in the population.
+    See Hethcode (2000).
 
-    .. collapse:: BibTex for XXX
+    .. collapse:: BibTex for Hethcote (2000).
 
         .. code-block:: tex
 
-            <bibtex>
+            @article{hethcote2000mathematics,
+                title={The Mathematics of Infectious Diseases},
+                author={Hethcote, Herbert W},
+                journal={SIAM Review},
+                volume={42},
+                number={4},
+                pages={599--653},
+                year={2000},
+                publisher={SIAM}
+            }
 
+    Note
+    ----
+    If you know a more suitable original reference, please make some noise!
+
+    See Also
+    --------
+    ivps.sir
+    ivps.seir
     """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
@@ -357,7 +410,7 @@ def rigid_body(
 
     Note
     ----
-    If you know a better source, please make some noise!
+    If you know a more suitable original reference, please make some noise!
 
     """
     if initial_values is None:
@@ -410,7 +463,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
 
     Note
     ----
-    If you know a better source, please make some noise!
+    If you know a more suitable original reference, please make some noise!
 
     See Also
     --------
