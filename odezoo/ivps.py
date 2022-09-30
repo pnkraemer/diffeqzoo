@@ -334,13 +334,30 @@ def rigid_body(
 ):
     r"""Rigid body dynamics without external forces.
 
-    <description>
+    The rigid body dynamics from classical mechanics,
+    or "Euler's rotation equations",
+    describe the rotation of a rigid body in three-dimensional, principal,
+    orthogonal coordinates.
 
-    .. collapse:: BibTex for XXX
+
+    A common citation for the Pleiades problem is p. 244 in the book
+    by Hairer et al. (1993):
+
+    .. collapse:: BibTex for Hairer et al. (1993)
 
         .. code-block:: tex
 
-            <bibtex>
+            @book{hairer1993solving,
+                title={Solving Ordinary Differential equations I, Nonstiff Problems},
+                author={Hairer, Ernst and N{\o}rsett, Syvert P and Wanner, Gerhard},
+                year={1993},
+                publisher={Springer}
+                edition={2}
+            }
+
+    Note
+    ----
+    If you know a better source, please make some noise!
 
     """
     if initial_values is None:
