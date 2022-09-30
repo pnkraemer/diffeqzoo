@@ -1,5 +1,29 @@
-# ODE zoo
+# odezoo
 
+
+_So, what was the initial condition of the restricted three-body problem again?_
+
+``odezoo`` delivers all ODE test problems in one place. It works with numpy and jax.
+
+
+**Features include**
+
+* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, Rigid body, ...)
+* Standard stiff benchmark problems (Stiff van-der-Pol, HIRES, ROBER, ...)
+* Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
+* Chaotic systems (Lorenz63, Lorenz96)
+* N-Body problems
+* Boundary value problems (to appear)
+
+**As well as**
+
+* Flexibly NumPy and JAX-backends. Other than one of those two, there are 0 (zero!) dependencies.
+* Mathematical descriptions of the ODE problems
+* BibTex entries for each original reference, to be used in scientific publications
+
+and many more goodies.
+
+## Quick example
 ```python 
 >>> from odezoo import ivps, backend
 >>> backend.select("numpy")
@@ -42,4 +66,3 @@
 * ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `odezoo` (no surprise, given the authors) but tied to ProbNum's ODE solver interface. `odezoo` is more raw and generic, and switches more flexibly between numpy and jax (at the time of developing).
 
 Anything missing in this list? Please open an issue or make a pull request.
-
