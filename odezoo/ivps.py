@@ -14,7 +14,53 @@ class _InitialValueProblem(NamedTuple):
 def lotka_volterra(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
 ):
-    """Lotka--Volterra / predator-prey model."""
+    """Lotka--Volterra / predator-prey model.
+
+    The Lotka--Volterra equations describe the dynamics of biological systems
+    in which two species, predators and prey, interact.
+
+    The original version is due to Lotka (1910).
+    Its application to predator-Prey dynamics is due to Lotka (1925).
+    The same model was discovered by Volterra (1926).
+
+    .. collapse:: BibTex for Lotka (1910)
+
+        .. code-block:: tex
+
+            @article{lotka1910contribution,
+                title={Contribution to the theory of periodic reactions},
+                author={Lotka, Alfred J},
+                journal={The Journal of Physical Chemistry},
+                volume={14},
+                number={3},
+                pages={271--274},
+                year={1910},
+                publisher={ACS Publications}
+            }
+
+    .. collapse:: BibTex for Lotka (1925)
+
+        .. code-block:: tex
+
+            @book{lotka1925elements,
+                title={Elements of physical biology},
+                author={Lotka, Alfred James},
+                year={1925},
+                publisher={Williams \& Wilkins}
+            }
+
+    .. collapse:: BibTex for Volterra (1926)
+
+        .. code-block:: tex
+
+            @book{volterra1926variazioni,
+                title={Variazioni e fluttuazioni del numero d'individui in specie animali conviventi},
+                author={Volterra, Vito},
+                year={1926},
+                publisher={Societ{\`a} anonima tipografica" Leonardo da Vinci"}
+            }
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([20.0, 20.0])
 
@@ -91,7 +137,22 @@ def fitzhugh_nagumo(
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
-    """Logistic ODE model."""
+    """Logistic ODE model.
+
+    The logistic ODE is a differential equation model whose solution
+    exhibits exponential growth early in the time interval,
+    and approaches a constant value over time.
+
+    It is a differential equation version of the sigmoid and the logistic function.
+    The logistic ODE has a closed-form solution.
+
+    .. note::
+        **Help wanted!**
+
+        If you know which paper/book to cite when the logistic ODE is used
+        in a paper, please consider making a contribution.
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray(0.1)
 
@@ -104,7 +165,17 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
 
 
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
-    """SIR model."""
+    """SIR model.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0])
 
@@ -121,7 +192,17 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
 def seir(
     *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
 ):
-    """SEIR model."""
+    """SEIR model.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
 
@@ -138,7 +219,17 @@ def seir(
 def sird(
     *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
 ):
-    """SIRD model."""
+    """SIRD model.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
 
@@ -160,7 +251,17 @@ def lorenz96(
     forcing=8.0,
     perturb=0.01,
 ):
-    """Lorenz96 model."""
+    """Lorenz96 model.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = _lorenz96_chaotic_u0(
             forcing=forcing, num_variables=num_variables, perturb=perturb
@@ -187,7 +288,17 @@ def lorenz63(
     time_span=(0.0, 20.0),
     parameters=(10.0, 28.0, 8.0 / 3.0),
 ):
-    """Lorenz63 model."""
+    """Lorenz63 model.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
 
@@ -202,7 +313,17 @@ def lorenz63(
 def rigid_body(
     *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
 ):
-    r"""Rigid body dynamics without external forces."""
+    r"""Rigid body dynamics without external forces.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.array([1.0, 0.0, 0.9])
 
@@ -308,7 +429,17 @@ pleiades_first_order = transform.second_to_first_order_auto(
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
-    """Construct the Van-der-Pol system as a second-order differential equation."""
+    """Construct the Van-der-Pol system as a second-order differential equation.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         u0 = backend.numpy.asarray(2.0)
         du0 = backend.numpy.asarray(0.0)
@@ -335,7 +466,17 @@ def three_body(
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
     """Construct the restricted three-body problem as \
-    a second-order differential equation."""
+    a second-order differential equation.
+
+    <description>
+
+    .. collapse:: BibTex for XXX
+
+        .. code-block:: tex
+
+            <bibtex>
+
+    """
     if initial_values is None:
         u0 = backend.numpy.asarray([0.994, 0])
         du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
