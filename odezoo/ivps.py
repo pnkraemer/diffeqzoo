@@ -560,8 +560,7 @@ van_der_pol_first_order = transform.second_to_first_order_auto(
 )
 
 
-# todo: rename to three_body_restricted() or sth like this
-def three_body(
+def three_body_restricted(
     *,
     initial_values=None,
     standardised_moon_mass=0.012277471,
@@ -595,7 +594,7 @@ def three_body(
         initial_values = (u0, du0)
 
     return _InitialValueProblem(
-        vector_field=_vector_fields.three_body,
+        vector_field=_vector_fields.three_body_restricted,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
         time_span=time_span,
@@ -603,8 +602,8 @@ def three_body(
 
 
 _3bdocs = "The restricted three-body problem as a first-order differential equation."
-three_body_first_order = transform.second_to_first_order_auto(
-    three_body,
+three_body_restricted_first_order = transform.second_to_first_order_auto(
+    three_body_restricted,
     short_summary=_3bdocs,
 )
 

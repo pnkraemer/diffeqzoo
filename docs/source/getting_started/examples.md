@@ -40,7 +40,7 @@ While all IVP problem creators have a _similar_ API, the ODE functions are not n
 
 ```python
 >>> import inspect
->>> f1, *_ = ivps.three_body()
+>>> f1, *_ = ivps.three_body_restricted()
 >>>
 >>> f2, *_ = ivps.sird()
 >>>

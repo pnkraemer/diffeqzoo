@@ -134,7 +134,7 @@ van_der_pol_first_order = transform.second_to_first_order_vf_auto(
 )
 
 
-def three_body(Y, dY, /, standardised_moon_mass):
+def three_body_restricted(Y, dY, /, standardised_moon_mass):
     """Restricted three-body dynamics as a second-order differential equation."""
     mu, mp = standardised_moon_mass, 1.0 - standardised_moon_mass
     D1 = backend.numpy.linalg.norm(backend.numpy.asarray([Y[0] + mu, Y[1]])) ** 3.0
@@ -145,8 +145,8 @@ def three_body(Y, dY, /, standardised_moon_mass):
 
 
 _3bdocs = "Restricted three-body dynamics as a first-order differential equation."
-three_body_first_order = transform.second_to_first_order_vf_auto(
-    three_body,
+three_body_restricted_first_order = transform.second_to_first_order_vf_auto(
+    three_body_restricted,
     short_summary=_3bdocs,
 )
 
