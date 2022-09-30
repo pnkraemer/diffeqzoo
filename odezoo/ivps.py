@@ -14,7 +14,53 @@ class _InitialValueProblem(NamedTuple):
 def lotka_volterra(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
 ):
-    """Lotka--Volterra / predator-prey model."""
+    """Lotka--Volterra / predator-prey model.
+
+    The Lotka--Volterra equations describe the dynamics of biological systems
+    in which two species, predators and prey, interact.
+
+    The original version is due to Lotka (1910).
+    Its application to predator-Prey dynamics is due to Lotka (1925).
+    The same model was discovered by Volterra (1926).
+
+    .. collapse:: BibTex for Lotka (1910)
+
+        .. code-block:: tex
+
+            @article{lotka1910contribution,
+                title={Contribution to the theory of periodic reactions},
+                author={Lotka, Alfred J},
+                journal={The Journal of Physical Chemistry},
+                volume={14},
+                number={3},
+                pages={271--274},
+                year={1910},
+                publisher={ACS Publications}
+            }
+
+    .. collapse:: BibTex for Lotka (1925)
+
+        .. code-block:: tex
+
+            @book{lotka1925elements,
+                title={Elements of physical biology},
+                author={Lotka, Alfred James},
+                year={1925},
+                publisher={Williams \& Wilkins}
+            }
+
+    .. collapse:: BibTex for Volterra (1926)
+
+        .. code-block:: tex
+
+            @book{volterra1926variazioni,
+                title={Variazioni e fluttuazioni del numero d'individui in specie animali conviventi},
+                author={Volterra, Vito},
+                year={1926},
+                publisher={Societ{\`a} anonima tipografica" Leonardo da Vinci"}
+            }
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([20.0, 20.0])
 
@@ -36,13 +82,6 @@ def fitzhugh_nagumo(
     This simplified, 2d-version of the Hodgkin-Huxley model
     (which describes the spike generation in squid giant axons)
     was suggested by FitzHugh (1961) and Nagumo et al. (1962)
-
-    It is a non-stiff, first-order problem,
-
-    .. math::
-        \dot u(t) = f(u(t), \theta)
-
-    and generally easy to solve by most ODE solvers.
 
     The following bibtex(s) point to the original papers about
     the FitzHugh-Nagumo models. (Source: Google Scholar).
@@ -91,7 +130,22 @@ def fitzhugh_nagumo(
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
-    """Logistic ODE model."""
+    """Logistic ODE model.
+
+    The logistic ODE is a differential equation model whose solution
+    exhibits exponential growth early in the time interval,
+    and approaches a constant value over time.
+
+    It is a differential equation version of the sigmoid and the logistic function.
+    The logistic ODE has a closed-form solution.
+
+    .. note::
+        **Help wanted!**
+
+        If you know which paper/book to cite when the logistic ODE is used
+        in a paper, please consider making a contribution.
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray(0.1)
 
@@ -104,7 +158,36 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
 
 
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
-    """SIR model."""
+    """SIR model without vital dynamics.
+
+    The SIR model describes the spread of a virus in a population.
+    More specifically, it describes how populations move from being
+    susceptible, to being infected, to being removed from the population.
+
+    It was first proposed by Kermack and McKendrick (1927).
+
+    .. collapse:: BibTex for Kermack and McKendrick (1927).
+
+        .. code-block:: tex
+
+            @article{kermack1927contribution,
+                title={A contribution to the mathematical theory of epidemics},
+                author={Kermack, William Ogilvy and McKendrick, Anderson G},
+                journal={Proceedings of the Royal Society of London. Series A},
+                volume={115},
+                number={772},
+                pages={700--721},
+                year={1927},
+                publisher={The Royal Society London}
+            }
+
+
+    See Also
+    --------
+    ivps.seir
+    ivps.sird
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0])
 
@@ -121,7 +204,38 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
 def seir(
     *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
 ):
-    """SEIR model."""
+    """SEIR model.
+
+    The SEIR model is a variant of the SIR model,
+    but additionally includes a compartment of the population that
+    has been exposed to the virus (but is not infected yet).
+    See Hethcode (2000).
+
+    .. collapse:: BibTex for Hethcote (2000).
+
+        .. code-block:: tex
+
+            @article{hethcote2000mathematics,
+                title={The Mathematics of Infectious Diseases},
+                author={Hethcote, Herbert W},
+                journal={SIAM Review},
+                volume={42},
+                number={4},
+                pages={599--653},
+                year={2000},
+                publisher={SIAM}
+            }
+
+    Note
+    ----
+    If you know a more suitable original reference, please make some noise!
+
+    See Also
+    --------
+    ivps.sir
+    ivps.sird
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
 
@@ -138,7 +252,37 @@ def seir(
 def sird(
     *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
 ):
-    """SIRD model."""
+    """SIRD model.
+
+    The SIRD model is a variant of the SIR model that
+    distinguishes the recovered compartment from the deceased compartment
+    in the population.
+    See Hethcode (2000).
+
+    .. collapse:: BibTex for Hethcote (2000).
+
+        .. code-block:: tex
+
+            @article{hethcote2000mathematics,
+                title={The Mathematics of Infectious Diseases},
+                author={Hethcote, Herbert W},
+                journal={SIAM Review},
+                volume={42},
+                number={4},
+                pages={599--653},
+                year={2000},
+                publisher={SIAM}
+            }
+
+    Note
+    ----
+    If you know a more suitable original reference, please make some noise!
+
+    See Also
+    --------
+    ivps.sir
+    ivps.seir
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
 
@@ -160,7 +304,25 @@ def lorenz96(
     forcing=8.0,
     perturb=0.01,
 ):
-    """Lorenz96 model."""
+    """Lorenz96 model.
+
+    The Lorenz96 is a chaotic initial value problem, due to Lorenz (1996),
+    and commonly used as a testproblem in data assimilation.
+
+    .. collapse:: BibTex for Lorenz (1996)
+
+        .. code-block:: tex
+
+            @inproceedings{lorenz1996predictability,
+                title={Predictability: A problem partly solved},
+                author={Lorenz, Edward N},
+                booktitle={Proceedings of the Seminar on Predictability},
+                volume={1},
+                number={1},
+                year={1996}
+            }
+
+    """
     if initial_values is None:
         initial_values = _lorenz96_chaotic_u0(
             forcing=forcing, num_variables=num_variables, perturb=perturb
@@ -187,7 +349,28 @@ def lorenz63(
     time_span=(0.0, 20.0),
     parameters=(10.0, 28.0, 8.0 / 3.0),
 ):
-    """Lorenz63 model."""
+    """Lorenz63 model.
+
+    The Lorenz63 model, initially used for atmospheric convection,
+    is a common example of an initial value problem that
+    has a chaotic solution.
+
+    It was proposed by Lorenz (1963).
+
+    .. collapse:: BibTex for Lorenz (1963)
+
+        .. code-block:: tex
+
+            @article{lorenz1963deterministic,
+                title={Deterministic nonperiodic flow},
+                author={Lorenz, Edward N},
+                journal={Journal of atmospheric sciences},
+                volume={20},
+                number={2},
+                pages={130--141},
+                year={1963}
+            }
+    """
     if initial_values is None:
         initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
 
@@ -202,7 +385,34 @@ def lorenz63(
 def rigid_body(
     *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
 ):
-    r"""Rigid body dynamics without external forces."""
+    r"""Rigid body dynamics without external forces.
+
+    The rigid body dynamics from classical mechanics,
+    or "Euler's rotation equations",
+    describe the rotation of a rigid body in three-dimensional, principal,
+    orthogonal coordinates.
+
+
+    A common citation for the Pleiades problem is p. 244 in the book
+    by Hairer et al. (1993):
+
+    .. collapse:: BibTex for Hairer et al. (1993)
+
+        .. code-block:: tex
+
+            @book{hairer1993solving,
+                title={Solving Ordinary Differential equations I, Nonstiff Problems},
+                author={Hairer, Ernst and N{\o}rsett, Syvert P and Wanner, Gerhard},
+                year={1993},
+                publisher={Springer}
+                edition={2}
+            }
+
+    Note
+    ----
+    If you know a more suitable original reference, please make some noise!
+
+    """
     if initial_values is None:
         initial_values = backend.numpy.array([1.0, 0.0, 0.9])
 
@@ -253,7 +463,7 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
 
     Note
     ----
-    If you know a better source, please make some noise!
+    If you know a more suitable original reference, please make some noise!
 
     See Also
     --------
@@ -308,7 +518,29 @@ pleiades_first_order = transform.second_to_first_order_auto(
 
 
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
-    """Construct the Van-der-Pol system as a second-order differential equation."""
+    r"""Construct the Van-der-Pol system as a second-order differential equation.
+
+    The Van-der-Pol system is a non-conservative oscillator subject to non-linear damping.
+    It is a popular benchmark problem, because it involves a parameter :math:`\mu`
+    (the "stiffness constant") which governs the stiffness of the problem.
+    For :math:`\mu ~ 1`, the problen is not stiff.
+    For large values (e.g. :math:`\mu ~ 10^6`) the problem is stiff.
+    It was first published by Van der Pol (1920).
+
+    .. collapse:: BibTex for Van der Pol (1920).
+
+        .. code-block:: tex
+
+            @article{van1920theory,
+                title={Theory of the amplitude of free and forced triode vibrations},
+                author={Van der Pol, Balthasar},
+                journal={Radio Review},
+                volume={1},
+                pages={701--710},
+                year={1920}
+            }
+
+    """
     if initial_values is None:
         u0 = backend.numpy.asarray(2.0)
         du0 = backend.numpy.asarray(0.0)
@@ -328,21 +560,41 @@ van_der_pol_first_order = transform.second_to_first_order_auto(
 )
 
 
-def three_body(
+def three_body_restricted(
     *,
     initial_values=None,
     standardised_moon_mass=0.012277471,
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
     """Construct the restricted three-body problem as \
-    a second-order differential equation."""
+    a second-order differential equation.
+
+    The restricted three-body problem describes how
+    a body of negligible mass moves under the influence of two massive bodies.
+    It can be described in terms of two-body motion.
+
+    It is commonly pointed to p. 129 of Hairer et al. (1993) as the first reference.
+
+    .. collapse:: BibTex for Hairer et al. (1993)
+
+        .. code-block:: tex
+
+            @book{hairer1993solving,
+                title={Solving Ordinary Differential equations I, Nonstiff Problems},
+                author={Hairer, Ernst and N{\o}rsett, Syvert P and Wanner, Gerhard},
+                year={1993},
+                publisher={Springer}
+                edition={2}
+            }
+
+    """
     if initial_values is None:
         u0 = backend.numpy.asarray([0.994, 0])
         du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
         initial_values = (u0, du0)
 
     return _InitialValueProblem(
-        vector_field=_vector_fields.three_body,
+        vector_field=_vector_fields.three_body_restricted,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
         time_span=time_span,
@@ -350,8 +602,8 @@ def three_body(
 
 
 _3bdocs = "The restricted three-body problem as a first-order differential equation."
-three_body_first_order = transform.second_to_first_order_auto(
-    three_body,
+three_body_restricted_first_order = transform.second_to_first_order_auto(
+    three_body_restricted,
     short_summary=_3bdocs,
 )
 
