@@ -20,9 +20,10 @@ There are not many boundary value problem solvers in Python, but SciPy offers on
 The boundary value problems in the `odezoo` can be plugged into SciPy's solver.
 
 ```python
+import inspect
+
 import matplotlib.pyplot as plt
 import scipy.integrate
-import inspect
 
 from odezoo import backend, bvps
 
@@ -81,6 +82,7 @@ Note how many boundary value problems are second-order differential equations, a
 f, (g0, g1), tspan, f_args = bvps.bratu()
 
 # split & concatenate to second-order ODEs as first-order ODEs
+
 
 def fun(t, y):
     y, dy = backend.numpy.split(y, 2)
