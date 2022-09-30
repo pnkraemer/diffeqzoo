@@ -93,7 +93,7 @@ def fitzhugh_nagumo(
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
     """Logistic ODE model."""
     if initial_values is None:
-        initial_values = backend.numpy.asarray([0.1])
+        initial_values = backend.numpy.asarray(0.1)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.logistic,
@@ -174,6 +174,13 @@ def lorenz96(
     )
 
 
+def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
+    u0_equilibrium = backend.numpy.ones(num_variables) * forcing
+    return backend.numpy.concatenate(
+        [backend.numpy.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
+    )
+
+
 def lorenz63(
     *,
     initial_values=None,
@@ -204,13 +211,6 @@ def rigid_body(
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
-    )
-
-
-def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
-    u0_equilibrium = backend.numpy.ones(num_variables) * forcing
-    return backend.numpy.concatenate(
-        [backend.numpy.asarray([u0_equilibrium[0] + perturb]), u0_equilibrium[1:]]
     )
 
 
@@ -310,8 +310,8 @@ pleiades_first_order = transform.second_to_first_order_auto(
 def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
     """Construct the Van-der-Pol system as a second-order differential equation."""
     if initial_values is None:
-        u0 = backend.numpy.asarray([2.0])
-        du0 = backend.numpy.asarray([0.0])
+        u0 = backend.numpy.asarray(2.0)
+        du0 = backend.numpy.asarray(0.0)
         initial_values = (u0, du0)
 
     return _InitialValueProblem(

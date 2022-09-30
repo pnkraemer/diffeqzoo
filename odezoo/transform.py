@@ -18,7 +18,10 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
         f_untransformed, u0s, tspan, f_args = ivp_untransformed
 
         # the new stuff
-        initial_values = backend.numpy.concatenate(u0s, axis=None)
+        if u0s[0].ndim == 0:
+            initial_values = backend.numpy.stack(u0s)
+        else:
+            initial_values = backend.numpy.concatenate(u0s, axis=None)
         vector_field = second_to_first_order_vf_auto(
             f_untransformed, short_summary=short_summary
         )
@@ -62,6 +65,8 @@ def second_to_first_order_vf_auto(fn, /, short_summary=None):
     def fn_transformed(u, *args):
         u, du = backend.numpy.split(u, 2)
         ddu = fn(u, du, *args)
+        if du.ndim == 0:
+            return backend.numpy.stack((du, ddu))
         return backend.numpy.concatenate((du, ddu), axis=None)
 
     # Update some problem-specific description.
