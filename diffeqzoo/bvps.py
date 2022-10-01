@@ -60,6 +60,21 @@ def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
 
     Bratu's problem consists of a second-order differential equation
     and two-point boundary conditions.
+    It is a common example problem to showcase BVP solvers and due to Bratu (1913).
+
+    .. collapse:: BibTex for Bratu (1913)
+
+        .. code-block:: tex
+
+            @article{bratu1913equations,
+                title={Sur les {\'e}quations int{\'e}grales non lin{\'e}aires},
+                author={Bratu, G},
+                journal={Bulletin de la Soci{\'e}t{\'e} Math{\'e}matique de France},
+                volume={41},
+                pages={346--350},
+                year={1913}
+            }
+
     """
 
     def g0(u):
@@ -80,8 +95,7 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
     r"""Construct Bratu's problem with a signature :math:`(u, \dot u)` /
     and an unused second argument.
 
-    Bratu's problem consists of a second-order differential equation
-    and two-point boundary conditions.
+    See :func:`bratu` for a more detailed problem description.
     """
 
     def g0(u, _):
@@ -103,8 +117,7 @@ def pendulum_autonomous_api(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,
     r"""Construct the pendulum problem with a signature :math:`(u, \dot u)` /
     and an unused second argument.
 
-    The pendulum problem consists of a second-order differential equation
-    and two-point boundary conditions.
+    See :func:`pendulum` for a more detailed problem description.
     """
 
     def g0(u, _):
@@ -125,7 +138,15 @@ def pendulum(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)):
     r"""Construct the pendulum problem.
 
     The pendulum problem consists of a second-order differential equation
-    and two-point boundary conditions.
+    and two-point boundary conditions. It is a common example BVP
+    to showcase a boundary value problem solver.
+
+    .. note::
+        **Help wanted!**
+
+        If you know which paper/book to cite when the pendulum problem
+        is used in a paper, please consider making a contribution.
+
     """
 
     def g0(u):
