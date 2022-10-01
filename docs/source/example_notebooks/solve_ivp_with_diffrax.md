@@ -13,13 +13,20 @@ jupyter:
     name: python3
 ---
 
-# Solve IVPs with diffrax
+# Solve IVPs with Diffrax
+
+Diffrax provides numerical differential equation solvers in JAX.
+Its advantages over, e.g., JAX' solvers include a larger set of available solvers.
+We can plug the `diffeqzoo`'s problems into diffrax as follows.
+
+
 
 ```python
+import inspect
+
+import diffrax
 import jax
-import jax.numpy as jnp
 import matplotlib.pyplot as plt
-from diffrax import Dopri5, ODETerm, PIDController, SaveAt, diffeqsolve
 
 from diffeqzoo import backend, ivps
 
@@ -27,36 +34,40 @@ backend.select("jax")
 ```
 
 ```python
-ivp = ivps.rigid_body()
+print(inspect.signature(diffrax.diffeqsolve))
+```
 
-f, y0, (t0, t1), f_args, *_ = ivp
+Most ODEs are autonomous (i.e., they do not depend on the time variable), and the `diffeqzoo` implements them as such. Just like most other ODE solvers in Python, Diffrax expects non-autonomous vector fields.
+It further requires wrapping vector fields into `diffrax.ODETerm` objects, which can be achieved easily.
+
+Let's plot the solution of an example initial value problem.
+
+```python
+f, y0, (t0, t1), args = ivps.seir()
 
 
 @jax.jit
-def vector_field(_, y, args):
-    return f(y, *args)
-```
+def vf(t, y, p):
+    return f(y, *p)
 
-```python
-term = ODETerm(vector_field)
-solver = Dopri5()
-saveat = SaveAt(ts=jnp.linspace(t0, t1, num=250))
-stepsize_controller = PIDController(rtol=1e-5, atol=1e-5)
 
-sol = diffeqsolve(
+term = diffrax.ODETerm(vf)
+solver = diffrax.Dopri5()
+
+ts = backend.numpy.linspace(t0, t1, num=200)
+saveat = diffrax.SaveAt(ts=ts)
+
+sol = diffrax.diffeqsolve(
     term,
     solver,
     t0=t0,
     t1=t1,
     dt0=0.1,
     y0=y0,
-    args=f_args,
+    args=args,
     saveat=saveat,
-    stepsize_controller=stepsize_controller,
 )
-```
 
-```python
 plt.plot(sol.ts, sol.ys)
 plt.show()
 ```
