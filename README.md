@@ -89,5 +89,8 @@ and many more goodies.
 * [NonlinearBenchmark](https://www.nonlinearbenchmark.org/) hosts datasets of nonlinear dynamical system observations. They are quite specialised problems, and don't contain the textbook problems like Lotka-Volterra, van der Pol, etc..
 * DifferentialEquations.jl provides [example ODE problems](https://diffeq.sciml.ai/stable/types/ode_types/#Example-Problems) in Julia.
 * [ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise -- the set of authors intersects) but tied to ProbNum's ODE solver interface. `diffeqzoo` is less of an API, switches more flexibly between numpy and jax (at the time of developing), and contains more problems.
+* W. Gilpin [published a benchmark](https://github.com/williamgilpin/dysts) for forecasting and data-driven modeling, which comes with a large number of (mostly chaotic) dynamical systems.
+* J. Meier lists a number of ODE attractors [on his website](http://www.3d-meier.de/tut19/Seite1.html).
+
 
 Anything missing in this list? Please open an issue or make a pull request.
