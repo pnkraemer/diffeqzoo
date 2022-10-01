@@ -45,4 +45,5 @@ clean:
 	rm docs/source/example_notebooks/solve_ivp_with_scipy.ipynb
 	rm docs/source/example_notebooks/solve_ivp_with_diffrax.ipynb
 doc:
+	pip install -r docs/requirements-sphinx-build.txt
 	cd docs; make html
