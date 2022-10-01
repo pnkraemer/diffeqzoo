@@ -185,3 +185,11 @@ def measles(t, u, /, mu, lmbda, eta, beta0):
 
 def _beta(t, beta0):
     return beta0 * (1 + backend.numpy.cos(2 * backend.numpy.pi * t))
+
+
+def affine_dependent(u, /, A, b):
+    return A @ u + b
+
+
+def affine_independent(u, /, a, b):
+    return a * u + b
