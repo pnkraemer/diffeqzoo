@@ -37,5 +37,7 @@ Content
    :caption: Developer documentation
 
    dev_documentation/contribution
+   dev_documentation/implement_new_ode
+   dev_documentation/add_new_notebook
    dev_documentation/design_choices
    dev_documentation/ci
