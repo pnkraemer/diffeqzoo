@@ -35,7 +35,7 @@ pip install git+https://github.com/pnkraemer/diffeqzoo.git
 
 and many more goodies.
 
-* **DOCUMENTATION:** (todo: add link)
+* **DOCUMENTATION:** [documentation](https://diffeqzoo.readthedocs.io)
 * **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
 
 
