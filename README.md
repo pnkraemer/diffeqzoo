@@ -6,7 +6,8 @@ _So, what was the initial condition of the restricted three-body problem again?_
 ``diffeqzoo`` delivers all differential equation test problems in one place. It works with numpy and jax.
 
 
-**Features include**
+
+### Features include
 
 * Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid-body, ...)
 * Standard stiff benchmark problems (HIRES, ROBER, ...)
@@ -15,7 +16,7 @@ _So, what was the initial condition of the restricted three-body problem again?_
 * N-Body problems
 * Boundary value problems
 
-**As well as**
+### As well as
 
 * Flexibly NumPy and JAX-backends. Other than one of those two, there are 0 (zero!) dependencies.
 * Mathematical descriptions **and BibTex entries** of the ODE problems
@@ -25,6 +26,19 @@ and many more goodies.
 
 * **DOCUMENTATION:** (todo: add link)
 * **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
+
+## Installation
+
+Get the most recent stable version from PyPi:
+
+```commandline
+pip install diffeqzoo
+```
+Or directly from GitHub:
+```commandline
+pip install git+https://github.com/pnkraemer/odezoo.git
+```
+
 
 ## Quick example
 ```python 
