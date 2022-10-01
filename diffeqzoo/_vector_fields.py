@@ -185,3 +185,21 @@ def measles(t, u, /, mu, lmbda, eta, beta0):
 
 def _beta(t, beta0):
     return beta0 * (1 + backend.numpy.cos(2 * backend.numpy.pi * t))
+
+
+def affine_dependent(u, /, A, b):
+    return A @ u + b
+
+
+def affine_independent(u, /, a, b):
+    return a * u + b
+
+
+def oregonator(u, /, s, q, w):
+    return backend.numpy.asarray(
+        [
+            s * (u[1] + u[0] * (1 - q * u[0] - u[1])),
+            (u[2] - (1 + u[0]) * u[1]) / s,
+            w * (u[0] - u[2]),
+        ]
+    )
