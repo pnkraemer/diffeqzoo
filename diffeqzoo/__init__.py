@@ -1,4 +1,4 @@
-"""ODE zoo."""
+"""Differential equation problem zoo."""
 import warnings as _warnings  # don't expose warnings in the namespace
 
 
@@ -7,29 +7,26 @@ class backend:
 
     >>> from diffeqzoo import backend  # one-stop-shop for numpy, scipy, etc.
 
-    >>> # backend.numpy  # error
+    >>> # backend.numpy
     >>> backend.select("jax")
-    >>> backend.numpy.asarray(2.)  # jax
+    >>> backend.numpy.asarray(2.)
     DeviceArray(2., dtype=float32, weak_type=True)
 
-    >>> # backend.select("numpy")  # error, because a backend exists
-    >>> backend.change_to("numpy")  # works
-    >>> backend.numpy.asarray(2.)  # numpy
+    >>> # Change backend; backend.select("numpy") is not allowed anymore!
+    >>> backend.change_to("numpy")
+    >>> backend.numpy.asarray(2.)
     array(2.)
 
-    Attributes
-    ----------
-    backend.numpy
-        NumPy implementation, either via `numpy` or via `jax.numpy`.
-    backend.has_been_selected
-        Whether a backend has been selected. If yes, the implementation in
-        `backend.numpy` is available.
-        If not, a backend must be selected via :meth:`backend.select(choice)`.
+    To learn about its properties and methods, run :code:`help(diffeqzoo.backend)`.
+
 
     Note
     ----
     If you want to change the backend, use
     :meth:`backend.change_to(choice)` instead of :meth:`backend.select`.
+    The reason for this distinction is that we want to reduce the number
+    of accidental backend-changes.
+    Ideally, you select the backend once, and only once.
     """
 
     def __init__(self):
@@ -43,10 +40,10 @@ class backend:
         """Whether a backend implementation has been selected.
 
         Once a backend implementation has been selected,
-        `backend.numpy` is available, and backend.select() is disabled.
+        :attr:`backend.numpy` is available, and backend.select() is disabled.
 
         If you want to change an existing backend from NumPy to JAX
-        (uhm, why would you?), use backend.change_to().
+        (uhm, why would you?), use :meth:`backend.change_to`.
         """
         return self._numpy_backend is not None
 

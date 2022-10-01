@@ -11,8 +11,8 @@ The initial values :math:`u_0` and the vector field :math:`f`
 are known, the parameters :math:`\theta` might be known,
 and :math:`u` is unknown.
 
-The  in this module construct implementations of this problem.
-They (loosely) follow the input/output rule
+The functions in this module construct implementations of this
+kind of problem. They (loosely) follow the input/output rule
 
 .. code:: python
 
@@ -28,17 +28,17 @@ equation
 
 subject to the initial conditions
 :math:`u(0) = u_0` and :math:`\dot u(0) = u_1`.
-For these problems (e.g., :code:`three_body()` or :code:`van_der_pol()`,
+For these problems (e.g., :code:`three_body()` or :code:`van_der_pol()`),
 there are two initial values:
 
 .. code:: python
 
     f, (u0, u1), (t0, tmax), param = constructor()
 
-
 We try to stick as closely as possible to the above signature,
 but if problem-specific issues arise, we allow ourselves to deviate from
 this specification.
+When in doubt, consult the documentation of the respect constructor function.
 """
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
