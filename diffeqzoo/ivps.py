@@ -73,7 +73,7 @@ def lotka_volterra(
 
 
 def fitzhugh_nagumo(
-    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0, 1.0)
+    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0)
 ):
     r"""Construct the FitzHugh-Nagumo model.
 
@@ -119,7 +119,7 @@ def fitzhugh_nagumo(
 
     """
     if initial_values is None:
-        initial_values = backend.numpy.asarray([1.0, -1.0])
+        initial_values = backend.numpy.asarray([-1.0, 1.0])
 
     return _InitialValueProblem(
         vector_field=_vector_fields.fitzhugh_nagumo,

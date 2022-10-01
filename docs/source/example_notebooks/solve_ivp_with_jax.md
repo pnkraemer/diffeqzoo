@@ -13,9 +13,22 @@ jupyter:
     name: python3
 ---
 
+<!-- #region -->
 # Solve IVPs with JAX
 
+JAX provides not only a linear algebra backend, automatic differentiation, and other useful function transformations, but also an initial value problem solver: `jax.experimental.ode.odeint()`.
+Its API mirrors the API of `scipy.integrate.odeint` (which we cover in a different tutorial).
+
+
+
+With the JAX backend, we can plug `diffeqzoo`'s initial value problems into this API as follows.
+
+<!-- #endregion -->
+
 ```python
+import inspect
+
+import jax
 import jax.experimental.ode
 import matplotlib.pyplot as plt
 
@@ -25,32 +38,30 @@ backend.select("jax")
 ```
 
 ```python
-ivp_selection = [
-    ivps.van_der_pol_first_order(),
-    ivps.lotka_volterra(),
-    ivps.rigid_body(),
-    ivps.lorenz96(),
-]
+print(inspect.signature(jax.experimental.ode.odeint))
 ```
 
-```python
-def solve_ivp(ivp, **kwargs):
-    f, y0, tspan, f_args = ivp
-
-    def fun(y, _, *args):
-        return f(y, *args)
-
-    t = backend.numpy.linspace(*tspan)
-    y = jax.experimental.ode.odeint(fun, y0, t, *f_args, **kwargs)
-    return t, y
-```
+Most ODEs are autonomous (which means that the vector field does not depend on the time variable), but just like most other ODE solvers, JAX' `odeint` expects a time-dependent vector field.
+We can wrap the output of the `diffeqzoo` into the desired format easily.
+Let's compute the solution of an example problem and plot the solution.
 
 ```python
-fig, axes = plt.subplots(ncols=len(ivp_selection), figsize=(8, 2), tight_layout=True)
+f, y0, tspan, f_args = ivps.fitzhugh_nagumo()
 
-for ax, ivp in zip(axes, ivp_selection):
-    xs, ys = solve_ivp(ivp)
 
-    ax.plot(xs, ys)
+@jax.jit
+def fun(y, _, *args):
+    return f(y, *args)
+
+
+t = backend.numpy.linspace(*tspan, num=200)
+y = jax.experimental.ode.odeint(
+    fun,
+    y0,
+    t,
+    *f_args,
+)
+
+plt.plot(t, y)
 plt.show()
 ```

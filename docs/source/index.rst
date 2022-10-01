@@ -22,7 +22,7 @@ Content
 
    example_notebooks/solve_ivp_with_scipy
    example_notebooks/solve_ivp_with_diffrax
-   example_notebooks/solve_ivp_with_jax_ode
+   example_notebooks/solve_ivp_with_jax
    example_notebooks/solve_bvp_with_scipy
 
 
