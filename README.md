@@ -23,6 +23,9 @@ Or directly from GitHub:
 pip install git+https://github.com/pnkraemer/diffeqzoo.git
 ```
 
+These commands assume that NumPy or JAX are installed separately by the user.
+Read more about installing this package [here](https://diffeqzoo.readthedocs.io/en/latest/getting_started/installation.html).
+
 ## Features include
 
 * Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid-body, ...)
