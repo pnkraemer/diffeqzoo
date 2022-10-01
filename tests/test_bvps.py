@@ -4,7 +4,7 @@ import inspect
 
 import pytest_cases
 
-from odezoo import backend, bvps
+from diffeqzoo import backend, bvps
 
 
 @pytest_cases.case(tags="two_point")

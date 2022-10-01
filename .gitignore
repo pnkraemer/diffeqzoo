@@ -1,5 +1,5 @@
 # version number
-odezoo/_version.py
+diffeqzoo/_version.py
 
 # IDE stuff
 .idea/

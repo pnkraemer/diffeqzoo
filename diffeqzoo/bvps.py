@@ -3,7 +3,7 @@
 import math  # for PI
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _vector_fields, backend, transform
+from diffeqzoo import _vector_fields, backend, transform
 
 
 class _BoundaryValueProblem(NamedTuple):

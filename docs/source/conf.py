@@ -8,7 +8,7 @@
 
 from datetime import datetime
 
-project = "odezoo"
+project = "diffeqzoo"
 copyright = f"{str(datetime.utcnow().year)}, Nicholas Krämer"
 author = "Nicholas Krämer"
 

@@ -1,7 +1,7 @@
 """Set the backend implementation for the tests."""
 import os
 
-import odezoo
+import diffeqzoo
 
 if "BACKEND" not in os.environ:
     expected_command = 'BACKEND="NumPy" pytest'
@@ -12,4 +12,4 @@ if "BACKEND" not in os.environ:
     )
 
 # Set the array backend for the tests.
-odezoo.backend.select(os.environ["BACKEND"].lower())
+diffeqzoo.backend.select(os.environ["BACKEND"].lower())

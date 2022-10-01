@@ -11,7 +11,7 @@ The continuous integration has multiple components,
 
 which appear in different parts of the specification
 
-* Groups of optional dependencies: `pip install odezoo[lint,test,example,doc]`. Formatting dependencies are a subset of the linting dependencies.
+* Groups of optional dependencies: `pip install diffeqzoo[lint,test,example,doc]`. Formatting dependencies are a subset of the linting dependencies.
 * In the makefile: `make format; make lint; make test; make example`
 * In the workflows
 
@@ -19,9 +19,9 @@ which appear in different parts of the specification
 There are also the `numpy` and the `jax` optional dependencies.
 Combine any of the execution-based workflows (test, example) with either one, e.g.,
 ```
-pip install odezoo[jax]
-pip install odezoo[example,numpy]
-pip install odezoo[test,jax,numpy]
+pip install diffeqzoo[jax]
+pip install diffeqzoo[example,numpy]
+pip install diffeqzoo[test,jax,numpy]
 ```
 
 

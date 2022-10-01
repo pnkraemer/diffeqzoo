@@ -1,7 +1,7 @@
 """Initial value problem examples."""
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
-from odezoo import _vector_fields, backend, transform
+from diffeqzoo import _vector_fields, backend, transform
 
 
 class _InitialValueProblem(NamedTuple):
@@ -467,9 +467,9 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
 
     See Also
     --------
-    odezoo.ivps.pleiades
-    odezoo.ivps.pleiades_autonomous_api
-    odezoo.ivps.pleiades_first_order
+    diffeqzoo.ivps.pleiades
+    diffeqzoo.ivps.pleiades_autonomous_api
+    diffeqzoo.ivps.pleiades_first_order
 
     """
     if initial_values is None:
@@ -497,9 +497,9 @@ def pleiades_autonomous_api(**kwargs):
 
     See Also
     --------
-    odezoo.ivps.pleiades
-    odezoo.ivps.pleiades_autonomous_api
-    odezoo.ivps.pleiades_first_order
+    diffeqzoo.ivps.pleiades
+    diffeqzoo.ivps.pleiades_autonomous_api
+    diffeqzoo.ivps.pleiades_first_order
 
     """  # noqa: D301
     _, initial_values, time_span, args = pleiades(**kwargs)

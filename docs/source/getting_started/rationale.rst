@@ -1,7 +1,7 @@
 Behind the scenes
 =================
 
-Here is why and `odezoo` delivers ODE example problem definitions.
+Here is why and `diffeqzoo` delivers ODE example problem definitions.
 
 Just the problem definitions? Yes, just the problem definitions. You solve them yourself.
 

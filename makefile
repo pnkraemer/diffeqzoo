@@ -1,4 +1,4 @@
-sources = odezoo
+sources = diffeqzoo
 
 .PHONY: format lint test pre-commit doc clean
 
@@ -20,7 +20,7 @@ test:
 	BACKEND=NumPy pytest
 	BACKEND=JAX pytest
 	python -m doctest *.md
-	python -m doctest odezoo/*.py
+	python -m doctest diffeqzoo/*.py
 	python -m doctest docs/source/getting_started/*.md
 
 example:
