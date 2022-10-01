@@ -11,9 +11,12 @@ The continuous integration has multiple components,
 
 which appear in different parts of the specification
 
-* Groups of optional dependencies: `pip install diffeqzoo[lint,test,example,doc]`. Formatting dependencies are a subset of the linting dependencies.
-* In the makefile: `make format; make lint; make test; make example`
+* Groups of optional dependencies: `pip install diffeqzoo[lint,test,example]`. Formatting dependencies are a subset of the linting dependencies.
+* In the makefile: `make format; make lint; make test; make example; make doc`
 * In the workflows
+
+One exception are the doc-requirements, which are not part of the setup.cfg, but are isolated in a separate requirements file in the docs/ directory.
+(Reason: readthedocs config.)
 
 
 There are also the `numpy` and the `jax` optional dependencies.

@@ -1,0 +1,6 @@
+sphinx
+sphinx-automodapi
+sphinx-toolbox
+myst-parser
+furo
+nbsphinx
