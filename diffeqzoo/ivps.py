@@ -465,7 +465,16 @@ def rigid_body(
     )
 
 
-def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
+# Pleiades initial values
+_X0 = (3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0)
+_Y0 = (3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0)
+_DX0 = (0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5)
+_DY0 = (0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0)
+_U0 = _X0 + _Y0
+_DU0 = _DX0 + _DY0
+
+
+def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     r"""Construct the Pleiades problem in its original, second-order form.
 
     The Pleiades problem from celestial mechanics describes the
@@ -513,14 +522,10 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     diffeqzoo.ivps.pleiades_first_order
 
     """
-    if initial_values is None:
-        x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
-        y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
-        dx0 = [0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5]
-        dy0 = [0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0]
-        u0 = backend.numpy.asarray(x0 + y0)
-        du0 = backend.numpy.asarray(dx0 + dy0)
-        initial_values = (u0, du0)
+    u0, du0 = initial_values
+    u0 = backend.numpy.asarray(u0)
+    du0 = backend.numpy.asarray(du0)
+    initial_values = (u0, du0)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.pleiades,

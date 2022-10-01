@@ -12,9 +12,12 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
     def ivp_fn_transformed(*, initial_values=None, **kwargs):
 
         if initial_values is not None:
+            initial_values = backend.numpy.asarray(initial_values)
             initial_values = backend.numpy.split(initial_values, 2)
+            ivp_untransformed = ivp_fn(initial_values=initial_values, **kwargs)
+        else:
+            ivp_untransformed = ivp_fn(**kwargs)
 
-        ivp_untransformed = ivp_fn(initial_values=initial_values, **kwargs)
         f_untransformed, u0s, tspan, f_args = ivp_untransformed
 
         # the new stuff
