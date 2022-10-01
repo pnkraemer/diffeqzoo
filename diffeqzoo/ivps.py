@@ -53,7 +53,10 @@ class _InitialValueProblem(NamedTuple):
 
 
 def lotka_volterra(
-    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
+    *,
+    initial_values=(20.0, 20.0),
+    time_span=(0.0, 20.0),
+    parameters=(0.5, 0.05, 0.5, 0.05),
 ):
     r"""Construct the Lotka--Volterra / predator-prey model.
 
@@ -102,8 +105,7 @@ def lotka_volterra(
             }
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([20.0, 20.0])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.lotka_volterra,
@@ -114,7 +116,7 @@ def lotka_volterra(
 
 
 def fitzhugh_nagumo(
-    *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0)
+    *, initial_values=(-1.0, 1.0), time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0)
 ):
     r"""Construct the FitzHugh-Nagumo model.
 
@@ -159,8 +161,7 @@ def fitzhugh_nagumo(
             }
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([-1.0, 1.0])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.fitzhugh_nagumo,
@@ -170,7 +171,7 @@ def fitzhugh_nagumo(
     )
 
 
-def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
+def logistic(*, initial_value=0.1, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
     """Construct the logistic ODE model.
 
     The logistic ODE is a differential equation model whose solution
@@ -187,18 +188,19 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
         in a paper, please consider making a contribution.
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray(0.1)
+    initial_value = backend.numpy.asarray(initial_value)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.logistic,
         vector_field_args=parameters,
-        initial_values=initial_values,
+        initial_values=initial_value,
         time_span=time_span,
     )
 
 
-def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
+def sir(
+    *, initial_values=(998.0, 1.0, 1.0), time_span=(0.0, 200.0), beta=0.3, gamma=0.1
+):
     """Construct the SIR model without vital dynamics.
 
     The SIR model describes the spread of a virus in a population.
@@ -229,9 +231,8 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
     ivps.sird
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0])
 
+    initial_values = backend.numpy.asarray(initial_values)
     parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
 
     return _InitialValueProblem(
@@ -243,7 +244,12 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
 
 
 def seir(
-    *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
+    *,
+    initial_values=(998.0, 1.0, 1.0, 1.0),
+    time_span=(0.0, 200.0),
+    alpha=0.3,
+    beta=0.3,
+    gamma=0.1,
 ):
     """Construct the SEIR model.
 
@@ -277,9 +283,8 @@ def seir(
     ivps.sird
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 1.0])
 
+    initial_values = backend.numpy.asarray(initial_values)
     parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
 
     return _InitialValueProblem(
@@ -291,7 +296,12 @@ def seir(
 
 
 def sird(
-    *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
+    *,
+    initial_values=(998.0, 1.0, 1.0, 0.0),
+    time_span=(0.0, 200.0),
+    beta=0.3,
+    gamma=0.1,
+    eta=0.005,
 ):
     """Construct the SIRD model.
 
@@ -324,9 +334,8 @@ def sird(
     ivps.sir
     ivps.seir
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([998.0, 1.0, 1.0, 0.0])
 
+    initial_values = backend.numpy.asarray(initial_values)
     parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
 
     return _InitialValueProblem(
@@ -386,7 +395,7 @@ def _lorenz96_chaotic_u0(*, forcing, num_variables, perturb):
 
 def lorenz63(
     *,
-    initial_values=None,
+    initial_values=(0.0, 1.0, 1.05),
     time_span=(0.0, 20.0),
     parameters=(10.0, 28.0, 8.0 / 3.0),
 ):
@@ -412,8 +421,7 @@ def lorenz63(
                 year={1963}
             }
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([0.0, 1.0, 1.05])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.lorenz63,
@@ -424,7 +432,10 @@ def lorenz63(
 
 
 def rigid_body(
-    *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
+    *,
+    time_span=(0.0, 20.0),
+    initial_values=(1.0, 0.0, 0.9),
+    parameters=(-2.0, 1.25, -0.5),
 ):
     r"""Construct the rigid body dynamics without external forces.
 
@@ -454,8 +465,7 @@ def rigid_body(
     If you know a more suitable original reference, please make some noise!
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.array([1.0, 0.0, 0.9])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.rigid_body,
@@ -465,7 +475,16 @@ def rigid_body(
     )
 
 
-def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
+# Pleiades initial values
+_X0 = (3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0)
+_Y0 = (3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0)
+_DX0 = (0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5)
+_DY0 = (0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0)
+_U0 = _X0 + _Y0
+_DU0 = _DX0 + _DY0
+
+
+def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     r"""Construct the Pleiades problem in its original, second-order form.
 
     The Pleiades problem from celestial mechanics describes the
@@ -513,14 +532,10 @@ def pleiades(*, initial_values=None, time_span=(0.0, 3.0)):
     diffeqzoo.ivps.pleiades_first_order
 
     """
-    if initial_values is None:
-        x0 = [3.0, 3.0, -1.0, -3.0, 2.0, -2.0, 2.0]
-        y0 = [3.0, -3.0, 2.0, 0.0, 0.0, -4.0, 4.0]
-        dx0 = [0.0, 0.0, 0.0, 0.0, 0.0, 1.75, -1.5]
-        dy0 = [0.0, 0.0, 0.0, -1.25, 1.0, 0.0, 0.0]
-        u0 = backend.numpy.asarray(x0 + y0)
-        du0 = backend.numpy.asarray(dx0 + dy0)
-        initial_values = (u0, du0)
+    u0, du0 = initial_values
+    u0 = backend.numpy.asarray(u0)
+    du0 = backend.numpy.asarray(du0)
+    initial_values = (u0, du0)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.pleiades,
@@ -558,7 +573,9 @@ pleiades_first_order = transform.second_to_first_order_auto(
 )
 
 
-def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 6.3)):
+def van_der_pol(
+    *, stiffness_constant=1.0, initial_values=(2.0, 0.0), time_span=(0.0, 6.3)
+):
     r"""Construct the Van-der-Pol system as a second-order differential equation.
 
     The Van-der-Pol system is a non-conservative oscillator subject to non-linear damping.
@@ -582,10 +599,11 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
             }
 
     """
-    if initial_values is None:
-        u0 = backend.numpy.asarray(2.0)
-        du0 = backend.numpy.asarray(0.0)
-        initial_values = (u0, du0)
+
+    u0, du0 = initial_values
+    u0 = backend.numpy.asarray(u0)
+    du0 = backend.numpy.asarray(du0)
+    initial_values = (u0, du0)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.van_der_pol,
@@ -601,9 +619,13 @@ van_der_pol_first_order = transform.second_to_first_order_auto(
 )
 
 
+_Y0_3 = (0.994, 0)
+_DY0_3 = (0, -2.00158510637908252240537862224)
+
+
 def three_body_restricted(
     *,
-    initial_values=None,
+    initial_values=(_Y0_3, _DY0_3),
     standardised_moon_mass=0.012277471,
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
@@ -629,10 +651,11 @@ def three_body_restricted(
             }
 
     """
-    if initial_values is None:
-        u0 = backend.numpy.asarray([0.994, 0])
-        du0 = backend.numpy.asarray([0, -2.00158510637908252240537862224])
-        initial_values = (u0, du0)
+
+    u0, du0 = initial_values
+    u0 = backend.numpy.asarray(u0)
+    du0 = backend.numpy.asarray(du0)
+    initial_values = (u0, du0)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.three_body_restricted,
@@ -649,7 +672,9 @@ three_body_restricted_first_order = transform.second_to_first_order_auto(
 )
 
 
-def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
+def hires(
+    *, initial_values=(1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057), time_span=(0.0, 321.8122)
+):
     r"""Construct the High Irradiance Response (HIRES) problem.
 
     The "High Irradiance Response" ODE (HIRES) from plant physiology describes how light
@@ -696,8 +721,7 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
             }
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0, 0, 0, 0, 0, 0.0057])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.hires,
@@ -707,7 +731,9 @@ def hires(*, initial_values=None, time_span=(0.0, 321.8122)):
     )
 
 
-def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4):
+def rober(
+    *, initial_values=(1.0, 0.0, 0.0), time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4
+):
     r"""Construct the ROBER problem due to Robertson (1966).
 
     The ROBER problem describes the kinetics of an autocatalytic reaction,
@@ -750,8 +776,7 @@ def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4)
             }
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([1.0, 0.0, 0.0])
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.rober,
@@ -761,7 +786,7 @@ def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4)
     )
 
 
-def affine_independent(*, initial_values=None, time_span=(0.0, 1.0), a=1.0, b=0.0):
+def affine_independent(*, initial_values=1.0, time_span=(0.0, 1.0), a=1.0, b=0.0):
     r"""Construct an IVP with an affine vector field, \
     where each dimension is treated independently.
 
@@ -770,8 +795,7 @@ def affine_independent(*, initial_values=None, time_span=(0.0, 1.0), a=1.0, b=0.
     By default, this is a scalar problem.
     Change the initial value to make this a multidimensional problem.
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray(1.0)
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.affine_independent,
@@ -781,18 +805,20 @@ def affine_independent(*, initial_values=None, time_span=(0.0, 1.0), a=1.0, b=0.
     )
 
 
-def affine_dependent(*, initial_values=None, time_span=(0.0, 1.0), A=None, b=0.0):
+def affine_dependent(
+    *, initial_values=(1.0, 1.0), time_span=(0.0, 1.0), A=((1, 0), (0, 1)), b=(0, 0)
+):
     r"""Construct an IVP with an affine vector field.
 
-    In Python code, this means :code:`f(y, A, b)=a @ y + b`.
+    In Python code, this means :code:`f(y, A, b) = A @ y + b`.
 
     By default, this is a 2d-problem.
     Change the initial value to make this a multidimensional problem.
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([1.0, 1])
-    if A is None:
-        A = backend.numpy.eye(2)
+
+    initial_values = backend.numpy.asarray(initial_values)
+    A = backend.numpy.asarray(A)
+    b = backend.numpy.asarray(b)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.affine_dependent,
@@ -803,7 +829,12 @@ def affine_dependent(*, initial_values=None, time_span=(0.0, 1.0), A=None, b=0.0
 
 
 def oregonator(
-    *, initial_values=None, time_span=(0.0, 1e5), s=77.27, q=8.375e-6, w=0.161
+    *,
+    initial_values=(1.0, 2.0, 3.0),
+    time_span=(0.0, 1e5),
+    s=77.27,
+    q=8.375e-6,
+    w=0.161,
 ):
     r"""Construct the scaled Oregonator Mass-Action dynamics \
     in a well-stirred, homogeneous system.
@@ -834,8 +865,8 @@ def oregonator(
             }
 
     """
-    if initial_values is None:
-        initial_values = backend.numpy.asarray([1.0, 2.0, 3.0])
+
+    initial_values = backend.numpy.asarray(initial_values)
 
     return _InitialValueProblem(
         vector_field=_vector_fields.rober,
