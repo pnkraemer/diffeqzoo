@@ -1,7 +1,7 @@
 # diffeqzoo
 
 [![PyPi Version](https://img.shields.io/pypi/v/diffeqzoo.svg?style=flat-square)](https://pypi.org/project/diffeqzoo/)
-[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat-square)](https://github.com/pnkraemer/diffeqzoo)
+[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat-square)](https://diffeqzoo.readthedocs.io)
 [![GitHub stars](https://img.shields.io/github/stars/pnkraemer/diffeqzoo.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/pnkraemer/diffeqzoo)
 [![gh-actions](https://img.shields.io/github/workflow/status/pnkraemer/diffeqzoo/ci?style=flat-square)](https://github.com/pnkraemer/diffeqzoo/actions?query=workflow%3Aci)
 <a href="https://github.com/pnkraemer/diffeqzoo/blob/master/LICENSE"><img src="https://img.shields.io/github/license/pnkraemer/diffeqzoo?style=flat-square&color=2b9348" alt="License Badge"/></a>
@@ -83,11 +83,11 @@ and many more goodies.
 
 ## Similar projects
 
-* F. Mazzia et al. published a ![test set for IVP solvers](https://archimede.uniba.it/~testset/testsetivpsolvers/?page_id=51) for Matlab and Fortran. 
-  There is a similar ![test set for BVP solvers](https://archimede.uniba.it/~bvpsolvers/testsetbvpsolvers/). Neither one offers Python code, and both also run benchmarks, which `diffeqzoo` does not care about at all.
-* E. Hairer et al. published their ![stiff ODE test set](https://www.unige.ch/~hairer/testset/testset.html), but there is no Python code
-* ![NonlinearBenchmark](https://www.nonlinearbenchmark.org/) hosts datasets of nonlinear dynamical system observations. They are quite specialised problems, and don't contain the textbook problems like Lotka-Volterra, van der Pol, etc..
-* DifferentialEquations.jl provides ![example ODE problems](https://diffeq.sciml.ai/stable/types/ode_types/#Example-Problems) in Julia.
-* ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise -- the set of authors intersects) but tied to ProbNum's ODE solver interface. `diffeqzoo` is less of an API, switches more flexibly between numpy and jax (at the time of developing), and contains more problems.
+* F. Mazzia et al. published a [test set for IVP solvers](https://archimede.uniba.it/~testset/testsetivpsolvers/?page_id=51) for Matlab and Fortran. 
+  There is a similar [test set for BVP solvers](https://archimede.uniba.it/~bvpsolvers/testsetbvpsolvers/). Neither one offers Python code, and both also run benchmarks, which `diffeqzoo` does not care about at all.
+* E. Hairer et al. published their [stiff ODE test set](https://www.unige.ch/~hairer/testset/testset.html), but there is no Python code
+* [NonlinearBenchmark](https://www.nonlinearbenchmark.org/) hosts datasets of nonlinear dynamical system observations. They are quite specialised problems, and don't contain the textbook problems like Lotka-Volterra, van der Pol, etc..
+* DifferentialEquations.jl provides [example ODE problems](https://diffeq.sciml.ai/stable/types/ode_types/#Example-Problems) in Julia.
+* [ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise -- the set of authors intersects) but tied to ProbNum's ODE solver interface. `diffeqzoo` is less of an API, switches more flexibly between numpy and jax (at the time of developing), and contains more problems.
 
 Anything missing in this list? Please open an issue or make a pull request.
