@@ -28,7 +28,7 @@ equation
 
 subject to the initial conditions
 :math:`u(0) = u_0` and :math:`\dot u(0) = u_1`.
-For these problems (e.g., :code:`three_body()` or :code:`van_der_pol()`),
+For these problems (e.g., :code:`three_body_restricted()` or :code:`van_der_pol()`),
 there are two initial values:
 
 .. code:: python
@@ -55,7 +55,7 @@ class _InitialValueProblem(NamedTuple):
 def lotka_volterra(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
 ):
-    """Lotka--Volterra / predator-prey model.
+    """Construct the Lotka--Volterra / predator-prey model.
 
     The Lotka--Volterra equations describe the dynamics of biological systems
     in which two species, predators and prey, interact.
@@ -171,7 +171,7 @@ def fitzhugh_nagumo(
 
 
 def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
-    """Logistic ODE model.
+    """Construct the logistic ODE model.
 
     The logistic ODE is a differential equation model whose solution
     exhibits exponential growth early in the time interval,
@@ -199,7 +199,7 @@ def logistic(*, initial_values=None, time_span=(0.0, 2.5), parameters=(1.0, 1.0)
 
 
 def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
-    """SIR model without vital dynamics.
+    """Construct the SIR model without vital dynamics.
 
     The SIR model describes the spread of a virus in a population.
     More specifically, it describes how populations move from being
@@ -245,7 +245,7 @@ def sir(*, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1):
 def seir(
     *, initial_values=None, time_span=(0.0, 200.0), alpha=0.3, beta=0.3, gamma=0.1
 ):
-    """SEIR model.
+    """Construct the SEIR model.
 
     The SEIR model is a variant of the SIR model,
     but additionally includes a compartment of the population that
@@ -293,7 +293,7 @@ def seir(
 def sird(
     *, initial_values=None, time_span=(0.0, 200.0), beta=0.3, gamma=0.1, eta=0.005
 ):
-    """SIRD model.
+    """Construct the SIRD model.
 
     The SIRD model is a variant of the SIR model that
     distinguishes the recovered compartment from the deceased compartment
@@ -345,7 +345,7 @@ def lorenz96(
     forcing=8.0,
     perturb=0.01,
 ):
-    """Lorenz96 model.
+    """Construct the Lorenz96 model.
 
     The Lorenz96 is a chaotic initial value problem, due to Lorenz (1996),
     and commonly used as a testproblem in data assimilation.
@@ -390,7 +390,7 @@ def lorenz63(
     time_span=(0.0, 20.0),
     parameters=(10.0, 28.0, 8.0 / 3.0),
 ):
-    """Lorenz63 model.
+    """Construct the Lorenz63 model.
 
     The Lorenz63 model, initially used for atmospheric convection,
     is a common example of an initial value problem that
@@ -426,7 +426,7 @@ def lorenz63(
 def rigid_body(
     *, time_span=(0.0, 20.0), initial_values=None, parameters=(-2.0, 1.25, -0.5)
 ):
-    r"""Rigid body dynamics without external forces.
+    r"""Construct the rigid body dynamics without external forces.
 
     The rigid body dynamics from classical mechanics,
     or "Euler's rotation equations",
@@ -554,7 +554,7 @@ def pleiades_autonomous_api(**kwargs):
 
 pleiades_first_order = transform.second_to_first_order_auto(
     pleiades_autonomous_api,
-    short_summary="""The Pleiades problem as a first-order differential equation.""",
+    short_summary="Construct the Pleiades problem as a first-order differential equation.",
 )
 
 
@@ -597,7 +597,7 @@ def van_der_pol(*, stiffness_constant=1.0, initial_values=None, time_span=(0.0, 
 
 van_der_pol_first_order = transform.second_to_first_order_auto(
     van_der_pol,
-    short_summary="""The Van-der-Pol system as a first-order differential equation.""",
+    short_summary="Construct the Van-der-Pol system as a first-order differential equation.",
 )
 
 
@@ -642,7 +642,7 @@ def three_body_restricted(
     )
 
 
-_3bdocs = "The restricted three-body problem as a first-order differential equation."
+_3bdocs = "Construct the restricted three-body problem as a first-order differential equation."
 three_body_restricted_first_order = transform.second_to_first_order_auto(
     three_body_restricted,
     short_summary=_3bdocs,
