@@ -10,11 +10,11 @@ _So, what was the initial condition of the restricted three-body problem again?_
 
 Get the most recent stable version from PyPi:
 
-```commandline
+```
 pip install diffeqzoo
 ```
 Or directly from GitHub:
-```commandline
+```
 pip install git+https://github.com/pnkraemer/diffeqzoo.git
 ```
 

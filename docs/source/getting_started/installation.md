@@ -4,17 +4,17 @@
 
 Get the most recent stable version from PyPi:
 
-```commandline
+```
 pip install diffeqzoo
 ```
 
 Or directly from GitHub:
-```commandline
+```
 pip install git+https://github.com/pnkraemer/diffeqzoo.git
 ```
 This assumes that you have NumPy or JAX installed. It is best you do this yourself (especially for JAX),
 but you can also install them with `diffeqzoo` via _either_ of the following:
-```commandline
+```
 pip install diffeqzoo[jax]
 pip install diffeqzoo[numpy]
 pip install diffeqzoo[jax,numpy]
@@ -27,12 +27,12 @@ For the GPU version, install JAX yourself.
 ## Local installation
 In a fork, you can install the project locally: go to the project's root and run:
 
-```commandline
+```
 pip install .
 ```
 
 or install in editable mode:
-```commandline
+```
 pip install -e .
 ```
 
