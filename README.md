@@ -44,7 +44,7 @@ Read more about installing this package [here](https://diffeqzoo.readthedocs.io/
 and many more goodies.
 
 * **DOCUMENTATION:** [documentation](https://diffeqzoo.readthedocs.io)
-* **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
+* **ISSUE TRACKER:** [issue tracker](https://github.com/pnkraemer/diffeqzoo/issues)
 
 
 
@@ -81,7 +81,7 @@ and many more goodies.
 
 
 
-## Related work
+## Similar projects
 
 * F. Mazzia et al. published a ![test set for IVP solvers](https://archimede.uniba.it/~testset/testsetivpsolvers/?page_id=51) for Matlab and Fortran. 
   There is a similar ![test set for BVP solvers](https://archimede.uniba.it/~bvpsolvers/testsetbvpsolvers/). Neither one offers Python code, and both also run benchmarks, which `diffeqzoo` does not care about at all.
