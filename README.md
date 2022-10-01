@@ -8,12 +8,12 @@ _So, what was the initial condition of the restricted three-body problem again?_
 
 **Features include**
 
-* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, Rigid body, ...)
-* Standard stiff benchmark problems (Stiff van-der-Pol, HIRES, ROBER, ...)
+* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid-body, ...)
+* Standard stiff benchmark problems (HIRES, ROBER, ...)
 * Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
-* Chaotic systems (Lorenz63, Lorenz96)
+* Chaotic systems (Lorenz63, Lorenz96, ...)
 * N-Body problems
-* Boundary value problems (to appear)
+* Boundary value problems
 
 **As well as**
 
@@ -63,6 +63,6 @@ and many more goodies.
 * E. Hairer et al. published their ![stiff ODE test set](https://www.unige.ch/~hairer/testset/testset.html), but there is no Python code
 * ![NonlinearBenchmark](https://www.nonlinearbenchmark.org/) hosts datasets of nonlinear dynamical system observations. They are quite specialised problems, and don't contain the textbook problems like Lotka-Volterra, van der Pol, etc..
 * DifferentialEquations.jl provides ![example ODE problems](https://diffeq.sciml.ai/stable/types/ode_types/#Example-Problems) in Julia.
-* ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise, given the authors) but tied to ProbNum's ODE solver interface. `diffeqzoo` is more raw and generic, and switches more flexibly between numpy and jax (at the time of developing).
+* ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise -- the set of authors intersects) but tied to ProbNum's ODE solver interface. `diffeqzoo` is less of an API, switches more flexibly between numpy and jax (at the time of developing), and contains more problems.
 
 Anything missing in this list? Please open an issue or make a pull request.
