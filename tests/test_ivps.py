@@ -115,8 +115,8 @@ def case_affine_independent():
 
 
 @pytest_cases.case
-def case_affine_dependent():
-    f, u0, time_span, f_args = ivps.affine_dependent()
+def case_oregonator():
+    f, u0, time_span, f_args = ivps.oregonator()
     return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
 
 

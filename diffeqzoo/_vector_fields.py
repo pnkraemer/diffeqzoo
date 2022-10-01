@@ -193,3 +193,13 @@ def affine_dependent(u, /, A, b):
 
 def affine_independent(u, /, a, b):
     return a * u + b
+
+
+def oregonator(u, /, s, q, w):
+    return backend.numpy.asarray(
+        [
+            s * (u[1] + u[0] * (1 - q * u[0] - u[1])),
+            (u[2] - (1 + u[0]) * u[1]) / s,
+            w * (u[0] - u[2]),
+        ]
+    )
