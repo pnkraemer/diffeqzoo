@@ -1,15 +1,9 @@
-diffeqzoo package
-=================
-
 .. automodapi:: diffeqzoo
    :no-inheritance-diagram:
    :include-all-objects:
 
-
-Submodules
-----------
-
 .. toctree::
+   :maxdepth: 1
 
    diffeqzoo.ivps
    diffeqzoo.bvps
