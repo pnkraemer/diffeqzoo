@@ -108,6 +108,18 @@ def case_rober():
     return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
 
 
+@pytest_cases.case
+def case_affine_independent():
+    f, u0, time_span, f_args = ivps.affine_independent()
+    return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
+
+
+@pytest_cases.case
+def case_oregonator():
+    f, u0, time_span, f_args = ivps.oregonator()
+    return lambda y, _, *args: f(y, *args), (u0,), time_span, f_args
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model):
     """All IVPs are forced into the interface.

@@ -55,7 +55,7 @@ class _InitialValueProblem(NamedTuple):
 def lotka_volterra(
     *, initial_values=None, time_span=(0.0, 20.0), parameters=(0.5, 0.05, 0.5, 0.05)
 ):
-    """Construct the Lotka--Volterra / predator-prey model.
+    r"""Construct the Lotka--Volterra / predator-prey model.
 
     The Lotka--Volterra equations describe the dynamics of biological systems
     in which two species, predators and prey, interact.
@@ -612,7 +612,7 @@ def three_body_restricted(
     standardised_moon_mass=0.012277471,
     time_span=(0.0, 17.0652165601579625588917206249),
 ):
-    """Construct the restricted three-body problem as \
+    r"""Construct the restricted three-body problem as \
     a second-order differential equation.
 
     The restricted three-body problem describes how
@@ -761,6 +761,90 @@ def rober(*, initial_values=None, time_span=(0.0, 1e5), k1=0.04, k2=3e7, k3=1e4)
     return _InitialValueProblem(
         vector_field=_vector_fields.rober,
         vector_field_args=(k1, k2, k3),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+def affine_independent(*, initial_values=None, time_span=(0.0, 1.0), a=1.0, b=0.0):
+    r"""Construct an IVP with an affine vector field, \
+    where each dimension is treated independently.
+
+    In Python code, this means :code:`f(y, a, b)=a * y + b`.
+
+    By default, this is a scalar problem.
+    Change the initial value to make this a multidimensional problem.
+    """
+    if initial_values is None:
+        initial_values = backend.numpy.asarray(1.0)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.affine_independent,
+        vector_field_args=(a, b),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+def affine_dependent(*, initial_values=None, time_span=(0.0, 1.0), A=None, b=0.0):
+    r"""Construct an IVP with an affine vector field.
+
+    In Python code, this means :code:`f(y, A, b)=a @ y + b`.
+
+    By default, this is a 2d-problem.
+    Change the initial value to make this a multidimensional problem.
+    """
+    if initial_values is None:
+        initial_values = backend.numpy.asarray([1.0, 1])
+    if A is None:
+        A = backend.numpy.eye(2)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.affine_dependent,
+        vector_field_args=(A, b),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+def oregonator(
+    *, initial_values=None, time_span=(0.0, 1e5), s=77.27, q=8.375e-6, w=0.161
+):
+    r"""Construct the scaled Oregonator Mass-Action dynamics \
+    in a well-stirred, homogeneous system.
+
+    What is often referred to as the "Oregonator" problem is a simplified
+    model of the chemical dynamics of the oscillatory Belousov-Zhabotinsky
+    reaction and due to Fields and Noyes (1974).
+    It is a three-dimensional, stiff initial value problem,
+
+    .. math::
+        \dot u(t) = f(u(t))
+
+    and a common test problem for numerical solvers for stiff differential equations.
+
+    .. collapse:: BibTex for Fields and Noyes (1974)
+
+        .. code-block:: tex
+
+            @article{field1974oscillations,
+                title={Oscillations in chemical systems. IV. Limit cycle behavior in a model of a real chemical reaction},
+                author={Field, Richard J and Noyes, Richard M},
+                journal={The Journal of Chemical Physics},
+                volume={60},
+                number={5},
+                pages={1877--1884},
+                year={1974},
+                publisher={American Institute of Physics}
+            }
+
+    """
+    if initial_values is None:
+        initial_values = backend.numpy.asarray([1.0, 2.0, 3.0])
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.rober,
+        vector_field_args=(s, w, q),
         initial_values=initial_values,
         time_span=time_span,
     )
