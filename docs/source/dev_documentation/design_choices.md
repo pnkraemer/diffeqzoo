@@ -1,6 +1,6 @@
 # Internal design choices
 
-`odezoo` is a database of ODE problems. As such, the following principles apply to the source:
+`diffeqzoo` is a database of ODE problems. As such, the following principles apply to the source:
 
 It must be compatible with all numpy/jax-based ODE solvers.
 
@@ -13,4 +13,4 @@ It must take non-standard dynamics seriously: if an ODE is of second order, auto
 It should provide all information that might be
 relevant if the problem appears in a paper (citation, maths, meaning).
 
-`odezoo` must be extremely easy to maintain, even if it costs a tiny bit of user-friendliness.
+`diffeqzoo` must be extremely easy to maintain, even if it costs a tiny bit of user-friendliness.

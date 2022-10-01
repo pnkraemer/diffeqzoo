@@ -30,7 +30,7 @@ Content
    :maxdepth: 1
    :caption: API documentation
 
-   api_documentation/odezoo
+   api_documentation/diffeqzoo
 
 .. toctree::
    :maxdepth: 1

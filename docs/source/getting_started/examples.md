@@ -1,10 +1,10 @@
 # Quick example
 
 
-To get started, import the `ivps` and `bvps` from `odezoo`.
-You must also import the backend, because `odezoo` needs to now whether to build the ODEs in numpy or in jax.
+To get started, import the `ivps` and `bvps` from `diffeqzoo`.
+You must also import the backend, because `diffeqzoo` needs to now whether to build the ODEs in numpy or in jax.
 ```python
->>> from odezoo import ivps, bvps, backend
+>>> from diffeqzoo import ivps, bvps, backend
 >>> backend.select("numpy")
 
 ```
@@ -52,4 +52,4 @@ While all IVP problem creators have a _similar_ API, the ODE functions are not n
 
 ```
 Here, one IVP is a first-order problem with multiple parameters, the other one is a second-order problem with a single parameter.
-Second-order ODEs are taken seriously in the `odezoo`, because the second-order form can be solved faster.
+Second-order ODEs are taken seriously in the `diffeqzoo`, because the second-order form can be solved faster.

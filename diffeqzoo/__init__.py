@@ -5,7 +5,7 @@ import warnings as _warnings  # don't expose warnings in the namespace
 class backend:
     """Backend implementation of NumPy-like functions via either numpy or jax.
 
-    >>> from odezoo import backend  # one-stop-shop for numpy, scipy, etc.
+    >>> from diffeqzoo import backend  # one-stop-shop for numpy, scipy, etc.
 
     >>> # backend.numpy  # error
     >>> backend.select("jax")

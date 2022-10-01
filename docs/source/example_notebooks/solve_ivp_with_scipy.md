@@ -20,13 +20,13 @@ SciPy is everyone's first stop for scientific computing in Python.
 
 
 
-The initial value problems provided by `odezoo` can be plugged into scipy's ordinary differential equation (ODE) solvers.
+The initial value problems provided by `diffeqzoo` can be plugged into scipy's ordinary differential equation (ODE) solvers.
 
 
 SciPy has two IVP solvers: `odeint` (wraps FORTRAN's `odepack`) and `solve_ivp` (native Python).
 They require slightly different inputs: for example, `odeint` expects vector fields `f(y, t)` and `solve_ivp` expects vector fields `f(t, y)`.
 
-`odezoo` can be used for both.
+`diffeqzoo` can be used for both.
 
 <!-- #endregion -->
 
@@ -36,7 +36,7 @@ import inspect  # to inspect function signatures
 import matplotlib.pyplot as plt
 import scipy.integrate
 
-from odezoo import backend, ivps
+from diffeqzoo import backend, ivps
 
 backend.select("numpy")
 ```
@@ -49,7 +49,7 @@ Let's start with `solve_ivp`, because that is the recommendation given in the do
 print(inspect.signature(scipy.integrate.solve_ivp))
 ```
 
-Here is how we solve ODEs from `odezoo` with `solve_ivp`.
+Here is how we solve ODEs from `diffeqzoo` with `solve_ivp`.
 Most ODE test problems are autonomous, which means that the vector fields do not depend on time.
 We can wrap them into a non-autonomous format and plug them into scipy.
 

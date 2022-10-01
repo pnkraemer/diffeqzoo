@@ -19,7 +19,7 @@ jupyter:
 import jax.experimental.ode
 import matplotlib.pyplot as plt
 
-from odezoo import backend, ivps
+from diffeqzoo import backend, ivps
 
 backend.select("jax")
 ```

@@ -3,7 +3,7 @@
 
 import pytest_cases
 
-from odezoo import ivps
+from diffeqzoo import ivps
 
 
 @pytest_cases.case

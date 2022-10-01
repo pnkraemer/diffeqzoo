@@ -17,7 +17,7 @@ jupyter:
 
 There are not many boundary value problem solvers in Python, but SciPy offers one.
 
-The boundary value problems in the `odezoo` can be plugged into SciPy's solver.
+The boundary value problems in the `diffeqzoo` can be plugged into SciPy's solver.
 
 ```python
 import inspect
@@ -25,7 +25,7 @@ import inspect
 import matplotlib.pyplot as plt
 import scipy.integrate
 
-from odezoo import backend, bvps
+from diffeqzoo import backend, bvps
 
 backend.select("numpy")
 ```

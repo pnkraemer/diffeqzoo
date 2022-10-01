@@ -1,9 +1,9 @@
-# odezoo
+# diffeqzoo
 
 
 _So, what was the initial condition of the restricted three-body problem again?_
 
-``odezoo`` delivers all ODE test problems in one place. It works with numpy and jax.
+``diffeqzoo`` delivers all ODE test problems in one place. It works with numpy and jax.
 
 
 **Features include**
@@ -25,7 +25,7 @@ and many more goodies.
 
 ## Quick example
 ```python 
->>> from odezoo import ivps, backend
+>>> from diffeqzoo import ivps, backend
 >>> backend.select("numpy")
 >>>
 >>> # Create test problems like this
@@ -59,10 +59,10 @@ and many more goodies.
 ## Related work
 
 * F. Mazzia et al. published a ![test set for IVP solvers](https://archimede.uniba.it/~testset/testsetivpsolvers/?page_id=51) for Matlab and Fortran. 
-  There is a similar ![test set for BVP solvers](https://archimede.uniba.it/~bvpsolvers/testsetbvpsolvers/). Neither one offers Python code, and both also run benchmarks, which `odezoo` does not care about at all.
+  There is a similar ![test set for BVP solvers](https://archimede.uniba.it/~bvpsolvers/testsetbvpsolvers/). Neither one offers Python code, and both also run benchmarks, which `diffeqzoo` does not care about at all.
 * E. Hairer et al. published their ![stiff ODE test set](https://www.unige.ch/~hairer/testset/testset.html), but there is no Python code
 * ![NonlinearBenchmark](https://www.nonlinearbenchmark.org/) hosts datasets of nonlinear dynamical system observations. They are quite specialised problems, and don't contain the textbook problems like Lotka-Volterra, van der Pol, etc..
 * DifferentialEquations.jl provides ![example ODE problems](https://diffeq.sciml.ai/stable/types/ode_types/#Example-Problems) in Julia.
-* ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `odezoo` (no surprise, given the authors) but tied to ProbNum's ODE solver interface. `odezoo` is more raw and generic, and switches more flexibly between numpy and jax (at the time of developing).
+* ![ProbNum's problem zoo](https://probnum.readthedocs.io/en/latest/api/problems/zoo.diffeq.html) offers a similar set of problems to `diffeqzoo` (no surprise, given the authors) but tied to ProbNum's ODE solver interface. `diffeqzoo` is more raw and generic, and switches more flexibly between numpy and jax (at the time of developing).
 
 Anything missing in this list? Please open an issue or make a pull request.

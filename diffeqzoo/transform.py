@@ -2,7 +2,7 @@
 
 import inspect
 
-from odezoo import backend
+from diffeqzoo import backend
 
 
 def second_to_first_order_auto(ivp_fn, /, short_summary=None):
