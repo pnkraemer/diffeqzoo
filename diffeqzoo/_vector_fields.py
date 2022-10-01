@@ -69,10 +69,10 @@ def logistic(u, p0, p1, /):
     return p0 * u * (1.0 - p1 * u)
 
 
-def fitzhugh_nagumo(u, /, a, b, c, d):
+def fitzhugh_nagumo(u, /, a, b, c):
     """FitzHugh--Nagumo model."""
     return backend.numpy.asarray(
-        [u[0] - u[0] ** 3.0 / 3.0 - u[1] + a, (u[0] + b - c * u[1]) / d]
+        [c * (u[0] - u[0] ** 3 / 3 + u[1]), -(1.0 / c) * (u[0] - a - b * u[1])]
     )
 
 
