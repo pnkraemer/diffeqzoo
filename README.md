@@ -18,10 +18,13 @@ _So, what was the initial condition of the restricted three-body problem again?_
 **As well as**
 
 * Flexibly NumPy and JAX-backends. Other than one of those two, there are 0 (zero!) dependencies.
-* Mathematical descriptions of the ODE problems
-* BibTex entries for each original reference, to be used in scientific publications
+* Mathematical descriptions **and BibTex entries** of the ODE problems
+* Compatibility with all NumPy/JAX-based ODE solvers: SciPy, JAX, Diffrax, ProbNum, Tornadox, etc..
 
 and many more goodies.
+
+* **DOCUMENTATION:** (todo: add link)
+* **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
 
 ## Quick example
 ```python 
