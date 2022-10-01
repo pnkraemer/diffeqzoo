@@ -10,7 +10,7 @@ pip install diffeqzoo
 
 Or directly from GitHub:
 ```commandline
-pip install git+https://github.com/pnkraemer/odezoo.git
+pip install git+https://github.com/pnkraemer/diffeqzoo.git
 ```
 This assumes that you have NumPy or JAX installed. It is best you do this yourself (especially for JAX),
 but you can also install them with `diffeqzoo` via _either_ of the following:

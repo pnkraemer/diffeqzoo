@@ -6,8 +6,19 @@ _So, what was the initial condition of the restricted three-body problem again?_
 ``diffeqzoo`` delivers all differential equation test problems in one place. It works with numpy and jax.
 
 
+## Installation
 
-### Features include
+Get the most recent stable version from PyPi:
+
+```commandline
+pip install diffeqzoo
+```
+Or directly from GitHub:
+```commandline
+pip install git+https://github.com/pnkraemer/diffeqzoo.git
+```
+
+## Features include
 
 * Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid-body, ...)
 * Standard stiff benchmark problems (HIRES, ROBER, ...)
@@ -27,17 +38,6 @@ and many more goodies.
 * **DOCUMENTATION:** (todo: add link)
 * **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
 
-## Installation
-
-Get the most recent stable version from PyPi:
-
-```commandline
-pip install diffeqzoo
-```
-Or directly from GitHub:
-```commandline
-pip install git+https://github.com/pnkraemer/odezoo.git
-```
 
 
 ## Quick example
