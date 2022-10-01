@@ -3,7 +3,7 @@
 
 _So, what was the initial condition of the restricted three-body problem again?_
 
-``diffeqzoo`` delivers all ODE test problems in one place. It works with numpy and jax.
+``diffeqzoo`` delivers all differential equation test problems in one place. It works with numpy and jax.
 
 
 **Features include**
