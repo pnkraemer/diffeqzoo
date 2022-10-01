@@ -1,5 +1,10 @@
 # diffeqzoo
 
+[![PyPi Version](https://img.shields.io/pypi/v/diffeqzoo.svg?style=flat-square)](https://pypi.org/project/diffeqzoo/)
+[![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat-square)](https://github.com/pnkraemer/diffeqzoo)
+[![GitHub stars](https://img.shields.io/github/stars/pnkraemer/diffeqzoo.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/pnkraemer/diffeqzoo)
+[![gh-actions](https://img.shields.io/github/workflow/status/pnkraemer/diffeqzoo/ci?style=flat-square)](https://github.com/pnkraemer/diffeqzoo/actions?query=workflow%3Aci)
+<a href="https://github.com/pnkraemer/diffeqzoo/blob/master/LICENSE"><img src="https://img.shields.io/github/license/pnkraemer/diffeqzoo?style=flat-square&color=2b9348" alt="License Badge"/></a>
 
 _So, what was the initial condition of the restricted three-body problem again?_
 
@@ -18,9 +23,12 @@ Or directly from GitHub:
 pip install git+https://github.com/pnkraemer/diffeqzoo.git
 ```
 
+These commands assume that NumPy or JAX are installed separately by the user.
+Read more about installing this package [here](https://diffeqzoo.readthedocs.io/en/latest/getting_started/installation.html).
+
 ## Features include
 
-* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid-body, ...)
+* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid body, ...)
 * Standard stiff benchmark problems (HIRES, ROBER, ...)
 * Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
 * Chaotic systems (Lorenz63, Lorenz96, ...)
@@ -35,7 +43,7 @@ pip install git+https://github.com/pnkraemer/diffeqzoo.git
 
 and many more goodies.
 
-* **DOCUMENTATION:** (todo: add link)
+* **DOCUMENTATION:** [documentation](https://diffeqzoo.readthedocs.io)
 * **ISSUE TRACKER:** [click here](https://github.com/pnkraemer/diffeqzoo/issues)
 
 
