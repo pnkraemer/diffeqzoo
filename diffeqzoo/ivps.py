@@ -903,8 +903,6 @@ def goodwin(
 
     Common problem for parameter inference, where the posterior has a multimodal distribution.
 
-    .. math::
-        \dot u(t) = f(u(t))
 
     .. collapse:: BibTex for Goodwin (1965)
 
