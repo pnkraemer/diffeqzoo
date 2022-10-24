@@ -878,18 +878,13 @@ def oregonator(
 
 def goodwin(
     *,
-    initial_values=(
-        0.0,
-        0.0,
-    ),
+    initial_values=(0.0, 0.0),
     time_span=(0.0, 25.0),
-    parameters=(
-        10,
-        1.0,
-        3.0,
-        0.5,
-        1.0,
-    ),
+    r=10,
+    a1=1.0,
+    a2=3.0,
+    alpha=0.5,
+    k=(1.0,),
 ):
     r"""Construct the Goodwin Oscillator dynamics.
 
@@ -899,7 +894,7 @@ def goodwin(
     and the remaining dimensions correspond to intermediate protein species.
     r > 8 leads to oscillatory behavior.
     It is a n-dimensional ODE initial value problem.
-    The length of the parameters needs to be `len(initial_values)+3`.
+    The length of the `k` needs to be `len(initial_values)-1`.
 
     Common problem for parameter inference, where the posterior has a multimodal distribution.
 
@@ -920,11 +915,7 @@ def goodwin(
 
     initial_values = backend.numpy.asarray(initial_values)
 
-    r = parameters[0]
-    a1 = parameters[1]
-    a2 = parameters[2]
-    alpha = parameters[3]
-    k = backend.numpy.asarray(parameters[4:])
+    k = backend.numpy.asarray(k)
     return _InitialValueProblem(
         vector_field=_vector_fields.goodwin,
         vector_field_args=(r, a1, a2, alpha, k),
