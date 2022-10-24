@@ -907,6 +907,7 @@ def goodwin(
     .. collapse:: BibTex for Goodwin (1965)
 
         .. code-block:: tex
+
             @article{goodwin1965oscillatory,
                 title = {Oscillatory behavior in enzymatic control processes},
                 journal = {Advances in Enzyme Regulation},
