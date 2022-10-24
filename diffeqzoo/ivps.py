@@ -874,3 +874,51 @@ def oregonator(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+def goodwin(
+    *,
+    initial_values=(0.0, 0.0),
+    time_span=(0.0, 25.0),
+    r=10,
+    a1=1.0,
+    a2=3.0,
+    alpha=0.5,
+    k=(1.0,),
+):
+    r"""Construct the Goodwin Oscillator dynamics.
+
+    Describes a mechanism for periodic protein expression described by Goodwin (1965).
+    The first dimension describes the mRNA concentration,
+    the last dimension the protein inhibiting mRNA production,
+    and the remaining dimensions correspond to intermediate protein species.
+    r > 8 leads to oscillatory behavior.
+    It is a n-dimensional ODE initial value problem.
+    The length of the `k` needs to be `len(initial_values)-1`.
+
+    Common problem for parameter inference, where the posterior has a multimodal distribution.
+
+
+    .. collapse:: BibTex for Goodwin (1965)
+
+        .. code-block:: tex
+
+            @article{goodwin1965oscillatory,
+                title = {Oscillatory behavior in enzymatic control processes},
+                journal = {Advances in Enzyme Regulation},
+                volume = {3},
+                pages = {425-437},
+                year = {1965},
+                author = {Brian C. Goodwin},
+            }
+    """
+
+    initial_values = backend.numpy.asarray(initial_values)
+
+    k = backend.numpy.asarray(k)
+    return _InitialValueProblem(
+        vector_field=_vector_fields.goodwin,
+        vector_field_args=(r, a1, a2, alpha, k),
+        initial_values=initial_values,
+        time_span=time_span,
+    )

@@ -203,3 +203,10 @@ def oregonator(u, /, s, q, w):
             w * (u[0] - u[2]),
         ]
     )
+
+
+def goodwin(u, /, r, a1, a2, alpha, k):
+    u0 = backend.numpy.asarray([a1 / (1 + a2 * u[-1] ** r) - alpha * u[0]])
+    u_remaining = k * u[0:-1] - alpha * u[1:]
+    output = backend.numpy.concatenate((u0, u_remaining))
+    return output
