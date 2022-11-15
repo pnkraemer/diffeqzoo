@@ -42,6 +42,26 @@ pleiades_first_order = transform.second_to_first_order_vf_auto(
 )
 
 
+def henon_heiles(u, /, p):
+    """Henon-Heiles dynamics as a second-order differential equation."""
+    x, y = u[0], u[1]
+    ddx = -x - 2 * p * x * y
+    ddy = -y - p * (x**2.0 - y**2.0)
+    return backend.numpy.asarray([ddx, ddy])
+
+
+def henon_heiles_autonomous_api(u, _, /, p):
+    """Henon-Heiles dynamics as a second-order differential equation \
+    (with an unused second argument)."""  # noqa: D301
+    return henon_heiles(u, p)
+
+
+henon_heiles_first_order = transform.second_to_first_order_vf_auto(
+    henon_heiles_autonomous_api,
+    short_summary="Henon-Heiles dynamics as a first-order differential equation.",
+)
+
+
 def lorenz96(y, /, forcing):
     """Lorenz96 dynamics."""
     A = backend.numpy.roll(y, shift=-1)
