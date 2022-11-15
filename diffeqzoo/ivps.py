@@ -446,16 +446,16 @@ def roessler(
 
         .. code-block:: tex
 
-        @article{rossler1976equation,
-            title={An equation for continuous chaos},
-            author={R{\"o}ssler, Otto E},
-            journal={Physics Letters A},
-            volume={57},
-            number={5},
-            pages={397--398},
-            year={1976},
-            publisher={Elsevier}
-        }
+            @article{rossler1976equation,
+                title={An equation for continuous chaos},
+                author={R{\"o}ssler, Otto E},
+                journal={Physics Letters A},
+                volume={57},
+                number={5},
+                pages={397--398},
+                year={1976},
+                publisher={Elsevier}
+            }
     """
     initial_values = backend.numpy.asarray(initial_values)
 
