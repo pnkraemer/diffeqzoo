@@ -1042,3 +1042,45 @@ def goodwin(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+def nonlinear_chemical_reaction(
+    *,
+    initial_values=(1.0, 0.0, 0.0),
+    time_span=(0.0, 1.0),
+    k1=1,
+    k2=1,
+):
+    r"""Construct the Nonlinear Chemical Reaction dynamics.
+
+    We use the version described by Liu et al. (2012).
+
+    .. collapse:: BibTex for Liu et al. (2012)
+
+        .. code-block:: tex
+
+            @article{liu2012analytic,
+                title={Analytic solution for a nonlinear chemistry system of ordinary differential equations},
+                author={Liu, Li-Cai and Tian, Bo and Xue, Yu-Shan and Wang, Ming and Liu, Wen-Jun},
+                journal={Nonlinear Dynamics},
+                volume={68},
+                number={1},
+                pages={17--21},
+                year={2012},
+                publisher={Springer}
+            }
+
+
+    Note
+    ----
+    If you know a better source of this (class of) problem(s), please consider making a pull request.
+    """
+
+    initial_values = backend.numpy.asarray(initial_values)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.nonlinear_chemical_reaction,
+        vector_field_args=(k1, k2),
+        initial_values=initial_values,
+        time_span=time_span,
+    )

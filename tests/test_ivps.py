@@ -185,6 +185,12 @@ def case_goodwin():
     return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
 
 
+@pytest_cases.case
+def case_nonlinear_chemical_reaction():
+    f, u0, time_span, f_args = ivps.nonlinear_chemical_reaction()
+    return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model: _WrappedIVP):
     """All IVPs are forced into the interface.
