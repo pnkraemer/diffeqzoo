@@ -44,6 +44,8 @@ from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from diffeqzoo import _vector_fields, backend, transform
 
+# todo: reconsider the "autonomous_api" postfix
+
 
 class _InitialValueProblem(NamedTuple):
     vector_field: Callable
@@ -445,7 +447,7 @@ def rigid_body(
     orthogonal coordinates.
 
 
-    A common citation for the Pleiades problem is p. 244 in the book
+    A common citation for the rigid-body problem is p. 244 in the book
     by Hairer et al. (1993):
 
     .. collapse:: BibTex for Hairer et al. (1993)
@@ -571,6 +573,87 @@ pleiades_first_order = transform.second_to_first_order_auto(
     pleiades_autonomous_api,
     short_summary="Construct the Pleiades problem as a first-order differential equation.",
 )
+
+_HENON_HEILES_INITIAL_VALUES = ((0.0, 0.5), (0.1, 0.0))
+
+def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0, 100.0), p=1.0):
+    r"""Construct the Henon-Heiles problem.
+
+    The Henon-Heiles problem relates to the non-linear motion 
+    of a star around a galactic center with the motion restricted to a plane.
+    It is a 2-dimensional, second-order differential equation
+    and commonly solved as a 4-dimensional, first-order equation.
+    In in its original, second-order form, it is
+
+    .. math::
+        \ddot u(t) = f(u(t)),
+
+    with nonlinear dynamics :math:`f: \mathbb{R}^{2} \rightarrow  \mathbb{R}^{2}`.
+
+    The Henon-Heiles problem is not stiff.
+    It is a popular benchmark problem because of its well-known Hamiltonian,
+    which makes it a good test for symplectic integrators.
+
+    The Henon-Heiles problem is due to Henon and Heiles (1964).
+
+
+    .. collapse:: BibTex for Henon and Heiles (1964)
+
+        .. code-block:: tex
+
+            @article{henon1964applicability,
+                title={The applicability of the third integral of motion: some numerical experiments},
+                author={H{\'e}non, Michel and Heiles, Carl},
+                journal={The astronomical journal},
+                volume={69},
+                pages={73},
+                year={1964}
+            }
+
+    See Also
+    --------
+    diffeqzoo.ivps.henon_heiles
+    diffeqzoo.ivps.henon_heiles_autonomous_api
+    diffeqzoo.ivps.henon_heiles_first_order
+
+    """
+    initial_values = backend.numpy.asarray(initial_values)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.henon_heiles,
+        initial_values=initial_values,
+        time_span=time_span,
+        vector_field_args=(p,),
+    )
+
+def henon_heiles_autonomous_api(**kwargs):
+    """Construct the Henon-Heiles problem as \
+    :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
+    (with an unused second argument).
+
+    See :func:`henon_heiles` for a more detailed problem description.
+
+    See Also
+    --------
+    diffeqzoo.ivps.henon_heiles
+    diffeqzoo.ivps.henon_heiles_autonomous_api
+    diffeqzoo.ivps.henon_heiles_first_order
+
+    """  # noqa: D301
+    _, initial_values, time_span, args = henon_heiles(**kwargs)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.henon_heiles_autonomous_api,
+        initial_values=initial_values,
+        time_span=time_span,
+        vector_field_args=args,
+    )
+
+henon_heiles_first_order = transform.second_to_first_order_auto(
+    henon_heiles_autonomous_api,
+    short_summary="Construct the Henon-Heiles problem as a first-order differential equation.",
+)
+
 
 
 def van_der_pol(
