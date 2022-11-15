@@ -44,7 +44,6 @@ from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from diffeqzoo import _vector_fields, backend, transform
 
-# todo: reconsider the "autonomous_api" postfix
 
 
 class _InitialValueProblem(NamedTuple):
@@ -574,7 +573,7 @@ pleiades_first_order = transform.second_to_first_order_auto(
     short_summary="Construct the Pleiades problem as a first-order differential equation.",
 )
 
-_HENON_HEILES_INITIAL_VALUES = ((0.0, 0.5), (0.1, 0.0))
+_HENON_HEILES_INITIAL_VALUES = ((0.5, 0.), (0., 0.1))
 
 def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0, 100.0), p=1.0):
     r"""Construct the Henon-Heiles problem.
@@ -617,7 +616,8 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0,
     diffeqzoo.ivps.henon_heiles_first_order
 
     """
-    initial_values = backend.numpy.asarray(initial_values)
+    u0, du0 = initial_values
+    initial_values = (backend.numpy.asarray(u0),backend.numpy.asarray(du0))
 
     return _InitialValueProblem(
         vector_field=_vector_fields.henon_heiles,
