@@ -28,7 +28,7 @@ def pleiades(u, /):
     return backend.numpy.concatenate((ddx, ddy))
 
 
-def pleiades_autonomous_api(u, _, /):
+def pleiades_with_unused_derivative_argument(u, _, /):
     """Evaluate the Pleiades vector field as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument)."""  # noqa: D301
@@ -37,7 +37,7 @@ def pleiades_autonomous_api(u, _, /):
 
 # Transform the autonomous-API-version into a first-order problem.
 pleiades_first_order = transform.second_to_first_order_vf_auto(
-    pleiades_autonomous_api,
+    pleiades_with_unused_derivative_argument,
     short_summary="The Pleiades problem as a first-order differential equation.",
 )
 
@@ -50,14 +50,14 @@ def henon_heiles(u, /, p):
     return backend.numpy.asarray([ddx, ddy])
 
 
-def henon_heiles_autonomous_api(u, _, /, p):
+def henon_heiles_with_unused_derivative_argument(u, _, /, p):
     """Henon-Heiles dynamics as a second-order differential equation \
     (with an unused second argument)."""  # noqa: D301
     return henon_heiles(u, p)
 
 
 henon_heiles_first_order = transform.second_to_first_order_vf_auto(
-    henon_heiles_autonomous_api,
+    henon_heiles_with_unused_derivative_argument,
     short_summary="Henon-Heiles dynamics as a first-order differential equation.",
 )
 
@@ -176,7 +176,7 @@ def bratu(u, /, k):
     return -k * backend.numpy.exp(u)
 
 
-def bratu_autonomous_api(u, _, /, k):
+def bratu_with_unused_derivative_argument(u, _, /, k):
     """Bratu's problem with signature (u, u')."""
     return -k * backend.numpy.exp(u)
 
@@ -186,7 +186,7 @@ def pendulum(u, /, p):
     return -p * backend.numpy.sin(u)
 
 
-def pendulum_autonomous_api(u, _, /, p):
+def pendulum_with_unused_derivative_argument(u, _, /, p):
     """Bratu's problem."""
     return -p * backend.numpy.sin(u)
 
