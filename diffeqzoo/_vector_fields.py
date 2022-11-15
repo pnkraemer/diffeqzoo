@@ -248,3 +248,17 @@ def nonlinear_chemical_reaction(u, /, k1, k2):
     du1 = k1 * u[0] - k2 * u[1] ** 2
     du2 = k2 * u[1] ** 2
     return backend.numpy.asarray([du0, du1, du2])
+
+
+def neural_ode_mlp(state, time, /, params):
+    state_and_time = backend.numpy.hstack([state, backend.numpy.asarray(time)])
+    return _mlp(params, state_and_time)
+
+
+def _mlp(params, inputs):
+    # A multi-layer perceptron, i.e. a fully-connected neural network.
+    # Taken from: http://implicit-layers-tutorial.org/neural_odes/
+    for w, b in params:
+        outputs = backend.numpy.dot(inputs, w) + b  # Linear transform
+        inputs = backend.numpy.tanh(outputs)  # Nonlinearity
+    return outputs

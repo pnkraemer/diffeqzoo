@@ -1084,3 +1084,75 @@ def nonlinear_chemical_reaction(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+def neural_ode_mlp(
+    *,
+    initial_values=((0.0,)),
+    time_span=(0.0, 1.0),
+    scale=1.0,
+    layer_sizes=(2, 20, 1),
+    seed=1234,
+):
+    r"""Construct an IVP with a neural ODE vector field.
+
+    The vector field is given by a neural network.
+
+    The neural network is a multi-layer perceptron with `tanh` activation functions.
+
+    We implement the dynamics used in the "implicit-layers" tutorial:
+    ``http://implicit-layers-tutorial.org/neural_odes/``.
+
+
+    Note
+    ----
+    The neural network is not trained in this function.
+    """
+    initial_values = backend.numpy.asarray(initial_values)
+
+    params = _init_random_params(scale, layer_sizes, seed)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.neural_ode_mlp,
+        vector_field_args=(params,),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+def _init_random_params(scale, layer_sizes, seed):
+    if backend.name == "jax":
+        params = _init_random_params_jax(
+            scale=scale, layer_sizes=layer_sizes, seed=seed
+        )
+    elif backend.name == "numpy":
+        params = _init_random_params_numpy(
+            scale=scale, layer_sizes=layer_sizes, seed=seed
+        )
+    else:
+        msg1 = f"Neural ODE is not compatible with the current backend {backend.name}. "
+        msg2 = "Please use `jax` or `numpy` and/or consider raising an Issue."
+        raise ValueError(msg1 + msg2)
+    return params
+
+
+def _init_random_params_numpy(*, scale, layer_sizes, seed):
+    rng = backend.random.default_rng(seed=seed)
+    return [
+        (
+            scale * rng.standard_normal(size=(m, n)),
+            scale * rng.standard_normal(size=(n,)),
+        )
+        for m, n, in zip(layer_sizes[:-1], layer_sizes[1:])
+    ]
+
+
+def _init_random_params_jax(*, scale, layer_sizes, seed):
+    key = backend.random.PRNGKey(seed=seed)
+    return [
+        (
+            scale * backend.random.normal(key, shape=(m, n)),
+            scale * backend.random.normal(key, shape=(n,)),
+        )
+        for m, n, in zip(layer_sizes[:-1], layer_sizes[1:])
+    ]
