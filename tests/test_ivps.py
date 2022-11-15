@@ -1,28 +1,29 @@
 """Tests for initial value problems."""
 
 
+from typing import Any, Callable, NamedTuple
+
 import pytest_cases
 
 from diffeqzoo import ivps
-from typing import NamedTuple, Any, Callable
 
 
 class _WrappedIVP(NamedTuple):
     """Test-case for IVP evaluation."""
 
-    wrapped_vector_field: Callable 
+    wrapped_vector_field: Callable
     """Vector field of the IVP.
     
     Wrapped into a function with signature ``vf(*initial_values, t, *f_args)``.
     """
 
-    initial_values: Any 
+    initial_values: Any
     """Tuple of initial values."""
-    
+
     t: float
     """Dummy time variable."""
 
-    f_args: Any 
+    f_args: Any
     """Additional arguments to the vector field."""
 
 
@@ -35,7 +36,9 @@ def case_lotka_volterra():
 @pytest_cases.case
 def case_van_der_pol():
     f, u0s, time_span, f_args = ivps.van_der_pol()
-    return _WrappedIVP(lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args)
+    return _WrappedIVP(
+        lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
+    )
 
 
 @pytest_cases.case
@@ -47,7 +50,9 @@ def case_van_der_pol_first_order():
 @pytest_cases.case
 def case_three_body_restricted():
     f, u0s, time_span, f_args = ivps.three_body_restricted()
-    return _WrappedIVP(lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args)
+    return _WrappedIVP(
+        lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
+    )
 
 
 @pytest_cases.case
@@ -65,7 +70,9 @@ def case_pleiades():
 @pytest_cases.case
 def case_pleiades_autonomous_api():
     f, u0s, time_span, f_args = ivps.pleiades_autonomous_api()
-    return _WrappedIVP(lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args)
+    return _WrappedIVP(
+        lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
+    )
 
 
 @pytest_cases.case
@@ -76,14 +83,16 @@ def case_pleiades_first_order():
 
 @pytest_cases.case
 def case_henon_heiles():
-    f, u0, time_span, f_args = ivps.henon_heiles()
-    return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
+    f, u0s, time_span, f_args = ivps.henon_heiles()
+    return _WrappedIVP(lambda y, dy, _, *args: f(y, *args), u0s, time_span[0], f_args)
 
 
 @pytest_cases.case
 def case_henon_heiles_autonomous_api():
     f, u0s, time_span, f_args = ivps.henon_heiles_autonomous_api()
-    return _WrappedIVP(lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args)
+    return _WrappedIVP(
+        lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
+    )
 
 
 @pytest_cases.case

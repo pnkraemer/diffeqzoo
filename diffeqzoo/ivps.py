@@ -45,7 +45,6 @@ from typing import Any, Callable, Iterable, NamedTuple, Union
 from diffeqzoo import _vector_fields, backend, transform
 
 
-
 class _InitialValueProblem(NamedTuple):
     vector_field: Callable
     initial_values: Union[Iterable, Any]  # u0 or (u0, du0, ddu0, ...)
@@ -573,12 +572,13 @@ pleiades_first_order = transform.second_to_first_order_auto(
     short_summary="Construct the Pleiades problem as a first-order differential equation.",
 )
 
-_HENON_HEILES_INITIAL_VALUES = ((0.5, 0.), (0., 0.1))
+_HENON_HEILES_INITS = ((0.5, 0.0), (0.0, 0.1))
 
-def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0, 100.0), p=1.0):
+
+def henon_heiles(*, initial_values=_HENON_HEILES_INITS, time_span=(0.0, 100.0), p=1.0):
     r"""Construct the Henon-Heiles problem.
 
-    The Henon-Heiles problem relates to the non-linear motion 
+    The Henon-Heiles problem relates to the non-linear motion
     of a star around a galactic center with the motion restricted to a plane.
     It is a 2-dimensional, second-order differential equation
     and commonly solved as a 4-dimensional, first-order equation.
@@ -617,7 +617,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0,
 
     """
     u0, du0 = initial_values
-    initial_values = (backend.numpy.asarray(u0),backend.numpy.asarray(du0))
+    initial_values = (backend.numpy.asarray(u0), backend.numpy.asarray(du0))
 
     return _InitialValueProblem(
         vector_field=_vector_fields.henon_heiles,
@@ -625,6 +625,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITIAL_VALUES, time_span=(0.0,
         time_span=time_span,
         vector_field_args=(p,),
     )
+
 
 def henon_heiles_autonomous_api(**kwargs):
     """Construct the Henon-Heiles problem as \
@@ -649,11 +650,11 @@ def henon_heiles_autonomous_api(**kwargs):
         vector_field_args=args,
     )
 
+
 henon_heiles_first_order = transform.second_to_first_order_auto(
     henon_heiles_autonomous_api,
     short_summary="Construct the Henon-Heiles problem as a first-order differential equation.",
 )
-
 
 
 def van_der_pol(
