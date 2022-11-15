@@ -114,6 +114,12 @@ def case_lorenz63():
 
 
 @pytest_cases.case
+def case_roessler():
+    f, u0, time_span, f_args = ivps.roessler()
+    return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
+
+
+@pytest_cases.case
 def case_rigid_body():
     f, u0, time_span, f_args = ivps.rigid_body()
     return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)

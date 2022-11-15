@@ -431,6 +431,42 @@ def lorenz63(
     )
 
 
+def roessler(
+    *,
+    initial_values=(1.0, 0.0, 0.0),
+    time_span=(0.0, 100.0),
+    parameters=(0.1, 0.1, 14.0),
+):
+    """Construct the Roessler model.
+
+    The Roessler model is a three-dimensional chaotic system,
+    that was proposed by Roessler (1990).
+
+    .. collapse:: BibTex for Roessler (1990)
+
+        .. code-block:: tex
+
+        @article{rossler1976equation,
+            title={An equation for continuous chaos},
+            author={R{\"o}ssler, Otto E},
+            journal={Physics Letters A},
+            volume={57},
+            number={5},
+            pages={397--398},
+            year={1976},
+            publisher={Elsevier}
+        }
+    """
+    initial_values = backend.numpy.asarray(initial_values)
+
+    return _InitialValueProblem(
+        vector_field=_vector_fields.roessler,
+        vector_field_args=parameters,
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
 def rigid_body(
     *,
     time_span=(0.0, 20.0),
