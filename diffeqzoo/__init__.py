@@ -32,8 +32,15 @@ class backend:
     def __init__(self):
         self._backend_name = None
         self._numpy_backend = None
+
         self._np_import_cache = None
         self._jnp_import_cache = None
+        self._np_random_import_cache = None
+        self._jax_random_import_cache = None
+
+    @property
+    def name(self):
+        return self._backend_name
 
     @property
     def has_been_selected(self):
@@ -87,24 +94,30 @@ class backend:
             # Import the module (only now!
             # It should be usable if `jax` is not installed)
             import jax.numpy as jnp
+            import jax.random as jax_random
 
             # Save the imported module. It might be needed later.
             self._jnp_import_cache = jnp
+            self._jax_random_import_cache = jax_random
 
             # Assign the NumPy implementation.
             self._numpy_backend = jnp
+            self._random_backend = jax_random
             self._backend_name = backend_name
 
         elif backend_name == "numpy":
 
             # Import the module (only now! see comment above)
             import numpy as np
+            import numpy.random as np_random
 
             # Save the imported module. It might be needed later.
             self._np_import_cache = np
+            self._np_random_import_cache = np_random
 
             # Assign the NumPy implementation.
             self._numpy_backend = np
+            self._random_backend = np_random
             self._backend_name = backend_name
         else:
             raise ValueError("Backend implementation not known.")
@@ -115,6 +128,13 @@ class backend:
         if not self.has_been_selected:
             raise Exception("A backend implementation has not been selected yet.")
         return self._numpy_backend
+
+    @property
+    def random(self):
+        """Access to random-number generation implementation."""
+        if not self.has_been_selected:
+            raise Exception("A backend implementation has not been selected yet.")
+        return self._random_backend
 
 
 _docs = backend.__doc__
