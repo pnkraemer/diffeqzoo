@@ -240,3 +240,11 @@ def roessler(u, /, a, b, c):
             b + u[2] * (u[0] - c),
         ]
     )
+
+
+def nonlinear_chemical_reaction(u, /, k1, k2):
+    """Nonlinear chemical reaction."""
+    du0 = -k1 * u[0]
+    du1 = k1 * u[0] - k2 * u[1] ** 2
+    du2 = k2 * u[1] ** 2
+    return backend.numpy.asarray([du0, du1, du2])
