@@ -230,3 +230,13 @@ def goodwin(u, /, r, a1, a2, alpha, k):
     u_remaining = k * u[0:-1] - alpha * u[1:]
     output = backend.numpy.concatenate((u0, u_remaining))
     return output
+
+
+def roessler(u, /, a, b, c):
+    return backend.numpy.asarray(
+        [
+            -u[1] - u[2],
+            u[0] + a * u[1],
+            b + u[2] * (u[0] - c),
+        ]
+    )
