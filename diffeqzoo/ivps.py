@@ -1103,15 +1103,12 @@ def neural_ode_mlp(
     We implement the dynamics used in the "implicit-layers" tutorial:
     ``http://implicit-layers-tutorial.org/neural_odes/``.
 
-
     Note
     ----
-    The neural network is not trained in this function.
+    The neural network is not trained in this function. This function only constructs the IVP.
     """
     initial_values = backend.numpy.asarray(initial_values)
-
     params = _init_random_params(scale, layer_sizes, seed)
-
     return _InitialValueProblem(
         vector_field=_vector_fields.neural_ode_mlp,
         vector_field_args=(params,),
