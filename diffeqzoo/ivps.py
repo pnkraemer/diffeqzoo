@@ -564,7 +564,7 @@ def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     See Also
     --------
     diffeqzoo.ivps.pleiades
-    diffeqzoo.ivps.pleiades_autonomous_api
+    diffeqzoo.ivps.pleiades_with_unused_derivative_argument
     diffeqzoo.ivps.pleiades_first_order
 
     """
@@ -580,7 +580,7 @@ def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     )
 
 
-def pleiades_autonomous_api(**kwargs):
+def pleiades_with_unused_derivative_argument(**kwargs):
     """Construct the Pleiades problem as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument).
@@ -590,21 +590,21 @@ def pleiades_autonomous_api(**kwargs):
     See Also
     --------
     diffeqzoo.ivps.pleiades
-    diffeqzoo.ivps.pleiades_autonomous_api
+    diffeqzoo.ivps.pleiades_with_unused_derivative_argument
     diffeqzoo.ivps.pleiades_first_order
 
     """  # noqa: D301
     _, initial_values, time_span, args = pleiades(**kwargs)
 
     return _InitialValueProblem(
-        vector_field=_vector_fields.pleiades_autonomous_api,
+        vector_field=_vector_fields.pleiades_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
     )
 
 
 pleiades_first_order = transform.second_to_first_order_auto(
-    pleiades_autonomous_api,
+    pleiades_with_unused_derivative_argument,
     short_summary="Construct the Pleiades problem as a first-order differential equation.",
 )
 
@@ -648,7 +648,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITS, time_span=(0.0, 100.0), 
     See Also
     --------
     diffeqzoo.ivps.henon_heiles
-    diffeqzoo.ivps.henon_heiles_autonomous_api
+    diffeqzoo.ivps.henon_heiles_with_unused_derivative_argument
     diffeqzoo.ivps.henon_heiles_first_order
 
     """
@@ -663,7 +663,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITS, time_span=(0.0, 100.0), 
     )
 
 
-def henon_heiles_autonomous_api(**kwargs):
+def henon_heiles_with_unused_derivative_argument(**kwargs):
     """Construct the Henon-Heiles problem as \
     :math:`\\ddot u(t) = f(u(t), \\dot u(t))` \
     (with an unused second argument).
@@ -673,14 +673,14 @@ def henon_heiles_autonomous_api(**kwargs):
     See Also
     --------
     diffeqzoo.ivps.henon_heiles
-    diffeqzoo.ivps.henon_heiles_autonomous_api
+    diffeqzoo.ivps.henon_heiles_with_unused_derivative_argument
     diffeqzoo.ivps.henon_heiles_first_order
 
     """  # noqa: D301
     _, initial_values, time_span, args = henon_heiles(**kwargs)
 
     return _InitialValueProblem(
-        vector_field=_vector_fields.henon_heiles_autonomous_api,
+        vector_field=_vector_fields.henon_heiles_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
         vector_field_args=args,
@@ -688,7 +688,7 @@ def henon_heiles_autonomous_api(**kwargs):
 
 
 henon_heiles_first_order = transform.second_to_first_order_auto(
-    henon_heiles_autonomous_api,
+    henon_heiles_with_unused_derivative_argument,
     short_summary="Construct the Henon-Heiles problem as a first-order differential equation.",
 )
 

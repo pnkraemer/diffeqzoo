@@ -42,15 +42,15 @@ def case_pendulum():
 
 
 @pytest_cases.case(tags="two_point")
-def case_bratu_autonomous_api():
-    f, bconds, tspan, f_args = bvps.bratu_autonomous_api()
+def case_bratu_with_unused_derivative_argument():
+    f, bconds, tspan, f_args = bvps.bratu_with_unused_derivative_argument()
     u_dummy = (backend.numpy.ones(()),) * 2
     return f, bconds, tspan, f_args, u_dummy
 
 
 @pytest_cases.case(tags="two_point")
-def case_pendulum_autonomous_api():
-    f, bconds, tspan, f_args = bvps.pendulum_autonomous_api()
+def case_pendulum_with_unused_derivative_argument():
+    f, bconds, tspan, f_args = bvps.pendulum_with_unused_derivative_argument()
     u_dummy = (backend.numpy.ones(()),) * 2
     return f, bconds, tspan, f_args, u_dummy
 

@@ -13,7 +13,7 @@ class _WrappedIVP(NamedTuple):
 
     wrapped_vector_field: Callable
     """Vector field of the IVP.
-    
+
     Wrapped into a function with signature ``vf(*initial_values, t, *f_args)``.
     """
 
@@ -68,8 +68,8 @@ def case_pleiades():
 
 
 @pytest_cases.case
-def case_pleiades_autonomous_api():
-    f, u0s, time_span, f_args = ivps.pleiades_autonomous_api()
+def case_pleiades_with_unused_derivative_argument():
+    f, u0s, time_span, f_args = ivps.pleiades_with_unused_derivative_argument()
     return _WrappedIVP(
         lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
     )
@@ -88,8 +88,8 @@ def case_henon_heiles():
 
 
 @pytest_cases.case
-def case_henon_heiles_autonomous_api():
-    f, u0s, time_span, f_args = ivps.henon_heiles_autonomous_api()
+def case_henon_heiles_with_unused_derivative_argument():
+    f, u0s, time_span, f_args = ivps.henon_heiles_with_unused_derivative_argument()
     return _WrappedIVP(
         lambda y, dy, _, *args: f(y, dy, *args), u0s, time_span[0], f_args
     )

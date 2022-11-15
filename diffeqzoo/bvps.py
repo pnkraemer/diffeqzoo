@@ -91,7 +91,7 @@ def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
     )
 
 
-def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
+def bratu_with_unused_derivative_argument(*, time_span=(0.0, 1.0), parameters=(1.0,)):
     r"""Construct Bratu's problem with a signature :math:`(u, \dot u)` /
     and an unused second argument.
 
@@ -105,7 +105,7 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.bratu_autonomous_api,
+        vector_field=_vector_fields.bratu_with_unused_derivative_argument,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
@@ -113,7 +113,9 @@ def bratu_autonomous_api(*, time_span=(0.0, 1.0), parameters=(1.0,)):
     return f_bratu, (t0, tmax), (u0, umax)
 
 
-def pendulum_autonomous_api(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)):
+def pendulum_with_unused_derivative_argument(
+    *, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)
+):
     r"""Construct the pendulum problem with a signature :math:`(u, \dot u)` /
     and an unused second argument.
 
@@ -127,7 +129,7 @@ def pendulum_autonomous_api(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.pendulum_autonomous_api,
+        vector_field=_vector_fields.pendulum_with_unused_derivative_argument,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
