@@ -43,161 +43,7 @@ When in doubt, consult the documentation of the respect constructor function.
 from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from diffeqzoo import _vector_fields, backend, transform
-
-# pylint: disable=too-many-lines  # todo
-
-
-class _InitialValueProblem(NamedTuple):
-    vector_field: Callable
-    initial_values: Union[Iterable, Any]  # u0 or (u0, du0, ddu0, ...)
-    time_span: Iterable  # (t0, t1)
-    vector_field_args: Iterable = ()
-
-
-def lotka_volterra(
-    *,
-    initial_values=(20.0, 20.0),
-    time_span=(0.0, 20.0),
-    parameters=(0.5, 0.05, 0.5, 0.05),
-):
-    r"""Construct the Lotka--Volterra / predator-prey model.
-
-    The Lotka--Volterra equations describe the dynamics of biological systems
-    in which two species, predators and prey, interact.
-
-    The original version is due to Lotka (1910).
-    Its application to predator-Prey dynamics is due to Lotka (1925).
-    The same model was discovered by Volterra (1926).
-
-    .. collapse:: BibTex for Lotka (1910)
-
-        .. code-block:: tex
-
-            @article{lotka1910contribution,
-                title={Contribution to the theory of periodic reactions},
-                author={Lotka, Alfred J},
-                journal={The Journal of Physical Chemistry},
-                volume={14},
-                number={3},
-                pages={271--274},
-                year={1910},
-                publisher={ACS Publications}
-            }
-
-    .. collapse:: BibTex for Lotka (1925)
-
-        .. code-block:: tex
-
-            @book{lotka1925elements,
-                title={Elements of physical biology},
-                author={Lotka, Alfred James},
-                year={1925},
-                publisher={Williams \& Wilkins}
-            }
-
-    .. collapse:: BibTex for Volterra (1926)
-
-        .. code-block:: tex
-
-            @book{volterra1926variazioni,
-                title={Variazioni e fluttuazioni del numero d'individui in specie animali conviventi},
-                author={Volterra, Vito},
-                year={1926},
-                publisher={Societ{\`a} anonima tipografica" Leonardo da Vinci"}
-            }
-
-    """
-    initial_values = backend.numpy.asarray(initial_values)
-
-    return _InitialValueProblem(
-        vector_field=_vector_fields.lotka_volterra,
-        vector_field_args=parameters,
-        initial_values=initial_values,
-        time_span=time_span,
-    )
-
-
-def fitzhugh_nagumo(
-    *, initial_values=(-1.0, 1.0), time_span=(0.0, 20.0), parameters=(0.2, 0.2, 3.0)
-):
-    r"""Construct the FitzHugh-Nagumo model.
-
-    The FitzHugh-Nagumo model is a simple example of an excitable system
-    (for example: a neuron).
-    This simplified, 2d-version of the Hodgkin-Huxley model
-    (which describes the spike generation in squid giant axons)
-    was suggested by FitzHugh (1961) and Nagumo et al. (1962)
-
-    The following bibtex(s) point to the original papers about
-    the FitzHugh-Nagumo models. (Source: Google Scholar).
-
-    .. collapse:: BibTex for FitzHugh (1961)
-
-        .. code-block:: tex
-
-            @article{fitzhugh1961impulses,
-                title={Impulses and physiological states in
-                theoretical models of nerve membrane},
-                author={FitzHugh, Richard},
-                journal={Biophysical Journal},
-                volume={1},
-                number={6},
-                pages={445--466},
-                year={1961},
-                publisher={Elsevier}
-            }
-
-    .. collapse:: BibTex for Nagumo et al. (1962)
-
-        .. code-block:: tex
-
-            @article{nagumo1962active,
-                title={An active pulse transmission line simulating nerve axon},
-                author={Nagumo, Jinichi and Arimoto, Suguru and Yoshizawa, Shuji},
-                journal={Proceedings of the IRE},
-                volume={50},
-                number={10},
-                pages={2061--2070},
-                year={1962},
-                publisher={IEEE}
-            }
-
-    """
-    initial_values = backend.numpy.asarray(initial_values)
-
-    return _InitialValueProblem(
-        vector_field=_vector_fields.fitzhugh_nagumo,
-        vector_field_args=parameters,
-        initial_values=initial_values,
-        time_span=time_span,
-    )
-
-
-def logistic(*, initial_value=0.1, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
-    """Construct the logistic ODE model.
-
-    The logistic ODE is a differential equation model whose solution
-    exhibits exponential growth early in the time interval,
-    and approaches a constant value over time.
-
-    It is a differential equation version of the sigmoid and the logistic function.
-    The logistic ODE has a closed-form solution.
-
-    .. note::
-        **Help wanted!**
-
-        If you know which paper/book to cite when the logistic ODE is used
-        in a paper, please consider making a contribution.
-
-    """
-    initial_value = backend.numpy.asarray(initial_value)
-
-    return _InitialValueProblem(
-        vector_field=_vector_fields.logistic,
-        vector_field_args=parameters,
-        initial_values=initial_value,
-        time_span=time_span,
-    )
+from diffeqzoo.ivps import _ivp
 
 
 def sir(
@@ -237,7 +83,7 @@ def sir(
     initial_values = backend.numpy.asarray(initial_values)
     parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.sir,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -289,7 +135,7 @@ def seir(
     initial_values = backend.numpy.asarray(initial_values)
     parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.seir,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -340,7 +186,7 @@ def sird(
     initial_values = backend.numpy.asarray(initial_values)
     parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.sird,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -380,7 +226,7 @@ def lorenz96(
             forcing=forcing, num_variables=num_variables, perturb=perturb
         )
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.lorenz96,
         vector_field_args=(forcing,),
         initial_values=initial_values,
@@ -425,7 +271,7 @@ def lorenz63(
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.lorenz63,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -461,7 +307,7 @@ def roessler(
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.roessler,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -505,7 +351,7 @@ def rigid_body(
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.rigid_body,
         vector_field_args=parameters,
         initial_values=initial_values,
@@ -575,7 +421,7 @@ def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     du0 = backend.numpy.asarray(du0)
     initial_values = (u0, du0)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.pleiades,
         initial_values=initial_values,
         time_span=time_span,
@@ -598,7 +444,7 @@ def pleiades_with_unused_derivative_argument(**kwargs):
     """  # noqa: D301
     _, initial_values, time_span, args = pleiades(**kwargs)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.pleiades_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
@@ -658,7 +504,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITS, time_span=(0.0, 100.0), 
     u0, du0 = initial_values
     initial_values = (backend.numpy.asarray(u0), backend.numpy.asarray(du0))
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.henon_heiles,
         initial_values=initial_values,
         time_span=time_span,
@@ -682,7 +528,7 @@ def henon_heiles_with_unused_derivative_argument(**kwargs):
     """  # noqa: D301
     _, initial_values, time_span, args = henon_heiles(**kwargs)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.henon_heiles_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
@@ -728,7 +574,7 @@ def van_der_pol(
     du0 = backend.numpy.asarray(du0)
     initial_values = (u0, du0)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.van_der_pol,
         vector_field_args=(stiffness_constant,),
         initial_values=initial_values,
@@ -780,7 +626,7 @@ def three_body_restricted(
     du0 = backend.numpy.asarray(du0)
     initial_values = (u0, du0)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.three_body_restricted,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
@@ -846,7 +692,7 @@ def hires(
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.hires,
         vector_field_args=(),  # todo: move vf-params here
         initial_values=initial_values,
@@ -901,7 +747,7 @@ def rober(
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.rober,
         vector_field_args=(k1, k2, k3),
         initial_values=initial_values,
@@ -920,7 +766,7 @@ def affine_independent(*, initial_values=1.0, time_span=(0.0, 1.0), a=1.0, b=0.0
     """
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.affine_independent,
         vector_field_args=(a, b),
         initial_values=initial_values,
@@ -943,7 +789,7 @@ def affine_dependent(
     A = backend.numpy.asarray(A)
     b = backend.numpy.asarray(b)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.affine_dependent,
         vector_field_args=(A, b),
         initial_values=initial_values,
@@ -991,7 +837,7 @@ def oregonator(
 
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.rober,
         vector_field_args=(s, w, q),
         initial_values=initial_values,
@@ -1039,7 +885,7 @@ def goodwin(
     initial_values = backend.numpy.asarray(initial_values)
 
     k = backend.numpy.asarray(k)
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.goodwin,
         vector_field_args=(r, a1, a2, alpha, k),
         initial_values=initial_values,
@@ -1081,7 +927,7 @@ def nonlinear_chemical_reaction(
 
     initial_values = backend.numpy.asarray(initial_values)
 
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.nonlinear_chemical_reaction,
         vector_field_args=(k1, k2),
         initial_values=initial_values,
@@ -1112,7 +958,7 @@ def neural_ode_mlp(
     """
     initial_values = backend.numpy.asarray(initial_values)
     params = _init_random_params(scale, layer_sizes, seed)
-    return _InitialValueProblem(
+    return _ivp.InitialValueProblem(
         vector_field=_vector_fields.neural_ode_mlp,
         vector_field_args=(params,),
         initial_values=initial_values,
