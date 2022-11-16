@@ -44,6 +44,8 @@ from typing import Any, Callable, Iterable, NamedTuple, Union
 
 from diffeqzoo import _vector_fields, backend, transform
 
+# pylint: disable=too-many-lines  # todo
+
 
 class _InitialValueProblem(NamedTuple):
     vector_field: Callable
@@ -600,6 +602,7 @@ def pleiades_with_unused_derivative_argument(**kwargs):
         vector_field=_vector_fields.pleiades_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
+        vector_field_args=args,
     )
 
 
@@ -1118,11 +1121,11 @@ def neural_ode_mlp(
 
 
 def _init_random_params(scale, layer_sizes, seed):
-    if backend.name == "jax":
+    if backend.name == "jax":  # pylint: disable=comparison-with-callable  # ??
         params = _init_random_params_jax(
             scale=scale, layer_sizes=layer_sizes, seed=seed
         )
-    elif backend.name == "numpy":
+    elif backend.name == "numpy":  # pylint: disable=comparison-with-callable  # ??
         params = _init_random_params_numpy(
             scale=scale, layer_sizes=layer_sizes, seed=seed
         )

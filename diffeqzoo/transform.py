@@ -13,7 +13,9 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
 
         ivp_untransformed = ivp_fn(**kwargs)
 
-        f_untransformed, u0s, tspan, f_args = ivp_untransformed
+        # No need to read tspan and f_args,
+        # because the transformation happens via NamedTuple._replace().
+        f_untransformed, u0s, _, _ = ivp_untransformed
 
         # the new stuff
         if u0s[0].ndim == 0:

@@ -15,7 +15,12 @@ lint:
 	nbqa isort --check --diff .
 	nbqa black --check --diff .
 	nbqa flake8 docs/
-
+	# Opt-in for specific pylint checks. Exclude unused ones:
+	#   invalid-names: maths-variables are not always snake-case
+	#   fixme: todos can be scattered through the code base
+	#   attribute-defined-outside-init: we change sth.__doc__ when transforming ODEs
+	#   line-too-long: handled by black/flake8
+	pylint diffeqzoo --disable=invalid-name,fixme,attribute-defined-outside-init,line-too-long
 test:
 	BACKEND="NumPy" pytest
 	BACKEND="Jax" JAX_PLATFORM_NAME="cpu" pytest

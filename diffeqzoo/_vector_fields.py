@@ -136,7 +136,7 @@ def hires(u, /):  # todo: move parameters here
 
 
 def rober(u, /, k1, k2, k3):
-    """Rober ODE problem."""
+    """'Rober' ODE problem."""
     du0 = -k1 * u[0] + k3 * u[1] * u[2]
     du1 = k1 * u[0] - k2 * u[1] ** 2 - k3 * u[1] * u[2]
     du2 = k2 * u[1] ** 2
@@ -193,6 +193,7 @@ def pendulum_with_unused_derivative_argument(u, _, /, p):
 
 # todo: merge with sir() vector field
 def measles(t, u, /, mu, lmbda, eta, beta0):
+    """Measles problem."""
     b = _beta(t, beta0)
     return backend.numpy.asarray(
         [
@@ -208,14 +209,20 @@ def _beta(t, beta0):
 
 
 def affine_dependent(u, /, A, b):
+    """Affine ODE."""
     return A @ u + b
 
 
 def affine_independent(u, /, a, b):
+    """Affine ODE.
+
+    Each state is scaled and shifted independently.
+    """
     return a * u + b
 
 
 def oregonator(u, /, s, q, w):
+    """Oregonator problem."""
     return backend.numpy.asarray(
         [
             s * (u[1] + u[0] * (1 - q * u[0] - u[1])),
@@ -226,6 +233,7 @@ def oregonator(u, /, s, q, w):
 
 
 def goodwin(u, /, r, a1, a2, alpha, k):
+    """Goodwin oscillator."""
     u0 = backend.numpy.asarray([a1 / (1 + a2 * u[-1] ** r) - alpha * u[0]])
     u_remaining = k * u[0:-1] - alpha * u[1:]
     output = backend.numpy.concatenate((u0, u_remaining))
@@ -233,6 +241,7 @@ def goodwin(u, /, r, a1, a2, alpha, k):
 
 
 def roessler(u, /, a, b, c):
+    """Roessler attractor."""
     return backend.numpy.asarray(
         [
             -u[1] - u[2],
@@ -251,6 +260,7 @@ def nonlinear_chemical_reaction(u, /, k1, k2):
 
 
 def neural_ode_mlp(state, time, /, params):
+    """Neural ODE based on a multi-layer perceptron."""
     state_and_time = backend.numpy.hstack([state, backend.numpy.asarray(time)])
     return _mlp(params, state_and_time)
 
