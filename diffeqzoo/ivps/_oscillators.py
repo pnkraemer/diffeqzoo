@@ -121,3 +121,97 @@ def fitzhugh_nagumo(
         initial_values=initial_values,
         time_span=time_span,
     )
+
+
+def van_der_pol(
+    *, stiffness_constant=1.0, initial_values=(2.0, 0.0), time_span=(0.0, 6.3)
+):
+    r"""Construct the Van-der-Pol system as a second-order differential equation.
+
+    The Van-der-Pol system is a non-conservative oscillator subject to non-linear damping.
+    It is a popular benchmark problem, because it involves a parameter :math:`\mu`
+    (the "stiffness constant") which governs the stiffness of the problem.
+    For :math:`\mu ~ 1`, the problen is not stiff.
+    For large values (e.g. :math:`\mu ~ 10^6`) the problem is stiff.
+    It was first published by Van der Pol (1920).
+
+    .. collapse:: BibTex for Van der Pol (1920).
+
+        .. code-block:: tex
+
+            @article{van1920theory,
+                title={Theory of the amplitude of free and forced triode vibrations},
+                author={Van der Pol, Balthasar},
+                journal={Radio Review},
+                volume={1},
+                pages={701--710},
+                year={1920}
+            }
+
+    """
+
+    u0, du0 = initial_values
+    u0 = backend.numpy.asarray(u0)
+    du0 = backend.numpy.asarray(du0)
+    initial_values = (u0, du0)
+
+    return _ivp.InitialValueProblem(
+        vector_field=_vector_fields.van_der_pol,
+        vector_field_args=(stiffness_constant,),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
+
+
+van_der_pol_first_order = transform.second_to_first_order_auto(
+    van_der_pol,
+    short_summary="Construct the Van-der-Pol system as a first-order differential equation.",
+)
+
+
+def goodwin(
+    *,
+    initial_values=(0.0, 0.0),
+    time_span=(0.0, 25.0),
+    r=10,
+    a1=1.0,
+    a2=3.0,
+    alpha=0.5,
+    k=(1.0,),
+):
+    r"""Construct the Goodwin Oscillator dynamics.
+
+    Describes a mechanism for periodic protein expression described by Goodwin (1965).
+    The first dimension describes the mRNA concentration,
+    the last dimension the protein inhibiting mRNA production,
+    and the remaining dimensions correspond to intermediate protein species.
+    r > 8 leads to oscillatory behavior.
+    It is a n-dimensional ODE initial value problem.
+    The length of the `k` needs to be `len(initial_values)-1`.
+
+    Common problem for parameter inference, where the posterior has a multimodal distribution.
+
+
+    .. collapse:: BibTex for Goodwin (1965)
+
+        .. code-block:: tex
+
+            @article{goodwin1965oscillatory,
+                title = {Oscillatory behavior in enzymatic control processes},
+                journal = {Advances in Enzyme Regulation},
+                volume = {3},
+                pages = {425-437},
+                year = {1965},
+                author = {Brian C. Goodwin},
+            }
+    """
+
+    initial_values = backend.numpy.asarray(initial_values)
+
+    k = backend.numpy.asarray(k)
+    return _ivp.InitialValueProblem(
+        vector_field=_vector_fields.goodwin,
+        vector_field_args=(r, a1, a2, alpha, k),
+        initial_values=initial_values,
+        time_span=time_span,
+    )
