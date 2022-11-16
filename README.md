@@ -28,11 +28,11 @@ Read more about installing this package [here](https://diffeqzoo.readthedocs.io/
 
 ## Features include
 
-* Standard non-stiff benchmark problems (Lotka--Volterra, FitzHugh--Nagumo, Van-der-Pol, rigid body, ...)
-* Standard stiff benchmark problems (HIRES, ROBER, ...)
-* Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
-* Chaotic systems (Lorenz63, Lorenz96, ...)
-* N-Body problems
+* Oscillating systems (Lotka-Volterra, Fitzhugh-Nagumo, Van-der-Pol, ...)
+* Chaotic systems (Lorenz63, Lorenz96, Roessler, ...)
+* Epidemiological models (SIR, SEIR, SIRD, ...)
+* N-Body problems and celestial mechanics (Rigid-body, restricted-three-body, Pleiades, Henon-Heiles, ...)
+* Chemical reactions (HIRES, ROBER, ...)
 * Boundary value problems
 
 ### As well as
