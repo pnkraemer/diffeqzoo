@@ -1,4 +1,4 @@
-"""Initial value problem."""
+"""Initial value problem type."""
 
 from typing import Any, Callable, Iterable, NamedTuple, Union
 

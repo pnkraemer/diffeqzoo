@@ -1,4 +1,4 @@
-"""N-Body problems."""
+"""N-Body problems and celestial mechanics."""
 
 from diffeqzoo import _vector_fields, backend, transform
 from diffeqzoo.ivps import _ivp

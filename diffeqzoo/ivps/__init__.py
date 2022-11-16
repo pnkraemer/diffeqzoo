@@ -42,14 +42,12 @@ When in doubt, consult the documentation of the respect constructor function.
 """
 
 from diffeqzoo.ivps._chaos import lorenz63, lorenz96, roessler
+from diffeqzoo.ivps._epidem import seir, sir, sird
 from diffeqzoo.ivps._misc import (
     affine_dependent,
     affine_independent,
     logistic,
     neural_ode_mlp,
-    seir,
-    sir,
-    sird,
 )
 from diffeqzoo.ivps._nbody import (
     henon_heiles,

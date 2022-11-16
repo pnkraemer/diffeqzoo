@@ -68,7 +68,7 @@ def rober(
 ):
     r"""Construct the ROBER problem due to Robertson (1966).
 
-    The ROBER problem describes the kinetics of an autocatalytic reaction,
+    The ROBER problem describes the kinetics of an auto-catalytic reaction,
     and was proposed by Robertson (1966).
     It was named "ROBER" by Hairer and Wanner (1996).
 

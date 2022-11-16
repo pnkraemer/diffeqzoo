@@ -1,4 +1,4 @@
-"""Oscillators."""
+"""Oscillating systems."""
 
 from diffeqzoo import _vector_fields, backend, transform
 from diffeqzoo.ivps import _ivp
