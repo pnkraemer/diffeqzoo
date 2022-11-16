@@ -17,11 +17,11 @@ lint:
 	nbqa flake8 docs/
 
 test:
-	BACKEND=NumPy pytest
-	BACKEND=JAX pytest
-	python -m doctest *.md
-	python -m doctest diffeqzoo/*.py
-	python -m doctest docs/source/getting_started/*.md
+	BACKEND="NumPy" pytest
+	BACKEND="Jax" JAX_PLATFORM_NAME="cpu" pytest
+	JAX_PLATFORM_NAME="cpu" python -m doctest *.md
+	JAX_PLATFORM_NAME="cpu" python -m doctest diffeqzoo/*.py
+	JAX_PLATFORM_NAME="cpu" python -m doctest docs/source/getting_started/*.md
 
 example:
 	jupytext --sync docs/source/example_notebooks/*

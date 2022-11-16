@@ -33,11 +33,6 @@ class backend:
         self._backend_name = None
         self._numpy_backend = None
 
-        self._np_import_cache = None
-        self._jnp_import_cache = None
-        self._np_random_import_cache = None
-        self._jax_random_import_cache = None
-
     @property
     def name(self):
         return self._backend_name
@@ -96,10 +91,6 @@ class backend:
             import jax.numpy as jnp
             import jax.random as jax_random
 
-            # Save the imported module. It might be needed later.
-            self._jnp_import_cache = jnp
-            self._jax_random_import_cache = jax_random
-
             # Assign the NumPy implementation.
             self._numpy_backend = jnp
             self._random_backend = jax_random
@@ -110,10 +101,6 @@ class backend:
             # Import the module (only now! see comment above)
             import numpy as np
             import numpy.random as np_random
-
-            # Save the imported module. It might be needed later.
-            self._np_import_cache = np
-            self._np_random_import_cache = np_random
 
             # Assign the NumPy implementation.
             self._numpy_backend = np
