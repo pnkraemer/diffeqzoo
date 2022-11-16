@@ -20,7 +20,8 @@ lint:
 	#   fixme: todos can be scattered through the code base
 	#   attribute-defined-outside-init: we change sth.__doc__ when transforming ODEs
 	#   line-too-long: handled by black/flake8
-	pylint diffeqzoo --disable=invalid-name,fixme,attribute-defined-outside-init,line-too-long
+	#   duplicate-code: a lot of functions wrap vector fields equally, but this is desired
+	pylint diffeqzoo --disable=invalid-name,fixme,attribute-defined-outside-init,line-too-long,duplicate-code
 test:
 	BACKEND="NumPy" pytest
 	BACKEND="Jax" JAX_PLATFORM_NAME="cpu" pytest

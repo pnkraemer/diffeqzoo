@@ -30,7 +30,7 @@ Read more about installing this package [here](https://diffeqzoo.readthedocs.io/
 
 * Oscillating systems (Lotka-Volterra, Fitzhugh-Nagumo, Van-der-Pol, ...)
 * Chaotic systems (Lorenz63, Lorenz96, Roessler, ...)
-* Compartmental epidemiological models (SIR, SEIR, SIRD, ...)
+* Epidemiological models (SIR, SEIR, SIRD, ...)
 * N-Body problems and celestial mechanics (Rigid-body, restricted-three-body, Pleiades, Henon-Heiles, ...)
 * Chemical reactions (HIRES, ROBER, ...)
 * Boundary value problems
