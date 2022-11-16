@@ -42,7 +42,6 @@ When in doubt, consult the documentation of the respect constructor function.
 """
 
 from diffeqzoo.ivps._chaos import lorenz63, lorenz96, roessler
-from diffeqzoo.ivps._ivps import *
 from diffeqzoo.ivps._misc import (
     affine_dependent,
     affine_independent,
