@@ -32,9 +32,11 @@ class backend:
     def __init__(self):
         self._backend_name = None
         self._numpy_backend = None
+        self._random_backend = None
 
     @property
-    def name(self):
+    def name(self) -> str:
+        """Name of the backend."""
         return self._backend_name
 
     @property
@@ -60,7 +62,6 @@ class backend:
             raise RuntimeError("A backend has been selected already.")
         self._select_backend(backend_name.lower())
 
-    # todo: remove? Why would one want this
     def change_to(self, backend_name, /):
         """Change the backend implementation."""
         if not self.has_been_selected:
@@ -85,6 +86,8 @@ class backend:
 
         If you're looking for global variables and dirty hacks, look here.
         """
+        # pylint: disable=import-outside-toplevel
+
         if backend_name == "jax":
             # Import the module (only now!
             # It should be usable if `jax` is not installed)

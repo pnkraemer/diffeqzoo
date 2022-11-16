@@ -42,10 +42,10 @@ the differential equation is first-, second-, or higher order.
 
 """
 
-import math  # for PI
-from typing import Any, Callable, Iterable, NamedTuple, Union
+import math  # for the constant "PI"
+from typing import Callable, Iterable, NamedTuple
 
-from diffeqzoo import _vector_fields, backend, transform
+from diffeqzoo import _vector_fields
 
 
 class _BoundaryValueProblem(NamedTuple):
@@ -110,7 +110,6 @@ def bratu_with_unused_derivative_argument(*, time_span=(0.0, 1.0), parameters=(1
         vector_field_args=parameters,
         time_span=time_span,
     )
-    return f_bratu, (t0, tmax), (u0, umax)
 
 
 def pendulum_with_unused_derivative_argument(

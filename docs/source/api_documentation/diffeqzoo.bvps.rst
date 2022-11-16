@@ -1,3 +1,3 @@
 .. automodapi:: diffeqzoo.bvps
    :no-inheritance-diagram:
-   :skip: NamedTuple, backend
+   :skip: NamedTuple
