@@ -15,7 +15,7 @@ def heat_1d_dirichlet(
 ):
     r"""Discretised heat equation in 1d with Dirichlet boundary.
 
-    The discretisation uses central differences.
+    The discretisation uses second-order central differences.
     The vector field is evaluated with a convolution with zero-padding.
     """
     # Make the grid
