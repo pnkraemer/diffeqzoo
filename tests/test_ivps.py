@@ -197,6 +197,12 @@ def case_neural_ode_mlp():
     return _WrappedIVP(f, (u0,), time_span[0], f_args)
 
 
+@pytest_cases.case
+def case_heat_1d_dirichlet():
+    (f, u0, time_span, f_args), _ = ivps.heat_1d_dirichlet()
+    return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
+
+
 @pytest_cases.parametrize_with_cases(argnames=("ode_model",), cases=".")
 def test_evaluate_ode(ode_model: _WrappedIVP):
     """All IVPs are forced into the interface.

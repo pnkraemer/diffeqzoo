@@ -272,3 +272,8 @@ def _mlp(params, inputs):
         outputs = backend.numpy.dot(inputs, w) + b  # Linear transform
         inputs = backend.numpy.tanh(outputs)  # Nonlinearity
     return outputs
+
+
+def heat_1d_dirichlet(y, weights, coeff):
+    """Discretized heat equation with Dirichlet (i.e. zero) boundary conditions."""
+    return coeff * backend.numpy.convolve(y, weights, mode="same")
