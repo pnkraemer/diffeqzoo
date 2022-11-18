@@ -67,6 +67,7 @@ from diffeqzoo.ivps._oscillators import (
     van_der_pol,
     van_der_pol_first_order,
 )
+from diffeqzoo.ivps._pde import heat_1d_dirichlet
 from diffeqzoo.ivps._reactions import (
     hires,
     nonlinear_chemical_reaction,
