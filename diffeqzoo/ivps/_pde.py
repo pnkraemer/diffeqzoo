@@ -29,8 +29,15 @@ def heat_1d_dirichlet(
     # Make initial condition
     if initial_values is None:
         midpoint = 0.5 * (x1 - x0)
-        initial_values = backend.numpy.exp(-20.0 * (grid - midpoint) ** 2)
-    initial_values = backend.numpy.asarray(initial_values)
+        initial_values = backend.numpy.exp(-50.0 * (grid - midpoint) ** 2)
+    else:
+        initial_values = backend.numpy.asarray(initial_values)
+
+    # The initial condition should conform with the Dirichlet-boundary
+    tol = 0.1 * dx**2  # central difference error * 0.1
+    u0_0, u0_1 = initial_values[0], initial_values[-1]
+    assert backend.numpy.allclose(u0_0, 0.0, atol=tol), (u0_0, tol)
+    assert backend.numpy.allclose(u0_1, 0.0, atol=tol), (u0_1, tol)
 
     # Load the vector field and return the IVP
     ivp = _ivp.InitialValueProblem(

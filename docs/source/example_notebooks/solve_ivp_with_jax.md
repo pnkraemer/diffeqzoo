@@ -76,7 +76,7 @@ y = jax.experimental.ode.odeint(fun, y0, t, *f_args)
 
 for i, ys in enumerate(y):
     # Reduce the opacity over time
-    alpha = 2.0 * float(backend.numpy.mean(ys))
+    alpha = 3.0 * float(backend.numpy.mean(ys))
     plt.plot(grid, ys, alpha=alpha, color="C0")
 plt.show()
 ```
