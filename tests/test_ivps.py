@@ -199,7 +199,7 @@ def case_neural_ode_mlp():
 
 @pytest_cases.case
 def case_heat_1d_dirichlet():
-    f, u0, time_span, f_args = ivps.heat_1d_dirichlet()
+    (f, u0, time_span, f_args), _ = ivps.heat_1d_dirichlet()
     return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
 
 

@@ -55,13 +55,28 @@ def fun(y, _, *args):
 
 
 t = backend.numpy.linspace(*tspan, num=200)
-y = jax.experimental.ode.odeint(
-    fun,
-    y0,
-    t,
-    *f_args,
-)
+y = jax.experimental.ode.odeint(fun, y0, t, *f_args)
 
 plt.plot(t, y)
+plt.show()
+```
+
+```python
+(f, y0, tspan, f_args), info = ivps.heat_1d_dirichlet(num_gridpoints=100)
+grid = info["grid"]
+
+
+@jax.jit
+def fun(y, _, *args):
+    return f(y, *args)
+
+
+t = backend.numpy.linspace(*tspan, num=200)
+y = jax.experimental.ode.odeint(fun, y0, t, *f_args)
+
+for i, ys in enumerate(y):
+    # Reduce the opacity over time
+    alpha = 2.0 * float(backend.numpy.mean(ys))
+    plt.plot(grid, ys, alpha=alpha, color="C0")
 plt.show()
 ```
