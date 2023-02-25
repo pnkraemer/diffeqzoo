@@ -91,7 +91,7 @@ print(inspect.signature(scipy.integrate.odeint))
 Let's compute the ODE solution with `odeint` and plot the solution.
 
 ```python
-f, y0, t_span, args = ivps.rigid_body()
+f, y0, t_span, args = ivps.pleiades_first_order()
 print(inspect.signature(f), args)
 
 
@@ -99,8 +99,12 @@ def func(y, t, *args):
     return f(y, *args)
 
 
-t = backend.numpy.linspace(*t_span, num=200)
+t = backend.numpy.linspace(*t_span, num=300)
 y = scipy.integrate.odeint(func=func, y0=y0, t=t, args=args)
-plt.plot(t, y)
+colors = ["C" + str(i) for i in range(7)]
+for x1, x2, color in zip(y[:, 0:7].T, y[:, 7:14].T, colors):
+    plt.plot(x1, x2, color=color)
+    plt.plot(x1[0], x2[0], marker=".", color=color)
+    plt.plot(x1[-1], x2[-1], marker="*", markersize=10, color=color)
 plt.show()
 ```
