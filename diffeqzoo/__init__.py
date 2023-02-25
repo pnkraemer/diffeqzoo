@@ -100,7 +100,6 @@ class backend:
             self._backend_name = backend_name
 
         elif backend_name == "numpy":
-
             # Import the module (only now! see comment above)
             import numpy as np
             import numpy.random as np_random
@@ -116,14 +115,14 @@ class backend:
     def numpy(self):
         """Access to NumPy implementation."""
         if not self.has_been_selected:
-            raise Exception("A backend implementation has not been selected yet.")
+            raise RuntimeError("A backend implementation has not been selected yet.")
         return self._numpy_backend
 
     @property
     def random(self):
         """Access to random-number generation implementation."""
         if not self.has_been_selected:
-            raise Exception("A backend implementation has not been selected yet.")
+            raise RuntimeError("A backend implementation has not been selected yet.")
         return self._random_backend
 
 
