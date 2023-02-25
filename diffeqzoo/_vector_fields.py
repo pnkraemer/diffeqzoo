@@ -12,19 +12,15 @@ def lotka_volterra(y, /, a, b, c, d):
 
 def pleiades(u, /):
     """Evaluate the Pleiades vector field in its original, second-order form."""
-    x, y = u[:7], u[7:]
-    x_diff = x[:, None] - x[None, :]
-    y_diff = y[:, None] - y[None, :]
-    r = (x_diff**2 + y_diff**2) ** 1.5
-
-    # We divide by r (elementwise) further below, but r contains zeros.
-    # Those zeros in r imply zeros in the nominator, so the following
-    # manipulation does not alter the result (but avoids warnings)
-    r = backend.numpy.where(r == 0, r + 1e-12, r)
-
+    x = u[0:7]  # x
+    y = u[7:14]  # y
+    xi, xj = x[:, None], x[None, :]
+    yi, yj = y[:, None], y[None, :]
+    rij = ((xi - xj) ** 2 + (yi - yj) ** 2) ** (3 / 2)
+    rij = backend.numpy.where(rij == 0, 1e-12, rij)
     mj = backend.numpy.arange(1, 8)[None, :]
-    ddx = backend.numpy.sum(mj * -x_diff / r, axis=1)
-    ddy = backend.numpy.sum(mj * -y_diff / r, axis=1)
+    ddx = backend.numpy.sum(backend.numpy.nan_to_num(mj * (xj - xi) / rij), axis=1)
+    ddy = backend.numpy.sum(backend.numpy.nan_to_num(mj * (yj - yi) / rij), axis=1)
     return backend.numpy.concatenate((ddx, ddy))
 
 

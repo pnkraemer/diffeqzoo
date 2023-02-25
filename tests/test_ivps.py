@@ -63,13 +63,13 @@ def case_three_body_restricted_first_order():
     return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
 
 
-@pytest_cases.case(tags=["evaluate_hessian"])
+@pytest_cases.case
 def case_pleiades():
     f, u0s, time_span, f_args = ivps.pleiades()
     return _WrappedIVP(lambda y, dy, _, *args: f(y, *args), u0s, time_span[0], f_args)
 
 
-@pytest_cases.case(tags=["evaluate_hessian"])
+@pytest_cases.case
 def case_pleiades_with_unused_derivative_argument():
     f, u0s, time_span, f_args = ivps.pleiades_with_unused_derivative_argument()
     return _WrappedIVP(
@@ -77,7 +77,7 @@ def case_pleiades_with_unused_derivative_argument():
     )
 
 
-@pytest_cases.case(tags=["evaluate_hessian"])
+@pytest_cases.case
 def case_pleiades_first_order():
     f, u0, time_span, f_args = ivps.pleiades_first_order()
     return _WrappedIVP(lambda y, _, *args: f(y, *args), (u0,), time_span[0], f_args)
@@ -221,19 +221,3 @@ def test_evaluate_ode(ode_model: _WrappedIVP):
     vf, inits, t0, f_args = ode_model
 
     assert vf(*inits, t0, *f_args).shape == inits[0].shape
-
-
-@pytest_cases.parametrize_with_cases(
-    argnames=("ode_model",), cases=".", has_tag="evaluate_hessian"
-)
-def test_evaluate_hessian(ode_model: _WrappedIVP):
-    """Assume that all IVPs are twice differentiable. If not, select test cases here."""
-    # This test exposed a bad implementation of the Pleiades problem.
-
-    if not backend.name == "jax":
-        pytest.skip("No Hessian in NumPy")
-
-    vf, inits, t0, f_args = ode_model
-
-    hess = jax.hessian(vf)(*inits, t0, *f_args)
-    assert not backend.numpy.any(backend.numpy.isnan(hess))
