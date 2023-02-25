@@ -100,7 +100,6 @@ class backend:
             self._backend_name = backend_name
 
         elif backend_name == "numpy":
-
             # Import the module (only now! see comment above)
             import numpy as np
             import numpy.random as np_random
