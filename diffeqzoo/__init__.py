@@ -115,14 +115,14 @@ class backend:
     def numpy(self):
         """Access to NumPy implementation."""
         if not self.has_been_selected:
-            raise Exception("A backend implementation has not been selected yet.")
+            raise RuntimeError("A backend implementation has not been selected yet.")
         return self._numpy_backend
 
     @property
     def random(self):
         """Access to random-number generation implementation."""
         if not self.has_been_selected:
-            raise Exception("A backend implementation has not been selected yet.")
+            raise RuntimeError("A backend implementation has not been selected yet.")
         return self._random_backend
 
 
