@@ -23,8 +23,8 @@ def pleiades(u, /):
     r = backend.numpy.where(r == 0, r + 1e-12, r)
 
     mj = backend.numpy.arange(1, 8)[None, :]
-    ddx = backend.numpy.sum(mj * x_diff / r, axis=1)
-    ddy = backend.numpy.sum(mj * y_diff / r, axis=1)
+    ddx = backend.numpy.sum(mj * -x_diff / r, axis=1)
+    ddy = backend.numpy.sum(mj * -y_diff / r, axis=1)
     return backend.numpy.concatenate((ddx, ddy))
 
 
