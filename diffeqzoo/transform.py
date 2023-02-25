@@ -10,7 +10,6 @@ def second_to_first_order_auto(ivp_fn, /, short_summary=None):
     into an equivalent first-order form."""
 
     def ivp_fn_transformed(**kwargs):
-
         ivp_untransformed = ivp_fn(**kwargs)
 
         # No need to read tspan and f_args,
