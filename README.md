@@ -3,7 +3,7 @@
 [![PyPi Version](https://img.shields.io/pypi/v/diffeqzoo.svg?style=flat-square)](https://pypi.org/project/diffeqzoo/)
 [![Docs](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat-square)](https://diffeqzoo.readthedocs.io)
 [![GitHub stars](https://img.shields.io/github/stars/pnkraemer/diffeqzoo.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/pnkraemer/diffeqzoo)
-[![gh-actions](https://img.shields.io/github/actions/workflow/status/pnkraemer/diffeqzoo/test.yml?branch=main&style=flat-square)](https://github.com/pnkraemer/diffeqzoo/actions?query=workflow%3Aci)
+[![gh-actions](https://img.shields.io/github/actions/workflow/status/pnkraemer/diffeqzoo/ci.yaml?branch=main&style=flat-square)](https://github.com/pnkraemer/diffeqzoo/actions?query=workflow%3Aci)
 <a href="https://github.com/pnkraemer/diffeqzoo/blob/main/LICENSE"><img src="https://img.shields.io/github/license/pnkraemer/diffeqzoo?style=flat-square&color=2b9348" alt="License Badge"/></a>
 
 _So, what was the initial condition of the restricted three-body problem again?_
