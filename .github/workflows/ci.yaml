@@ -1,68 +1,52 @@
+---
 name: ci
-
 on:
   push:
-    branches:
-    - main
+    branches: [main]
   pull_request:
-    branches:
-    - main
-
+    branches: [main]
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
-      with:
-        python-version: "3.x"
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run:
-        pip install --upgrade pip
-        pip install .[numpy,jax,lint]
-    - name: Apply linter
-      run:
-        make lint
-
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install --upgrade pip pip install .[numpy,jax,lint]
+      - name: Apply linter
+        run: make lint
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/setup-python@v2
-      with:
-        python-version: "3.x"
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run:
-        pip install .[numpy,jax,test]
-    - name: Run tests
-      run:
-        make test
-
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install .[numpy,jax,test]
+      - name: Run tests
+        run: make test
   example:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
-      with:
-        python-version: "3.x"
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run:
-        pip install .[numpy,jax,example]
-    - name: Sync and execute notebooks
-      run:
-        make example
-
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install .[numpy,jax,example]
+      - name: Sync and execute notebooks
+        run: make example
   doc:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
-      with:
-        python-version: "3.x"
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run:
-        pip install .[numpy,jax,doc]
-    - name: Build the HTML docs
-      run:
-        make doc
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: pip install .[numpy,jax,doc]
+      - name: Build the HTML docs
+        run: make doc
