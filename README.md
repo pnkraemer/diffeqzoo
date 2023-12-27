@@ -75,7 +75,7 @@ and many more goodies.
 >>> print(x)
 [-0.     1.125 -0.   ]
 >>> print(type(x))
-<class 'jaxlib.xla_extension.Array'>
+<class 'jaxlib.xla_extension.ArrayImpl'>
 
 ```
 
