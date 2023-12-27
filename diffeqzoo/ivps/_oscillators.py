@@ -1,6 +1,6 @@
 """Oscillating systems."""
 
-from diffeqzoo import _vector_fields, backend, transform
+from diffeqzoo import backend, transform, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -60,7 +60,7 @@ def lotka_volterra(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.lotka_volterra,
+        vector_field=vector_fields.lotka_volterra,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -116,7 +116,7 @@ def fitzhugh_nagumo(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.fitzhugh_nagumo,
+        vector_field=vector_fields.fitzhugh_nagumo,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -156,7 +156,7 @@ def van_der_pol(
     initial_values = (u0, du0)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.van_der_pol,
+        vector_field=vector_fields.van_der_pol,
         vector_field_args=(stiffness_constant,),
         initial_values=initial_values,
         time_span=time_span,
@@ -210,7 +210,7 @@ def goodwin(
 
     k = backend.numpy.asarray(k)
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.goodwin,
+        vector_field=vector_fields.goodwin,
         vector_field_args=(r, a1, a2, alpha, k),
         initial_values=initial_values,
         time_span=time_span,

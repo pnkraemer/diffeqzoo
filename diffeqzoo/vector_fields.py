@@ -1,4 +1,4 @@
-"""ODE vector fields."""
+"""Vector fields for differential equations."""
 
 from diffeqzoo import backend, transform
 

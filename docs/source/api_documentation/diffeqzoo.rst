@@ -5,6 +5,7 @@
 .. toctree::
    :maxdepth: 1
 
-   diffeqzoo.ivps
    diffeqzoo.bvps
+   diffeqzoo.ivps
    diffeqzoo.transform
+   diffeqzoo.vector_fields

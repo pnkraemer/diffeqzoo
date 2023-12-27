@@ -45,7 +45,7 @@ the differential equation is first-, second-, or higher order.
 import math  # for the constant "PI"
 from typing import Callable, Iterable, NamedTuple
 
-from diffeqzoo import _vector_fields
+from diffeqzoo import vector_fields
 
 
 class _BoundaryValueProblem(NamedTuple):
@@ -84,7 +84,7 @@ def bratu(*, time_span=(0.0, 1.0), parameters=(1.0,)):
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.bratu,
+        vector_field=vector_fields.bratu,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
@@ -105,7 +105,7 @@ def bratu_with_unused_derivative_argument(*, time_span=(0.0, 1.0), parameters=(1
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.bratu_with_unused_derivative_argument,
+        vector_field=vector_fields.bratu_with_unused_derivative_argument,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
@@ -128,7 +128,7 @@ def pendulum_with_unused_derivative_argument(
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.pendulum_with_unused_derivative_argument,
+        vector_field=vector_fields.pendulum_with_unused_derivative_argument,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
@@ -157,7 +157,7 @@ def pendulum(*, time_span=(0.0, math.pi / 2.0), parameters=(9.81,)):
         return u
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.pendulum,
+        vector_field=vector_fields.pendulum,
         boundary_conditions=(g0, g1),
         vector_field_args=parameters,
         time_span=time_span,
@@ -208,7 +208,7 @@ def measles(*, time_span=(0.0, 1.0), mu=0.02, lmbda=0.0279, eta=0.01, beta0=1575
         return u_left - u_right
 
     return _BoundaryValueProblem(
-        vector_field=_vector_fields.measles,
+        vector_field=vector_fields.measles,
         boundary_conditions=bcond,
         vector_field_args=parameters,
         time_span=time_span,

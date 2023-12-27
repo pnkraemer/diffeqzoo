@@ -1,7 +1,7 @@
 """Miscellaneous problems."""
 
 
-from diffeqzoo import _vector_fields, backend
+from diffeqzoo import backend, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -25,7 +25,7 @@ def logistic(*, initial_value=0.1, time_span=(0.0, 2.5), parameters=(1.0, 1.0)):
     initial_value = backend.numpy.asarray(initial_value)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.logistic,
+        vector_field=vector_fields.logistic,
         vector_field_args=parameters,
         initial_values=initial_value,
         time_span=time_span,
@@ -44,7 +44,7 @@ def affine_independent(*, initial_values=1.0, time_span=(0.0, 1.0), a=1.0, b=0.0
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.affine_independent,
+        vector_field=vector_fields.affine_independent,
         vector_field_args=(a, b),
         initial_values=initial_values,
         time_span=time_span,
@@ -67,7 +67,7 @@ def affine_dependent(
     b = backend.numpy.asarray(b)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.affine_dependent,
+        vector_field=vector_fields.affine_dependent,
         vector_field_args=(A, b),
         initial_values=initial_values,
         time_span=time_span,
@@ -98,7 +98,7 @@ def neural_ode_mlp(
     initial_values = backend.numpy.asarray(initial_values)
     params = _init_random_params(scale, layer_sizes, seed)
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.neural_ode_mlp,
+        vector_field=vector_fields.neural_ode_mlp,
         vector_field_args=(params,),
         initial_values=initial_values,
         time_span=time_span,
