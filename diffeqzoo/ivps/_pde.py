@@ -1,5 +1,5 @@
 """Discretised partial differential equations."""
-from diffeqzoo import _vector_fields, backend
+from diffeqzoo import backend, vector_fields
 from diffeqzoo.ivps import _ivp
 
 # todo: Should the "info" be part of the IVP data structure, i.e., always returned?
@@ -41,7 +41,7 @@ def heat_1d_dirichlet(
 
     # Load the vector field and return the IVP
     ivp = _ivp.InitialValueProblem(
-        vector_field=_vector_fields.heat_1d_dirichlet,
+        vector_field=vector_fields.heat_1d_dirichlet,
         vector_field_args=(stencil_weights, coefficient),
         initial_values=initial_values,
         time_span=time_span,

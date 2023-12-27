@@ -1,6 +1,6 @@
 """N-Body problems and celestial mechanics."""
 
-from diffeqzoo import _vector_fields, backend, transform
+from diffeqzoo import backend, transform, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -41,7 +41,7 @@ def rigid_body(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.rigid_body,
+        vector_field=vector_fields.rigid_body,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -111,7 +111,7 @@ def pleiades(*, initial_values=(_U0, _DU0), time_span=(0.0, 3.0)):
     initial_values = (u0, du0)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.pleiades,
+        vector_field=vector_fields.pleiades,
         initial_values=initial_values,
         time_span=time_span,
     )
@@ -134,7 +134,7 @@ def pleiades_with_unused_derivative_argument(**kwargs):
     _, initial_values, time_span, args = pleiades(**kwargs)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.pleiades_with_unused_derivative_argument,
+        vector_field=vector_fields.pleiades_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
         vector_field_args=args,
@@ -195,7 +195,7 @@ def henon_heiles(*, initial_values=_HENON_HEILES_INITS, time_span=(0.0, 100.0), 
     initial_values = (backend.numpy.asarray(u0), backend.numpy.asarray(du0))
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.henon_heiles,
+        vector_field=vector_fields.henon_heiles,
         initial_values=initial_values,
         time_span=time_span,
         vector_field_args=(p,),
@@ -219,7 +219,7 @@ def henon_heiles_with_unused_derivative_argument(**kwargs):
     _, initial_values, time_span, args = henon_heiles(**kwargs)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.henon_heiles_with_unused_derivative_argument,
+        vector_field=vector_fields.henon_heiles_with_unused_derivative_argument,
         initial_values=initial_values,
         time_span=time_span,
         vector_field_args=args,
@@ -271,7 +271,7 @@ def three_body_restricted(
     initial_values = (u0, du0)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.three_body_restricted,
+        vector_field=vector_fields.three_body_restricted,
         vector_field_args=(standardised_moon_mass,),
         initial_values=initial_values,
         time_span=time_span,

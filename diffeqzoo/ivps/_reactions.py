@@ -1,6 +1,6 @@
 """Chemical reactions."""
 
-from diffeqzoo import _vector_fields, backend
+from diffeqzoo import backend, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -56,7 +56,7 @@ def hires(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.hires,
+        vector_field=vector_fields.hires,
         vector_field_args=(),  # todo: move vf-params here
         initial_values=initial_values,
         time_span=time_span,
@@ -111,7 +111,7 @@ def rober(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.rober,
+        vector_field=vector_fields.rober,
         vector_field_args=(k1, k2, k3),
         initial_values=initial_values,
         time_span=time_span,
@@ -159,7 +159,7 @@ def oregonator(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.rober,
+        vector_field=vector_fields.rober,
         vector_field_args=(s, w, q),
         initial_values=initial_values,
         time_span=time_span,
@@ -201,7 +201,7 @@ def nonlinear_chemical_reaction(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.nonlinear_chemical_reaction,
+        vector_field=vector_fields.nonlinear_chemical_reaction,
         vector_field_args=(k1, k2),
         initial_values=initial_values,
         time_span=time_span,

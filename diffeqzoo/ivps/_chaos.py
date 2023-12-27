@@ -1,6 +1,6 @@
 """Chaotic systems."""
 
-from diffeqzoo import _vector_fields, backend
+from diffeqzoo import backend, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -37,7 +37,7 @@ def lorenz96(
         )
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.lorenz96,
+        vector_field=vector_fields.lorenz96,
         vector_field_args=(forcing,),
         initial_values=initial_values,
         time_span=time_span,
@@ -82,7 +82,7 @@ def lorenz63(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.lorenz63,
+        vector_field=vector_fields.lorenz63,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -118,7 +118,7 @@ def roessler(
     initial_values = backend.numpy.asarray(initial_values)
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.roessler,
+        vector_field=vector_fields.roessler,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,

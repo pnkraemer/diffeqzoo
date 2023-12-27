@@ -1,7 +1,7 @@
 """Epidemiological models."""
 
 
-from diffeqzoo import _vector_fields, backend
+from diffeqzoo import backend, vector_fields
 from diffeqzoo.ivps import _ivp
 
 
@@ -43,7 +43,7 @@ def sir(
     parameters = (beta, gamma, backend.numpy.sum(initial_values[0]))
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.sir,
+        vector_field=vector_fields.sir,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -95,7 +95,7 @@ def seir(
     parameters = (alpha, beta, gamma, backend.numpy.sum(initial_values[0]))
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.seir,
+        vector_field=vector_fields.seir,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
@@ -146,7 +146,7 @@ def sird(
     parameters = (beta, gamma, eta, backend.numpy.sum(initial_values[0]))
 
     return _ivp.InitialValueProblem(
-        vector_field=_vector_fields.sird,
+        vector_field=vector_fields.sird,
         vector_field_args=parameters,
         initial_values=initial_values,
         time_span=time_span,
