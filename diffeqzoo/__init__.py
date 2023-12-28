@@ -1,6 +1,8 @@
 """Differential equation problem zoo."""
 import warnings as _warnings  # don't expose warnings in the namespace
 
+from diffeqzoo._version import version as __version__
+
 
 class backend:
     """Backend implementation of NumPy-like functions via either numpy or jax.
